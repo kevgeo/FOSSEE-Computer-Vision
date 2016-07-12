@@ -1,0 +1,6 @@
+opticalFlowFarneback("FileName","ped.avi","FilterSize",-1);
+
+//output
+//!--error 999 
+//Invalid Value for size of pixel Neighborhood. Please enter a non negative Double value. 
+

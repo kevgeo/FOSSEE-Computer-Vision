@@ -1,0 +1,14 @@
+********************** photo module *******************************
+
+********************** Inpainting *******************************
+
+---- Function ----
+inpaint
+
+********************** Denoising *******************************
+
+---- Function ----
+fastNlMeansDenoising
+fastNlMeansDenoisingColored
+fastNlMeansDenoisingMulti
+fastNlMeansDenoisingColoredMulti

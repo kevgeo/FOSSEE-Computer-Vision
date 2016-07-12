@@ -1,0 +1,6 @@
+opticalFlowFarneback("FileName","ped.avi","PyramidScale",3,"NumPyramidLevels",3);
+  
+//output                                                                               
+//!--error 999 
+//Invalid Value for PyramidScale. Please enter a value between zero and one.
+ 

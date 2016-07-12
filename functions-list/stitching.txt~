@@ -1,0 +1,113 @@
+********************** stitching module *******************************
+
+********************** High Level Functionality *******************************
+
+---- OOP ----
+Stitcher
+Stitcher::createDefault
+Stitcher::estimateTransform
+Stitcher::composePanorama
+Stitcher::stitch
+WarperCreator
+PlaneWarper
+CylindricalWarper
+SphericalWarper
+
+********************** Camera *******************************
+
+---- OOP ----
+detail::CameraParams
+
+********************** Features Finding and Images Matching *******************************
+
+---- OOP ----
+detail::ImageFeatures
+detail::FeaturesFinder
+detail::FeaturesFinder::operator()
+detail::FeaturesFinder::collectGarbage
+detail::FeaturesFinder::find
+detail::SurfFeaturesFinder
+detail::OrbFeaturesFinder
+detail::MatchesInfo
+detail::FeaturesMatcher
+detail::FeaturesMatcher::operator()
+detail::FeaturesMatcher::isThreadSafe
+detail::FeaturesMatcher::collectGarbage
+detail::FeaturesMatcher::match
+detail::BestOf2NearestMatcher
+detail::BestOf2NearestMatcher::BestOf2NearestMatcher
+
+********************** Rotation Estimation *******************************
+
+---- OOP ----
+detail::Estimator
+detail::Estimator::operator()
+detail::Estimator::estimate
+detail::HomographyBasedEstimator
+detail::BundleAdjusterBase
+detail::BundleAdjusterBase::BundleAdjusterBase
+detail::BundleAdjusterBase::setUpInitialCameraParams
+detail::BundleAdjusterBase::calcError
+detail::BundleAdjusterBase::calcJacobian
+detail::BundleAdjusterBase::obtainRefinedCameraParams
+detail::BundleAdjusterReproj
+detail::BundleAdjusterRay
+detail::WaveCorrectKind
+detail::waveCorrect
+
+
+********************** Autocalibration *******************************
+
+---- Function ----
+detail::focalsFromHomography
+detail::estimateFocal
+
+********************** Images Warping *******************************
+
+---- OOP ----
+detail::RotationWarper
+detail::RotationWarper::warpPoint
+detail::RotationWarper::buildMaps
+detail::RotationWarper::warp
+detail::RotationWarper::warpBackward
+detail::RotationWarper::warpRoi
+detail::ProjectorBase
+detail::RotationWarperBase
+detail::PlaneWarper
+detail::PlaneWarper::PlaneWarper
+detail::SphericalWarper
+detail::SphericalWarper::SphericalWarper
+detail::CylindricalWarper
+detail::CylindricalWarper::CylindricalWarper
+
+********************** Seam Estimation *******************************
+
+---- OOP ----
+detail::SeamFinder
+detail::SeamFinder::find
+detail::NoSeamFinder
+detail::PairwiseSeamFinder
+detail::PairwiseSeamFinder::findInPair
+detail::VoronoiSeamFinder
+detail::GraphCutSeamFinderBase
+detail::GraphCutSeamFinder
+
+********************** Exposure Compensation *******************************
+
+---- OOP ----
+detail::ExposureCompensator
+detail::ExposureCompensator::feed
+detil::ExposureCompensator::apply
+detail::NoExposureCompensator
+detail::GainCompensator
+detail::BlocksGainCompensator
+
+********************** Image Blenders *******************************
+
+---- OOP ----
+detail::Blender
+detail::Blender::prepare
+detail::Blender::feed
+detail::Blender::blend
+detail::FeatherBlender
+detail::MultiBandBlender

@@ -1,0 +1,224 @@
+********************** ocl module *******************************
+
+********************** Data Structures and Utility Functions *******************************
+
+---- Function ----
+ocl::getOpenCLPlatforms
+ocl::getOpenCLDevices
+ocl::setDevice
+ocl::initializeContext
+ocl::setBinaryPath
+
+********************** Data Structures *******************************
+
+---- Function ----
+ocl::oclMat
+
+********************** Operations on Matrics *******************************
+
+---- Function ----
+ocl::abs
+ocl::absdiff
+ocl::add
+ocl::addWeighted
+ocl::bitwise_and
+ocl::bitwise_not
+ocl::bitwise_or
+ocl::bitwise_xor
+ocl::cartToPolar
+ocl::compare
+ocl::dft
+ocl::divide
+ocl::exp
+ocl::flip
+ocl::gemm
+ocl::log
+ocl::LUT
+ocl::magnitude
+ocl::meanStdDev
+ocl::merge
+ocl::multiply
+ocl::norm
+ocl::oclMat::convertTo
+ocl::oclMat::copyTo
+ocl::oclMat::setTo
+ocl::phase
+ocl::polarToCart
+ocl::pow
+ocl::setIdentity
+ocl::sortByKey
+ocl::split
+ocl::subtract
+ocl::transpose
+
+********************** Matrix Reductions *******************************
+
+---- Function ----
+ocl::absSum
+ocl::countNonZero
+ocl::min
+ocl::max
+ocl::minMax
+ocl::minMaxLoc
+ocl::sqrSum
+ocl::sum
+
+********************** Image Filtering *******************************
+
+---- OOP ----
+ocl::BaseRowFilter_GPU
+ocl::BaseColumnFilter_GPU
+ocl::BaseFilter_GPU
+ocl::FilterEngine_GPU
+
+---- Function ----
+ocl::createFilter2D_GPU
+ocl::createSeparableFilter_GPU
+ocl::createBoxFilter_GPU
+ocl::boxFilter
+ocl::blur
+ocl::createMorphologyFilter_GPU
+ocl::createLinearFilter_GPU
+ocl::filter2D
+ocl::getLinearRowFilter_GPU
+ocl::getLinearColumnFilter_GPU
+ocl::createSeparableLinearFilter_GPU
+ocl::sepFilter2D
+ocl::createDerivFilter_GPU
+ocl::Sobel
+ocl::Scharr
+ocl::createGaussianFilter_GPU
+ocl::GaussianBlur
+ocl::Laplacian
+ocl::convolve
+ocl::bilateralFilter
+ocl::adaptiveBilateralFilter
+ocl::copyMakeBorder
+ocl::dilate
+ocl::erode
+ocl::morphologyEx
+ocl::pyrDown
+ocl::pyrUp
+ocl::columnSum
+ocl::blendLinear
+ocl::medianFilter
+
+********************** Image Processing *******************************
+
+---- Function ----
+ocl::meanShiftFiltering
+ocl::meanShiftProc
+ocl::meanShiftSegmentation
+ocl::integral
+ocl::cornerHarris
+ocl::cornerMinEigenVal
+ocl::calcHist
+ocl::equalizeHist
+ocl::remap
+ocl::resize
+ocl::warpAffine
+ocl::warpPerspective
+ocl::cvtColor
+ocl::threshold
+ocl::buildWarpPlaneMaps
+ocl::buildWarpCylindricalMaps
+ocl::buildWarpSphericalMaps
+ocl::buildWarpPerspectiveMaps
+ocl::buildWarpAffineMaps
+
+********************** ml.Machine Learning *******************************
+
+---- OOP ----
+ocl::KNearestNeighbour
+ocl::KNearestNeighbour
+ocl::KNearestNeighbour::train
+ocl::KNearestNeighbour::find_nearest
+ocl::kmeans
+ocl::distanceToCenters
+
+********************** Object Detection *******************************
+
+---- OOP ----
+ocl::OclCascadeClassifier
+ocl::OclCascadeClassifier::oclHaarDetectObjects
+ocl::MatchTemplateBuf
+ocl::matchTemplate
+
+********************** Feature Detection And Description *******************************
+
+---- OOP ----
+ocl::Canny
+ocl::BruteForceMatcher_OCL_base
+ocl::BruteForceMatcher_OCL_base::match
+ocl::BruteForceMatcher_OCL_base::makeGpuCollection
+ocl::BruteForceMatcher_OCL_base::matchDownload
+ocl::BruteForceMatcher_OCL_base::matchConvert
+ocl::BruteForceMatcher_OCL_base::knnMatch
+ocl::BruteForceMatcher_OCL_base::knnMatchDownload
+ocl::BruteForceMatcher_OCL_base::knnMatchConvert
+ocl::BruteForceMatcher_OCL_base::radiusMatch
+ocl::BruteForceMatcher_OCL_base::radiusMatchDownload
+ocl::BruteForceMatcher_OCL_base::radiusMatchConvert
+
+---- Structure ----
+ocl::HOGDescriptor
+ocl::HOGDescriptor::HOGDescriptor
+ocl::HOGDescriptor::getDescriptorSize
+ocl::HOGDescriptor::getBlockHistogramSize
+ocl::HOGDescriptor::setSVMDetector
+ocl::HOGDescriptor::getDefaultPeopleDetector
+ocl::HOGDescriptor::getPeopleDetector48x96
+ocl::HOGDescriptor::getPeopleDetector64x128
+ocl::HOGDescriptor::detect
+ocl::HOGDescriptor::detectMultiScale
+ocl::HOGDescriptor::getDescriptors
+
+********************** Video Analysis *******************************
+
+---- OOP ----
+ocl::GoodFeaturesToTrackDetector_OCL
+ocl::GoodFeaturesToTrackDetector_OCL::GoodFeaturesToTrackDetector_OCL
+ocl::GoodFeaturesToTrackDetector_OCL::operator ()
+ocl::GoodFeaturesToTrackDetector_OCL::releaseMemory
+ocl::FarnebackOpticalFlow
+ocl::FarnebackOpticalFlow::operator ()
+ocl::FarnebackOpticalFlow::releaseMemory
+ocl::PyrLKOpticalFlow
+ocl::PyrLKOpticalFlow::sparse
+ocl::PyrLKOpticalFlow::dense
+ocl::PyrLKOpticalFlow::releaseMemory
+ocl::interpolateFrames
+ocl::KalmanFilter
+ocl::KalmanFilter::KalmanFilter
+ocl::KalmanFilter::init
+ocl::KalmanFilter::predict
+ocl::KalmanFilter::correct
+ocl::BackgroundSubtractor
+ocl::BackgroundSubtractor::operator()
+ocl::BackgroundSubtractor::getBackgroundImage
+ocl::MOG
+ocl::MOG::MOG
+ocl::MOG::operator()
+ocl::MOG::getBackgroundImage
+ocl::MOG::release
+ocl::MOG2
+ocl::MOG2::MOG2
+ocl::MOG2::operator()
+ocl::MOG2::getBackgroundImage
+ocl::MOG2::release
+
+********************** Camera Calibration and 3D Reconstruction *******************************
+
+---- OOP ----
+ocl::StereoBM_OCL
+ocl::StereoBM_OCL::StereoBM_OCL
+ocl::StereoBM_OCL::operator ()
+ocl::StereoBM_OCL::checkIfGpuCallReasonable
+ocl::StereoBeliefPropagation
+ocl::StereoBeliefPropagation::StereoBeliefPropagation
+ocl::StereoBeliefPropagation::estimateRecommendedParams
+ocl::StereoBeliefPropagation::operator ()
+ocl::StereoConstantSpaceBP
+ocl::StereoConstantSpaceBP::StereoConstantSpaceBP
+ocl::StereoConstantSpaceBP::estimateRecommendedParams
+ocl::StereoConstantSpaceBP::operator ()

@@ -1,0 +1,38 @@
+********************** contrib module *******************************
+
+********************** Stereo Correspondence *******************************
+
+---- OOP ----
+StereoVar
+StereoVar::StereoVar
+StereoVar::operator ()
+
+
+********************** Retina *******************************
+
+---- OOP ----
+Retina::Retina
+Retina::activateContoursProcessing
+Retina::activateMovingContoursProcessing
+Retina::clearBuffers
+Retina::getParvo
+Retina::getMagno
+Retina::getParameters
+Retina::inputSize
+Retina::outputSize
+Retina::printSetup
+Retina::run
+Retina::setColorSaturation
+Retina::setup
+Retina::write
+Retina::setupIPLMagnoChannel
+Retina::setupOPLandIPLParvoChannel
+Retina::RetinaParameters
+
+********************** OpenFABMAP *******************************
+
+---- OOP ----
+of2::FabMap
+of2::IMatch
+of2::ChowLiuTree
+of2::BOWMSCTrainer

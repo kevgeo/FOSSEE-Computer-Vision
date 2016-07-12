@@ -1,0 +1,44 @@
+********************** calib3d *******************************
+
+********************** Camera Calibration and 3D Reconstruction *******************************
+
+---- OOP ----
+StereoBM
+StereoBM::StereoBM
+StereoBM::operator()
+StereoSGBM
+StereoSGBM::StereoSGBM
+StereoSGBM::operator ()
+
+---- Function ----
+calibrateCamera
+calibrationMatrixValues
+composeRT
+-computeCorrespondEpilines
+-convertPointsToHomogeneous
+-convertPointsFromHomogeneous
+-convertPointsHomogeneous
+-correctMatches
+-decomposeProjectionMatrix
+-drawChessboardCorners
+-findChessboardCorners
+-findCirclesGrid
+-solvePnP
+-solvePnPRansac
+-findFundamentalMat
+-findHomography
+-estimateAffine3D
+-filterSpeckles
+-getOptimalNewCameraMatrix
+initCameraMatrix2D
+-matMulDeriv
+-projectPoints
+-reprojectImageTo3D
+-RQDecomp3x3
+-Rodrigues
+stereoCalibrate
+stereoRectify
+stereoRectifyUncalibrated
+
+
+

@@ -1,0 +1,145 @@
+********************** imgproc module *******************************
+
+********************** Image Filtering *******************************
+
+----- OOP -----
+1.BaseColumnFilter
+2.BaseFilter
+3.BaseRowFilter
+4.FilterEngine
+5.
+
+---- Function ----
+1.bilateralFilter
+2.adaptiveBilateralFilter
+3.blur
+4.borderInterpolate
+5.boxFilter
+6.buildPyramid
+7.copyMakeBorder
+8.createBoxFilter
+9.createDerivFilter
+10.createGaussianFilter
+11.createLinearFilter
+12.createMorphologyFilter
+13.createSeparableLinearFilter
+14.dilate
+15.erode
+16.filter2D
+17.GaussianBlur
+18.getDerivKernels
+19.getGaussianKernel
+20.getKernelType
+21.getStructuringElement
+22.medianBlur
+23.morphologyEx
+24.Laplacian
+25.pyrDown
+26.pyrUp
+27.pyrMeanShiftFiltering
+28.sepFilter2D
+29.Smooth
+30.Sobel
+31.Scharr
+
+********************** Geometric Image Transformations *******************************
+
+---- Function ----
+1.convertMaps
+2.getAffineTransform
+3.getPerspectiveTransform
+4.getRectSubPix
+5.getRotationMatrix2D
+6.invertAffineTransform
+7.LogPolar
+8.remap
+9.resize
+10.warpAffine
+11.warpPerspective
+12.initUndistortRectifyMap
+13.getDefaultNewCameraMatrix
+14.undistort
+15.undistortPoints
+
+********************** Miscellaneous Image Transformations *******************************
+
+---- Function ----
+1.adaptiveThreshold
+2.cvtColor
+3.distanceTransform
+4.floodFill
+5.integral
+6.threshold
+7.watershed
+8.grabCut
+	
+********************** Histograms *******************************
+
+---- Function ----
+1.calcHist
+2.calcBackProject
+3.compareHist
+4.EMD
+5.equalizeHist
+6.CalcBackProjectPatch
+7.CalcProbDensity
+8.ClearHist
+9.CopyHist
+10.CreateHist
+11.GetMinMaxHistValue
+12.MakeHistHeaderForArray
+13.NormalizeHist
+14.ReleaseHist
+15.SetHistBinRanges
+16.ThreshHist
+
+********************** Structural Analysis and Shape Descriptors *******************************
+
+---- Function ----
+1.moments
+2.HuMoments
+3.findContours
+4.drawContours
+5.approxPolyDP
+6.ApproxChains
+7.arcLength
+8.boundingRect
+9.contourArea
+10.convexHull
+11.convexityDefects
+12.fitEllipse
+13.fitLine
+14.isContourConvex
+15.minAreaRect
+16.minEnclosingCircle
+17.matchShapes
+18.pointPolygonTest
+
+********************** Motion Analysis and Object Tracking *******************************
+
+---- Function ----
+1.accumulate
+2.accumulateSquare
+3.accumulateProduct
+4.accumulateWeighted
+5.phaseCorrelate
+6.createHanningWindow
+
+********************** Feature Detection *******************************
+
+---- Function ----
+1.Canny
+2.cornerEigenValsAndVecs
+3.cornerHarris
+4.cornerMinEigenVal
+5.cornerSubPix
+6.goodFeaturesToTrack
+7.HoughCircles
+8.HoughLines
+9.HoughLinesP
+10.preCornerDetect
+
+********************** Object Detection *******************************
+
+---- Function ----
+1.matchTemplate

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="filter2D" xml:lang="en_US"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>filter2D</refname>
+
+		<refpurpose>Convolves an image with the kernel.</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>output_image = filter2D(input_image,string ddepth, matrix kernel,int anchorX,int anchorY, double delta);</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+   		<title>Arguments</title>
+		<variablelist>
+			<varlistentry><term>input_image:</term>
+				<listitem><para>the image matrix on which filter2D has to be applied</para></listitem>
+			</varlistentry>
+			<varlistentry><term>ddepth:</term>
+				<listitem><para>desired depth of the destination image. The following types are supported:-
+				<simplelist type = "vert">
+					<member>CV_8U</member>
+					<member>CV_16U</member>			
+					<member>CV_16S</member>
+					<member>CV_32F</member>
+					<member>CV_64F</member>
+				</simplelist>
+				</para></listitem>
+			</varlistentry>
+			<varlistentry><term>kernel:</term>
+				<listitem><para>convolution kernel (or rather a correlation kernel), a single-channel floating point matrix</para></listitem>
+			</varlistentry>
+			<varlistentry><term>anchorX:</term>
+				<listitem><para>x-coordinate of anchor point. Centre point is denoted by "-1"</para></listitem>
+			</varlistentry>
+			<varlistentry><term>anchorY:</term>
+				<listitem><para>y-coordinate of anchor point. Centre point is denoted by "-1"</para></listitem>
+			</varlistentry>
+			<varlistentry><term>delta:</term>
+				<listitem><para>optional value added to the filtered pixels before storing them </para></listitem>
+			</varlistentry>
+		</variablelist>
+	</refsection>
+	
+	<refsection>
+		<title>Description</title>
+		<para>
+			The function applies an arbitrary linear filter to an image. In-place operation is supported. When the aperture is partially outside the image, the function interpolates outlier pixel values according to the specified border mode.
+		</para>
+		<para>
+			The function does actually compute correlation, not the convolution:
+			<inlinemediaobject><imageobject><imagedata fileref = "pic2.png" align = "center"/></imageobject></inlinemediaobject>
+			That is, the kernel is not mirrored around the anchor point.
+		</para>
+		<para>
+			The function uses the DFT-based algorithm in case of sufficiently large kernels (11 x 11 or larger) and the direct algorithm (that uses the engine retrieved by createLinearFilter() ) for small kernels.
+		</para>
+	</refsection>
+
+	<refsection>
+		<title>Example</title>
+		<programlisting role="example"><![CDATA[
+							a = imread("/home/Pictures/pic.jpg");
+							arr = [1 -2 1; 2 -4 2; 1 -2 1];
+							b=filter2D(a,"CV_8U",arr,-1,-1,0);
+							imshow(b);
+   		]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+		</simplelist>
+	</refsection>
+</refentry>

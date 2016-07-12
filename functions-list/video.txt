@@ -1,0 +1,36 @@
+********************** video module *******************************
+
+********************** Motion Analysis and Object Tracking *******************************
+
+---- OOP ----
+KalmanFilter
+KalmanFilter::KalmanFilter
+KalmanFilter::init
+KalmanFilter::predict
+KalmanFilter::correct
+BackgroundSubtractor
+BackgroundSubtractor::operator()
+BackgroundSubtractor::getBackgroundImage
+BackgroundSubtractorMOG
+BackgroundSubtractorMOG::BackgroundSubtractorMOG
+BackgroundSubtractorMOG::operator()
+BackgroundSubtractorMOG2
+BackgroundSubtractorMOG2::BackgroundSubtractorMOG2
+BackgroundSubtractorMOG2::operator()
+BackgroundSubtractorMOG2::getBackgroundImage
+calcOpticalFlowSF
+createOptFlow_DualTVL1
+DenseOpticalFlow::calc
+DenseOpticalFlow::collectGarbage
+
+---- Function ----
+calcOpticalFlowPyrLK
+buildOpticalFlowPyramid
+calcOpticalFlowFarneback
+estimateRigidTransform
+updateMotionHistory
+calcMotionGradient
+calcGlobalOrientation
+segmentMotion
+CamShift
+meanShift

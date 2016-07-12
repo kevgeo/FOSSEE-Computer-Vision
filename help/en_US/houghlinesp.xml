@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="houghlinesp" xml:lang="en"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>HoughLinesP</refname>
+
+		<refpurpose>Finds line segments in a binary image using the probabilistic Hough transform.</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>List = houghlines(InputArray image, double rho, double theta, int threshold, double srn=0, double stn=0 )</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+		<title>Arguments</title>
+		<variablelist>
+  	 <varlistentry><term>image:</term>
+      <listitem><para> 8-bit, single-channel binary source image. The image may be modified by the function.</para></listitem></varlistentry>
+
+   <varlistentry><term>rho:</term>
+      <listitem><para> N Distance resolution of the accumulator in pixels.</para></listitem></varlistentry>
+
+   <varlistentry><term>theta:</term>
+      <listitem><para>  Angle resolution of the accumulator in radians. </para></listitem></varlistentry>
+
+      <varlistentry><term>threshold:</term>
+      <listitem><para> Accumulator threshold parameter. Only those lines are returned that get enough votes ( >\texttt{threshold} ). </para></listitem></varlistentry>
+
+       <varlistentry><term>minLineLength: </term>
+       	  <listitem><para> Minimum line length. Line segments shorter than that are rejected. </para></listitem></varlistentry>
+
+       	 <varlistentry><term> maxLineGap: </term>
+       	 	  <listitem><para> Maximum allowed gap between points on the same line to link them.
+       	 	  </para></listitem></varlistentry>
+   </variablelist>
+		
+	</refsection>
+	<refsection>
+		<title>Description</title>
+
+		<para>
+			The function implements the probabilistic Hough transform algorithm for line detection.
+		</para>
+		
+	</refsection>
+
+	<refsection>
+		<title>Examples</title>
+
+		<programlisting role="example"><![CDATA[
+			image = imread("/media/Data-2/Pictures/pic.jpg");
+			a=houghlinesp( dst, 1, CV_PI/180, 80, 30, 10 );
+			]]>
+		</programlisting>
+
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+			<member>Priyanka Hiranandani</member>
+			<member>Abhilasha Sancheti</member>
+			<member>Shubheksha Jalan</member>
+		</simplelist>
+	</refsection>
+</refentry>

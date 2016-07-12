@@ -1,0 +1,48 @@
+********************** objdetect module *******************************
+
+********************** Cascade Classification *******************************
+
+---- OOP ----
+Haar Feature-based Cascade Classifier for Object Detection
+FeatureEvaluator
+FeatureEvaluator::read
+FeatureEvaluator::clone
+FeatureEvaluator::getFeatureType
+FeatureEvaluator::setImage
+FeatureEvaluator::setWindow
+FeatureEvaluator::calcOrd
+FeatureEvaluator::calcCat
+FeatureEvaluator::create
+CascadeClassifier
+CascadeClassifier::CascadeClassifier
+CascadeClassifier::empty
+CascadeClassifier::load
+CascadeClassifier::read
+CascadeClassifier::detectMultiScale
+CascadeClassifier::setImage
+CascadeClassifier::runAt
+
+---- Function ----
+groupRectangles
+
+********************** Latent SVM *******************************
+
+---- Structure ----
+CvLSVMFilterPosition
+CvLSVMFilterObject
+CvLatentSvmDetector
+CvObjectDetection
+cvLoadLatentSvmDetector
+cvReleaseLatentSvmDetector
+cvLatentSvmDetectObjects
+
+---- OOP ----
+LatentSvmDetector
+LatentSvmDetector::ObjectDetection
+LatentSvmDetector::LatentSvmDetector
+LatentSvmDetector::~LatentSvmDetector
+LatentSvmDetector::~clear
+LatentSvmDetector::load
+LatentSvmDetector::detect
+LatentSvmDetector::getClassNames
+LatentSvmDetector::getClassCount

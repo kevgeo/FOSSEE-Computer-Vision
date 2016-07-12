@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="canny" xml:lang="en"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>canny</refname>
+
+		<refpurpose>Finds edges in an image using the Canny86 algorithm.</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>List =  Canny(InputArray image, double threshold1, double threshold2, int apertureSize=3, bool L2gradient=false );</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+		<title>Arguments</title>
+		
+		<variablelist>
+			<varlistentry><term>image: </term>  
+						<listitem><para> single-channel 8-bit input image.</para></listitem></varlistentry>
+			<varlistentry><term>threshold1: </term> 
+						<listitem><para>  first threshold for the hysteresis procedure.</para></listitem></varlistentry>
+			<varlistentry><term>threshold2: </term>
+						<listitem><para>  second threshold for the hysteresis procedure.</para></listitem></varlistentry>
+			<varlistentry><term>apertureSize: </term> 
+						<listitem><para>  aperture size for the Sobel() operator.</para></listitem></varlistentry>
+			<varlistentry><term>L2gradient: </term>
+						<listitem><para>  a flag, indicating whether a more accurate  L_2 norm =\sqrt{(dI/dx)^2 + (dI/dy)^2} should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default  L_1 norm =|dI/dx|+|dI/dy| is enough ( L2gradient=false ).
+						This argument should be 0 if false, else 1.</para></listitem></varlistentry>
+		</variablelist>
+		
+	</refsection>
+	<refsection>
+		<title>Description</title>
+
+		<para>The function finds edges in the input image image and marks them in the output map edges using the Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The largest value is used to find initial segments of strong edges. 
+		</para>
+		
+	</refsection>
+
+	<refsection>
+		<title>Examples</title>
+
+		<programlisting role="example"><![CDATA[
+			image = imread("/media/Data-2/Pictures/pic.jpg");
+			a=canny(image, 2, 3, 0);
+			]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+			<member>Priyanka Hiranandani</member>
+			<member>Abhilasha Sancheti</member>
+			<member>Shubheksha Jalan</member>
+		</simplelist>
+	</refsection>
+</refentry>

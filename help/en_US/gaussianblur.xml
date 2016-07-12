@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="gaussianblur" xml:lang="en_US"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>gaussianblur</refname>
+
+		<refpurpose>Blurs an image using a Gaussian filter</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>output_image = gaussianblur(input_image,int ksize_height,int ksize_width,double sigmaX,double sigmaY);</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+   		<title>Arguments</title>
+		<variablelist>
+			<varlistentry><term>input_image:</term>
+				<listitem><para>the image matrix on which blur has to be applied</para></listitem>
+			</varlistentry>
+			<varlistentry><term>ksize_height:</term>
+				<listitem><para>height of gaussian kernel size</para></listitem>
+			</varlistentry>
+			<varlistentry><term>ksize_width:</term>
+				<listitem><para>width of gaussian kernel size</para></listitem>
+			</varlistentry>
+			<varlistentry><term>sigmaX:</term>
+				<listitem><para>Gaussian kernel standard deviation in x-direction</para></listitem>
+			</varlistentry>
+			<varlistentry><term>sigmaY:</term>
+				<listitem><para>Gaussian kernel standard deviation in y-direction</para></listitem>
+			</varlistentry>
+		</variablelist>
+	</refsection>
+	
+	<refsection>
+		<title>Description</title>
+		<para>
+			The function convolves the source image with the specified Gaussian kernel. In-place filtering is supported
+		</para>
+	</refsection>
+
+	<refsection>
+		<title>Example</title>
+		<programlisting role="example"><![CDATA[
+							a = imread("/home/Pictures/img.jpg");
+							b=gaussianblur(a,3,3,0,0);
+							imshow(b);
+   		]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+		</simplelist>
+	</refsection>
+</refentry>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="undistort" xml:lang="en"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>Undistort</refname>
+
+		<refpurpose>Transforms an image to compensate for lens distortion.</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>List =  undistort(InputArray src, InputArray cameraMatrix, InputArray distCoeffs, InputArray newCameraMatrix=noArray() );</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+		<title>Arguments</title>
+		
+		<variablelist>
+			<varlistentry><term>src: </term>  
+						<listitem><para> sInput (distorted) image.</para></listitem></varlistentry>
+			<varlistentry><term>cameraMatrix: </term> 
+						<listitem><para> Input camera matrix </para></listitem></varlistentry>
+			<varlistentry><term>distCoeffs: </term>
+						<listitem><para>  Input vector of distortion coefficients (k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6]]) of 4, 5, or 8 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</para></listitem></varlistentry>
+			<varlistentry><term>newCameraMatrix: </term> 
+						<listitem><para>  Camera matrix of the distorted image. By default, it is the same as cameraMatrix but you may additionally scale and shift the result by using a different matrix.</para></listitem></varlistentry>
+		</variablelist>
+		
+	</refsection>
+	<refsection>
+		<title>Description</title>
+
+		<para>The function transforms an image to compensate radial and tangential lens distortion.
+		Those pixels in the destination image, for which there is no correspondent pixels in the source image, are filled with zeros (black color).
+		</para>
+		
+	</refsection>
+
+	<refsection>
+		<title>Examples</title>
+
+		<programlisting role="example"><![CDATA[
+			image = imread("/media/Data-2/Pictures/pic.jpg");
+			// TO ADD
+			]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+			<member>Priyanka Hiranandani</member>
+			<member>Abhilasha Sancheti</member>
+			<member>Shubheksha Jalan</member>
+		</simplelist>
+	</refsection>
+</refentry>

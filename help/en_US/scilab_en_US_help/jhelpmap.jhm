@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE map PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN" "http://java.sun.com/products/javahelp/map_1_0.dtd">
+<map version="1.0">
+<mapID target="index" url="index.html"/>
+<mapID target="section_58976135fe91d2be030b16e4b684f630" url="section_58976135fe91d2be030b16e4b684f630.html"/>
+<mapID target="blur" url="blur.html"/>
+<mapID target="canny" url="canny.html"/>
+<mapID target="cornerEigenValAndVecs" url="cornerEigenValAndVecs.html"/>
+<mapID target="cornerHarris" url="cornerHarris.html"/>
+<mapID target="cvMinimum" url="cvMinimum.html"/>
+<mapID target="filter2D" url="filter2D.html"/>
+<mapID target="gaussianblur" url="gaussianblur.html"/>
+<mapID target="getTextSize" url="getTextSize.html"/>
+<mapID target="help-showMatchedFeatures" url="help-showMatchedFeatures.html"/>
+<mapID target="houghlines" url="houghlines.html"/>
+<mapID target="houghlinesp" url="houghlinesp.html"/>
+<mapID target="im2double" url="im2double.html"/>
+<mapID target="imcontrast" url="imcontrast.html"/>
+<mapID target="imcrop" url="imcrop.html"/>
+<mapID target="imread" url="imread.html"/>
+<mapID target="imresize" url="imresize.html"/>
+<mapID target="imsharpen" url="imsharpen.html"/>
+<mapID target="imwrite" url="imwrite.html"/>
+<mapID target="isfilterseparable" url="isfilterseparable.html"/>
+<mapID target="montage" url="montage.html"/>
+<mapID target="showMatchedFeatures" url="showMatchedFeatures.html"/>
+<mapID target="undistort" url="undistort.html"/>
+</map>

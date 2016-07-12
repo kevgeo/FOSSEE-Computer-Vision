@@ -1,0 +1,181 @@
+********************** ml module *******************************
+
+********************** Statistical Models *******************************
+
+---- OOP ----
+CvStatModel
+CvStatModel::CvStatModel
+CvStatModel::CvStatModel(...)
+CvStatModel::~CvStatModel
+CvStatModel::clear
+CvStatModel::save
+CvStatModel::load
+CvStatModel::write
+CvStatModel::read
+CvStatModel::train
+CvStatModel::predict
+
+********************** Normal Bayes Classifier *******************************
+
+---- OOP ----
+CvNormalBayesClassifier
+CvNormalBayesClassifier::CvNormalBayesClassifier
+CvNormalBayesClassifier::train
+CvNormalBayesClassifier::predict
+
+********************** K-Nearest Neighbors *******************************
+
+---- OOP ----
+CvKNearest
+CvKNearest::CvKNearest
+CvKNearest::train
+CvKNearest::find_nearest
+CvKNearest::get_max_k
+CvKNearest::get_var_count
+CvKNearest::get_sample_count
+CvKNearest::is_regression
+
+********************** Support Vector Machines *******************************
+
+---- OOP ----
+CvParamGrid
+CvParamGrid::CvParamGrid
+CvParamGrid::check
+CvSVMParams
+CvSVMParams::CvSVMParams
+CvSVM
+CvSVM::CvSVM
+CvSVM::train
+CvSVM::train_auto
+CvSVM::predict
+CvSVM::get_default_grid
+CvSVM::get_params
+CvSVM::get_support_vector
+CvSVM::get_var_count
+
+********************** Decision Trees *******************************
+
+---- Structure ----
+CvDTreeSplit
+CvDTreeNode
+CvDTreeParams
+CvDTreeParams::CvDTreeParams
+CvDTreeTrainData
+CvDTree
+CvDTree::train
+CvDTree::predict
+CvDTree::calc_error
+CvDTree::getVarImportance
+CvDTree::get_root
+CvDTree::get_pruned_tree_idx
+CvDTree::get_data
+
+********************** Decision Trees *******************************
+
+---- Structure ----
+CvBoostParams
+CvBoostParams::CvBoostParams
+
+---- OOP ----
+CvBoostTree
+CvBoost
+CvBoost::CvBoost
+CvBoost::train
+CvBoost::predict
+CvBoost::prune
+CvBoost::calc_error
+CvBoost::get_weak_predictors
+CvBoost::get_params
+CvBoost::get_data
+
+********************** Gradient Boosted Trees *******************************
+
+---- Structure ----
+CvGBTreesParams
+CvGBTreesParams::CvGBTreesParams
+
+---- OOP ----
+CvGBTrees
+CvGBTrees::CvGBTrees
+CvGBTrees::train
+CvGBTrees::predict
+CvGBTrees::clear
+CvGBTrees::calc_error
+
+********************** Random Trees *******************************
+
+---- Structure ----
+CvRTParams
+CvRTParams::CvRTParams:
+
+---- OOP ----
+CvRTrees
+CvRTrees::train
+CvRTrees::predict
+CvRTrees::predict_prob
+CvRTrees::getVarImportance
+CvRTrees::get_proximity
+CvRTrees::calc_error
+CvRTrees::get_train_error
+CvRTrees::get_rng
+CvRTrees::get_tree_count
+CvRTrees::get_tree
+
+********************** Random Trees *******************************
+
+---- OOP ----
+CvERTrees
+
+********************** Expectation Maximization *******************************
+
+---- OOP ----
+EM
+EM::EM
+EM::train
+EM::predict
+CvEM::isTrained
+EM::read, EM::write
+EM::get, EM::set
+
+
+********************** Neural Networks *******************************
+
+---- OOP ----
+CvANN_MLP_TrainParams
+CvANN_MLP_TrainParams::CvANN_MLP_TrainParams
+CvANN_MLP
+CvANN_MLP::CvANN_MLP
+CvANN_MLP::create
+CvANN_MLP::train
+CvANN_MLP::predict
+CvANN_MLP::get_layer_count
+CvANN_MLP::get_layer_sizes
+CvANN_MLP::get_weights
+
+********************** Neural Networks *******************************
+
+---- OOP ----
+CvMLData
+CvMLData::read_csv
+CvMLData::get_values
+CvMLData::get_responses
+CvMLData::get_missing
+CvMLData::set_response_idx
+CvMLData::get_response_idx
+CvMLData::set_train_test_split
+CvMLData::get_train_sample_idx
+CvMLData::get_test_sample_idx
+CvMLData::mix_train_and_test_idx
+CvMLData::get_var_idx
+CvMLData::change_var_idx
+CvMLData::get_var_types
+CvMLData::set_var_types
+CvMLData::get_var_type
+CvMLData::change_var_type
+CvMLData::set_delimiter
+CvMLData::get_delimiter
+CvMLData::set_miss_ch
+CvMLData::get_miss_ch
+CvMLData::get_class_labels_map
+CvTrainTestSplit
+

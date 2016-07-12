@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="getTextSize" xml:lang="en_US"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>getTextSize</refname>
+
+		<refpurpose>Calculates the width and height of a text string</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>[size,baseline] = getTextSize(string input_text,string fontface,double fontscale,int thickness);</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+   		<title>Arguments</title>
+		<variablelist>
+			<varlistentry><term>input_text:</term>
+				<listitem><para>Input text string</para></listitem>
+			</varlistentry>
+			<varlistentry><term>fontface:</term>
+				<listitem><para>Font type. One of:-
+				<simplelist>
+					<member>FONT_HERSHEY_SIMPLEX</member>
+					<member>FONT_HERSHEY_PLAIN</member>
+					<member>FONT_HERSHEY_DUPLEX</member>
+					<member>FONT_HERSHEY_COMPLEX</member>
+					<member>FONT_HERSHEY_TRIPLEX</member>
+					<member>FONT_HERSHEY_COMPLEX_SMALL</member>
+					<member>FONT_HERSHEY_SCRIPT_SIMPLEX</member>
+					<member>FONT_HERSHEY_SCRIPT_COMPLEX</member>
+				</simplelist>
+				where each of the font ID’s can be combined with FONT_ITALIC to get the slanted letters.
+				</para></listitem>
+			</varlistentry>
+			<varlistentry><term>fontscale</term>
+				<listitem><para>Font scale factor that is multiplied by the font-specific base size</para></listitem>
+			</varlistentry>
+			<varlistentry><term>thickness</term>
+				<listitem><para>Thickness of the lines used to draw a text</para></listitem>
+			</varlistentry>
+		</variablelist>
+	</refsection>
+	
+	<refsection>
+		<title>Description</title>
+		<para>
+			The function getTextSize calculates and returns the size of a box that contains the specified text
+		</para>
+	</refsection>
+
+	<refsection>
+		<title>Example</title>
+		<programlisting role="example"><![CDATA[
+							[a,b] = getTextSize("Image","FONT_HERSHEY_SIMPLEX",5,8);
+   		]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+			<member>Abhilasha Sancheti</member>
+		</simplelist>
+	</refsection>
+</refentry>

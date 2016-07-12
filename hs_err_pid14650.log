@@ -1,0 +1,117 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fc000000000, pid=14650, tid=140464216209280
+#
+# JRE version: OpenJDK Runtime Environment (7.0_101) (build 1.7.0_101-b00)
+# Java VM: OpenJDK 64-Bit Server VM (24.95-b01 mixed mode linux-amd64 compressed oops)
+# Derivative: IcedTea 2.6.6
+# Distribution: Ubuntu 14.04 LTS, package 7u101-2.6.6-0ubuntu0.14.04.1
+# Problematic frame:
+# C  0x00007fc000000000
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please include
+# instructions on how to reproduce the bug and visit:
+#   http://icedtea.classpath.org/bugzilla
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000001b46800):  JavaThread "main" [_thread_in_vm, id=14650, stack(0x00007ffdb6404000,0x00007ffdb6504000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=2 (SEGV_ACCERR), si_addr=0x00007fc000000000
+
+Registers:
+RAX=0x0000000000000001, RBX=0x00007fc0413f7e10, RCX=0x0000000000000000, RDX=0x0000000000000000
+RSP=0x00007ffdb64fe390, RBP=0x00007ffdb64fe3b0, RSI=0x0000000000000000, RDI=0x000000000000000b
+R8 =0x00000000000000d5, R9 =0x00007fc0536fab20, R10=0x00007fbfbaf7d38c, R11=0x00007fbfbad98930
+R12=0x00007fc054c9135a, R13=0x00007fc03c6678b0, R14=0x00007fc0413f7fe4, R15=0x00007fc0413f7e10
+RIP=0x00007fc000000000, EFLAGS=0x0000000000010202, CSGSFS=0x0000000000000033, ERR=0x0000000000000015
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007ffdb64fe390)
+0x00007ffdb64fe390:   00007ffdb64fe3b0 00007ffdb64fe500
+0x00007ffdb64fe3a0:   000000000000000b 00007fc0411bf8dc
+0x00007ffdb64fe3b0:   00007ffdb64fe3f0 00007fc054d72b5e
+0x00007ffdb64fe3c0:   00007ffdb64fe430 00007ffdb64fe4d0
+0x00007ffdb64fe3d0:   0000000000000000 00007ffdb64fe4d0
+0x00007ffdb64fe3e0:   0000000000000000 00007ffdb64fe4d0
+0x00007ffdb64fe3f0:   00007ffdb64feb30 00007fc054d6f1b8
+0x00007ffdb64fe400:   00007ffd00000000 00007fc0100017b8
+0x00007ffdb64fe410:   00007ffdb64fe480 0000000001ec9000
+0x00007ffdb64fe420:   00007ffdb64fe500 00007fc04142fd90
+0x00007ffdb64fe430:   00007ffdb64fe450 00007ffdb64fe540
+0x00007ffdb64fe440:   0000000be7b3c8d0 00007fbfbad98930
+0x00007ffdb64fe450:   00007fc03c667a08 00007fc0411b94e7
+0x00007ffdb64fe460:   00007fc0411b93d0 00007fc000000000
+0x00007ffdb64fe470:   00007fc03c667a70 00007fc03c667a08
+0x00007ffdb64fe480:   00007fc041432468 00007fc000000091
+0x00007ffdb64fe490:   00007fc04142fd90 0000000000000000
+0x00007ffdb64fe4a0:   0000000001ec0b10 00007fc000000000
+0x00007ffdb64fe4b0:   00007fc01c0022f0 00007fc01c0026c8
+0x00007ffdb64fe4c0:   00000000000003d8 00007ffdb64fe520
+0x00007ffdb64fe4d0:   00007fc03c667a08 00007fc0411b94e7
+0x00007ffdb64fe4e0:   00007fc000000000 00007fc000000000
+0x00007ffdb64fe4f0:   00007fc03c667a70 00007fc03c667a08
+0x00007ffdb64fe500:   00007fc0100017f0 00000000fad29008
+0x00007ffdb64fe510:   00000000fad29028 00000000fad290b8
+0x00007ffdb64fe520:   00007ffd0000000f 00007ffdb64fff88
+0x00007ffdb64fe530:   00007ffdb64fff98 00007ffd00000000
+0x00007ffdb64fe540:   00007fc0100017f0 00007ffdb64fff68
+0x00007ffdb64fe550:   0000000001ec9000 00007fc0100017c0
+0x00007ffdb64fe560:   0000000000000001 00007ffdb64fff01
+0x00007ffdb64fe570:   00007ffdb64fff38 00007ffdb64fff40
+0x00007ffdb64fe580:   00007ffdb6500e38 00007ffdb6500e40 
+
+Instructions: (pc=0x00007fc000000000)
+0x00007fbfffffffe0:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x00007fbffffffff0:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x00007fc000000000:   20 00 00 00 c0 7f 00 00 00 00 00 00 00 00 00 00
+0x00007fc000000010:   00 50 02 00 00 00 00 00 00 50 02 00 00 00 00 00 
+
+Register to memory mapping:
+
+RAX=0x0000000000000001 is an unknown value
+RBX=0x00007fc0413f7e10 is at entry_point+-400 in (nmethod*)0x00007fc0413f7e10
+RCX=0x0000000000000000 is an unknown value
+RDX=0x0000000000000000 is an unknown value
+RSP=0x00007ffdb64fe390 is pointing into the stack for thread: 0x0000000001b46800
+RBP=0x00007ffdb64fe3b0 is pointing into the stack for thread: 0x0000000001b46800
+RSI=0x0000000000000000 is an unknown value
+RDI=0x000000000000000b is an unknown value
+R8 =0x00000000000000d5 is an unknown value
+R9 =0x00007fc0536fab20: <offset 0x10b20> in /lib/x86_64-linux-gnu/libgcc_s.so.1 at 0x00007fc0536ea000
+R10=0x00007fbfbaf7d38c: <offset 0x49938c> in /usr/lib/x86_64-linux-gnu/libQt5Core.so.5 at 0x00007fbfbaae4000
+R11=0x00007fbfbad98930: _ZN20QEventDispatcherGlib13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0 in /usr/lib/x86_64-linux-gnu/libQt5Core.so.5 at 0x00007fbfbaae4000
+R12=0x00007fc054c9135a: <offset 0x51935a> in /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so at 0x00007fc054778000
+R13=0x00007fc03c6678b0 is pointing into the stack for thread: 0x0000000001ec9000
+R14=0x00007fc0413f7fe4 is at entry_point+68 in (nmethod*)0x00007fc0413f7e10
+R15=0x00007fc0413f7e10 is at entry_point+-400 in (nmethod*)0x00007fc0413f7e10
+
+
+Stack: [0x00007ffdb6404000,0x00007ffdb6504000],  sp=0x00007ffdb64fe390,  free space=1000k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  0x00007fc000000000
+V  [libjvm.so+0x5fab5e]
+V  [libjvm.so+0x5f71b8]
+V  [libjvm.so+0x5f7304]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fc000002800 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=25358, stack(0x00007fc03c467000,0x00007fc03c568000)]
+  0x00007fc000018800 JavaThread "AWT-Shutdown" [_thread_blocked, id=25334, stack(0x00007fc03c366000,0x00007fc03c467000)]
+  0x00007fbff827b800 JavaThread "SwingWorker-pool-1-thread-2" daemon [_thread_blocked, id=14685, stack(0x00007fbfe80ee000,0x00007fbfe81ef000)]
+  0x00007fbff9358000 JavaThread "SwingWorker-pool-1-thread-1" daemon [_thread_blocked, id=14683, stack(0x00007fbfdb5fd000,0x00007fbfdb6fe000)]
+  0x00007fbff8356000 JavaThread "TimerQueue" daemon [_thread_blocked, id=14678, stack(0x00007fbfdb6fe000,0x00007fbfdb7ff000)]
+  0x000000000200f800 JavaThread "main-SharedResourceRunner" daemon [_thread_blocked, id=14670, stack(0x00007fc03c062000,0x00007fc03c163000)]
+  0x0000000001ec9000 JavaThread "AWT-XAWT" daemon [_thread_in_native, id=14667, stack(0x00007fc03c568000,0x00007fc03c669000)]
+  0x0000000001eb0800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=14666, stack(0x00007fc03ca79000,0x00007fc03cb7a000)]
+  0x0000000001c2e000 JavaThread "Service Thread" daemon [_thread_blocked, id=14664, stack(0x00007fc03e599000,0x00007fc03e69a000)]
+  0x0000000001c2b800 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=14663, stack(0x00007fc03e69a000,0x00007fc03e79b000)]
+  0x0000000001c28800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=14662, stack(0x00007fc03e79b000,0x00007fc03e89c000)]
+  0x0000000001c26800 JavaThread "Attach Listener" daemon [_thread_blocked, id=14661, stack(0x00007fc03e89c000,0x00007fc03e99d000)]
+  0x0000000001bfa800 

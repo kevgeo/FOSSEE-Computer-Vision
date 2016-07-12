@@ -1,0 +1,80 @@
+********************** legacy module *******************************
+
+********************** Motion Analysis *******************************
+
+---- Function ----
+CalcOpticalFlowBM
+CalcOpticalFlowHS
+CalcOpticalFlowLK
+
+********************** Expectation Maximization *******************************
+
+---- Function ----
+CvEMParams
+CvEMParams::CvEMParams
+CvEM
+CvEM::train
+CvEM::predict
+CvEM::getNClusters
+CvEM::getMeans
+CvEM::getCovs
+CvEM::getWeights
+CvEM::getProbs
+CvEM::getLikelihood
+CvEM::write
+CvEM::read
+
+********************** Histograms *******************************
+
+---- Function ----
+CalcPGH
+QueryHistValue*D
+GetHistValue_?D
+
+********************** Planar Subdivisions *******************************
+
+---- Function ----
+CvSubdiv2D
+CvQuadEdge2D
+CvSubdiv2DPoint
+CalcSubdivVoronoi2D
+ClearSubdivVoronoi2D
+CreateSubdivDelaunay2D
+FindNearestPoint2D
+Subdiv2DEdgeDst
+Subdiv2DGetEdge
+Subdiv2DNextEdge
+Subdiv2DLocate
+Subdiv2DRotateEdge
+SubdivDelaunay2DInsert
+
+********************** Feature Detection and Description *******************************
+
+---- OOP ----
+RandomizedTree
+RandomizedTree::train
+RandomizedTree::read
+RandomizedTree::write
+RandomizedTree::applyQuantization
+RTreeNode
+RTreeClassifier
+RTreeClassifier::train
+RTreeClassifier::getSignature
+RTreeClassifier::getSparseSignature
+RTreeClassifier::countNonZeroElements
+RTreeClassifier::read
+RTreeClassifier::write
+RTreeClassifier::setQuantization
+
+********************** Common Interfaces of Descriptor Extractors *******************************
+
+---- OOP ----
+CalonderDescriptorExtractor
+
+********************** Common Interfaces of Generic Descriptor Matchers *******************************
+
+---- OOP ----
+OneWayDescriptorBase
+OneWayDescriptorMatcher
+FernClassifier
+FernDescriptorMatcher

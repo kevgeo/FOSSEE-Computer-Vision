@@ -1,0 +1,13 @@
+********************** nonfree module *******************************
+
+********************** Feature Detection and Description¶ *******************************
+
+---- OOP ----
+SIFT
+SIFT::SIFT
+SIFT::operator ()
+SURF
+SURF::SURF
+SURF::operator()
+gpu::SURF_GPU
+ocl::SURF_OCL

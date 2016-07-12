@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="imread" xml:lang="en_US"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>imread</refname>
+
+		<refpurpose>Loads an Image from a file, and returns the Image Matrix as a List</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>List = imread(string path);</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+   		<title>Arguments</title>
+		<variablelist>
+			<varlistentry><term>path :</term>
+				<listitem><para>the path to the image that has to be read</para></listitem>
+			</varlistentry>
+		</variablelist>
+	</refsection>
+	
+	<refsection>
+		<title>Description</title>
+
+		<para>The function imread loads an image from the specified file and returns it. If the image cannot be read (because of missing file, improper permissions, unsupported or invalid format), the function returns an empty matrix. Currently, the following file formats are supported:
+		</para>
+		<para>
+		<simplelist type="vert">
+			<member>Windows bitmaps - *.bmp, *.dib (always supported)</member>
+        	<member>JPEG files - *.jpeg, *.jpg, *.jpe (see the Notes section)</member>
+        	<member>JPEG 2000 files - *.jp2 (see the Notes section)</member>
+        	<member>Portable Network Graphics - *.png (see the Notes section)</member>
+        	<member>Portable image format - *.pbm, *.pgm, *.ppm (always supported)</member>
+        	<member>Sun rasters - *.sr, *.ras (always supported)</member>
+        	<member>TIFF files - *.tiff, *.tif (see the Notes section)</member>
+		</simplelist>
+		</para>
+	</refsection>
+
+	<refsection>
+		<title>Example</title>
+		<programlisting role="example">a=imread("/media/Data-2/Pictures/pic.jpg");</programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+			<member>Priyanka Hiranandani</member>
+			<member>Abhilasha Sancheti</member>
+			<member>Shubheksha Jalan</member>
+		</simplelist>
+	</refsection>
+</refentry>

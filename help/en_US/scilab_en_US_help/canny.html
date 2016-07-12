@@ -1,0 +1,93 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>canny</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="blur.html">&lt;&lt; blur</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cornerEigenValAndVecs.html">cornerEigenValsAndVecs &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Image Processing Toolbox</a> &gt;&gt; <a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a> &gt; canny</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">canny</h1>
+
+		<p class="refpurpose">Finds edges in an image using the Canny86 algorithm.</p></div>
+
+	<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+		<div class="synopsis"><pre><span class="default">List</span><span class="default"> =  </span><span class="default">Canny</span><span class="default">(</span><span class="default">InputArray</span> <span class="default">image</span><span class="default">, </span><span class="default">double</span> <span class="default">threshold1</span><span class="default">, </span><span class="default">double</span> <span class="default">threshold2</span><span class="default">, </span><span class="default">int</span> <span class="default">apertureSize</span><span class="default">=3, </span><span class="default">bool</span> <span class="default">L2gradient</span><span class="default">=</span><span class="default">false</span><span class="default"> );</span></pre></div></div>
+	
+	<div class="refsection"><h3 class="title">Arguments</h3>
+		
+		<dl><dt><span class="term">image:</span>  
+						<dd><p class="para">single-channel 8-bit input image.</p></dd></dt>
+			<dt><span class="term">threshold1:</span> 
+						<dd><p class="para">first threshold for the hysteresis procedure.</p></dd></dt>
+			<dt><span class="term">threshold2:</span>
+						<dd><p class="para">second threshold for the hysteresis procedure.</p></dd></dt>
+			<dt><span class="term">apertureSize:</span> 
+						<dd><p class="para">aperture size for the Sobel() operator.</p></dd></dt>
+			<dt><span class="term">L2gradient:</span>
+						<dd><p class="para">a flag, indicating whether a more accurate  L_2 norm =\sqrt{(dI/dx)^2 + (dI/dy)^2} should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default  L_1 norm =|dI/dx|+|dI/dy| is enough ( L2gradient=false ).
+						This argument should be 0 if false, else 1.</p></dd></dt></dl></div>
+	<div class="refsection"><h3 class="title">Description</h3>
+
+		<p class="para">The function finds edges in the input image image and marks them in the output map edges using the Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The largest value is used to find initial segments of strong edges.</p></div>
+
+	<div class="refsection"><h3 class="title">Examples</h3>
+
+		<div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">image</span> <span class="scilaboperator">=</span> <span class="scilabid">imread</span><span class="scilabopenclose">(</span><span class="scilabstring">&#0034;</span><span class="scilabstring">/media/Data-2/Pictures/pic.jpg</span><span class="scilabstring">&#0034;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">a</span><span class="scilaboperator">=</span><span class="scilabid">canny</span><span class="scilabopenclose">(</span><span class="scilabid">image</span><span class="scilabdefault">,</span> <span class="scilabnumber">2</span><span class="scilabdefault">,</span> <span class="scilabnumber">3</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+	<div class="refsection"><h3 class="title">Authors</h3>
+
+		<ul class="itemizedlist"><li class="member">Sukul Bagai</li>
+			<li class="member">Priyanka Hiranandani</li>
+			<li class="member">Abhilasha Sancheti</li>
+			<li class="member">Shubheksha Jalan</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="blur.html">&lt;&lt; blur</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cornerEigenValAndVecs.html">cornerEigenValsAndVecs &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CornerHarris</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="cornerEigenValAndVecs.html">&lt;&lt; cornerEigenValsAndVecs</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cvMinimum.html">cvMinimum &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Image Processing Toolbox</a> &gt;&gt; <a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a> &gt; CornerHarris</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">CornerHarris</h1>
+
+		<p class="refpurpose">Harris edge detector.</p></div>
+
+	<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+		<div class="synopsis"><pre><span class="default">List</span><span class="default"> = </span><span class="default">cornerHarris</span><span class="default">(</span><span class="default">InputArray</span> <span class="default">src</span><span class="default">, </span><span class="default">int</span> <span class="default">blockSize</span><span class="default">, </span><span class="default">int</span> <span class="default">ksize</span><span class="default">, </span><span class="default">double</span> <span class="default">k</span><span class="default">, </span><span class="default">string</span> <span class="default">borderType</span><span class="default">=</span>&#0034;<span class="default">BORDER_DEFAULT</span>&#0034;<span class="default"> )</span></pre></div></div>
+	
+	<div class="refsection"><h3 class="title">Arguments</h3>
+		<dl><dt><span class="term">src:</span>
+      <dd><p class="para">Input single-channel 8-bit or floating-point image.</p></dd></dt>
+   <dt><span class="term">blockSize:</span>
+      <dd><p class="para">Neighborhood size</p></dd></dt>
+   <dt><span class="term">ksize:</span>
+      <dd><p class="para">Aperture parameter for the Sobel() operator.</p></dd></dt>
+      <dt><span class="term">k:</span>
+      <dd><p class="para">Harris detector free parameter. See the formula below.</p></dd></dt>
+      <dt><span class="term">borderType:</span>
+      <dd><p class="para">Pixel extrapolation method</p></dd></dt></dl></div>
+	<div class="refsection"><h3 class="title">Description</h3>
+
+		<p class="para">The function runs the Harris edge detector on the image.
+			for each pixel (x, y) it calculates a 2\times2 gradient covariance matrix M^{(x,y)} over a \texttt{blockSize} \times \texttt{blockSize} neighborhood. Then, it computes the following characteristic:
+
+\texttt{dst} (x,y) =  \mathrm{det} M^{(x,y)} - k  \cdot \left ( \mathrm{tr} M^{(x,y)} \right )^2 
+Corners in the image can be found as the local maxima of this response map.</p></div>
+
+	<div class="refsection"><h3 class="title">Examples</h3>
+
+		<div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">image</span> <span class="scilaboperator">=</span> <span class="scilabid">imread</span><span class="scilabopenclose">(</span><span class="scilabstring">&#0034;</span><span class="scilabstring">/media/Data-2/Pictures/pic.jpg</span><span class="scilabstring">&#0034;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">a</span><span class="scilaboperator">=</span><span class="scilabid">cornerHarris</span><span class="scilabopenclose">(</span><span class="scilabid">image</span><span class="scilabdefault">,</span> <span class="scilabnumber">2</span><span class="scilabdefault">,</span> <span class="scilabnumber">3</span><span class="scilabdefault">,</span> <span class="scilabnumber">1</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0034;</span><span class="scilabstring">BORDER_CONSTANT</span><span class="scilabstring">&#0034;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+	<div class="refsection"><h3 class="title">Authors</h3>
+
+		<ul class="itemizedlist"><li class="member">Sukul Bagai</li>
+			<li class="member">Priyanka Hiranandani</li>
+			<li class="member">Abhilasha Sancheti</li>
+			<li class="member">Shubheksha Jalan</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="cornerEigenValAndVecs.html">&lt;&lt; cornerEigenValsAndVecs</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cvMinimum.html">cvMinimum &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

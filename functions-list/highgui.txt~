@@ -1,0 +1,63 @@
+********************** highgui module *******************************
+
+********************** User Interface *******************************
+
+----- OOP -----
+
+----- Function -----
+createTrackbar
+getTrackbarPos
+imshow
+namedWindow
+destroyWindow
+destroyAllWindows
+MoveWindow
+ResizeWindow
+SetMouseCallback
+setTrackbarPos
+waitKey
+setOpenGlDrawCallback
+setOpenGlContext
+updateWindow
+
+
+********************** Reading and Writing Images and Video *******************************
+
+----- OOP -----
+VideoCapture
+VideoCapture::VideoCapture
+VideoCapture::open
+VideoCapture::isOpened
+VideoCapture::release
+VideoCapture::grab
+VideoCapture::retrieve
+VideoCapture::read
+VideoCapture::get
+VideoCapture::set
+VideoWriter
+VideoWriter::VideoWriter
+ReleaseVideoWriter
+VideoWriter::open
+VideoWriter::isOpened
+VideoWriter::write
+
+----- Function -----
+imdecode
+imencode
+imread
+imwrite
+
+
+********************** Qt New Functions *******************************
+
+----- Function -----
+setWindowProperty
+getWindowProperty
+fontQt
+addText
+displayOverlay
+displayStatusBar
+setOpenGlDrawCallback
+saveWindowParameters
+loadWindowParameters
+createButton

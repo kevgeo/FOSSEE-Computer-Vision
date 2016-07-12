@@ -1,0 +1,16 @@
+********************** flann module *******************************
+
+********************** Fast Approximate Nearest Neighbor Search *******************************
+
+---- OOP ----
+flann::Index_
+flann::Index_<T>::Index_
+flann::Index_<T>::knnSearch
+flann::Index_<T>::radiusSearch
+flann::Index_<T>::save
+flann::Index_<T>::getIndex
+
+********************** Clustering *******************************
+
+---- Function ----
+flann::hierarchicalClustering<Distance>

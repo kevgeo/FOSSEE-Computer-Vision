@@ -1,0 +1,122 @@
+********************** features2d *******************************
+
+********************** Feature Detection and Description *******************************
+
+---- OOP ----
+MSER
+ORB
+ORB::ORB
+ORB::operator()
+BRISK
+BRISK::BRISK
+BRISK::BRISK
+BRISK::operator()
+FREAK
+FREAK::FREAK
+FREAK::selectPairs
+
+---- Function ----
+FAST
+
+********************** Common Interfaces of Feature Detectors *******************************
+
+---- OOP ----
+KeyPoint
+KeyPoint::KeyPoint
+FeatureDetector
+FeatureDetector::detect
+FeatureDetector::create
+FastFeatureDetector
+GoodFeaturesToTrackDetector
+MserFeatureDetector
+StarFeatureDetector
+DenseFeatureDetector
+SimpleBlobDetector
+GridAdaptedFeatureDetector
+PyramidAdaptedFeatureDetector
+DynamicAdaptedFeatureDetector
+DynamicAdaptedFeatureDetector::DynamicAdaptedFeatureDetector
+AdjusterAdapter
+AdjusterAdapter::tooFew
+AdjusterAdapter::tooMany
+AdjusterAdapter::good
+AdjusterAdapter::create
+FastAdjuster
+StarAdjuster
+SurfAdjuster
+
+********************** Common Interfaces of Descriptor Extractors *******************************
+
+---- OOP ----
+DescriptorExtractor
+DescriptorExtractor::compute
+DescriptorExtractor::create
+OpponentColorDescriptorExtractor
+BriefDescriptorExtractor
+
+********************** Common Interfaces of Descriptor Matcher *******************************
+
+---- OOP ----
+DMatch
+DescriptorMatcher
+DescriptorMatcher::add
+DescriptorMatcher::getTrainDescriptors
+DescriptorMatcher::clear
+DescriptorMatcher::empty
+DescriptorMatcher::isMaskSupported
+DescriptorMatcher::train
+DescriptorMatcher::match
+DescriptorMatcher::knnMatch
+DescriptorMatcher::radiusMatch
+DescriptorMatcher::clone
+DescriptorMatcher::create
+BFMatcher
+BFMatcher::BFMatcher
+FlannBasedMatcher
+
+********************** Common Interfaces of Generic Descriptor Matchers *******************************
+
+---- OOP ----
+GenericDescriptorMatcher
+GenericDescriptorMatcher::add
+GenericDescriptorMatcher::getTrainImages
+GenericDescriptorMatcher::getTrainKeypoints
+GenericDescriptorMatcher::clear
+GenericDescriptorMatcher::train
+GenericDescriptorMatcher::isMaskSupported
+GenericDescriptorMatcher::classify
+GenericDescriptorMatcher::match
+GenericDescriptorMatcher::knnMatch
+GenericDescriptorMatcher::radiusMatch
+GenericDescriptorMatcher::read
+GenericDescriptorMatcher::write
+GenericDescriptorMatcher::clone
+VectorDescriptorMatcher
+
+********************** Drawing Function of Keypoints and Matches *******************************
+
+---- Function ----
+drawMatches
+drawKeypoints
+
+
+
+
+********************** Object Categorization *******************************
+
+---- OOP ----
+BOWTrainer
+BOWTrainer::add
+BOWTrainer::getDescriptors
+BOWTrainer::descripotorsCount
+BOWTrainer::cluster
+BOWKMeansTrainer
+BOWKMeansTrainer::BOWKMeansTrainer
+BOWImgDescriptorExtractor
+BOWImgDescriptorExtractor::BOWImgDescriptorExtractor
+BOWImgDescriptorExtractor::setVocabulary
+BOWImgDescriptorExtractor::getVocabulary
+BOWImgDescriptorExtractor::compute
+BOWImgDescriptorExtractor::descriptorSize
+BOWImgDescriptorExtractor::descriptorType
+

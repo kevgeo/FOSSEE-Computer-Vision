@@ -1,0 +1,89 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Undistort</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="showMatchedFeatures.html">&lt;&lt; showMatchedFeatures</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Image Processing Toolbox</a> &gt;&gt; <a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a> &gt; Undistort</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">Undistort</h1>
+
+		<p class="refpurpose">Transforms an image to compensate for lens distortion.</p></div>
+
+	<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+		<div class="synopsis"><pre><span class="default">List</span><span class="default"> =  </span><span class="default">undistort</span><span class="default">(</span><span class="default">InputArray</span> <span class="default">src</span><span class="default">, </span><span class="default">InputArray</span> <span class="default">cameraMatrix</span><span class="default">, </span><span class="default">InputArray</span> <span class="default">distCoeffs</span><span class="default">, </span><span class="default">InputArray</span> <span class="default">newCameraMatrix</span><span class="default">=</span><span class="default">noArray</span><span class="default">() );</span></pre></div></div>
+	
+	<div class="refsection"><h3 class="title">Arguments</h3>
+		
+		<dl><dt><span class="term">src:</span>  
+						<dd><p class="para">sInput (distorted) image.</p></dd></dt>
+			<dt><span class="term">cameraMatrix:</span> 
+						<dd><p class="para">Input camera matrix</p></dd></dt>
+			<dt><span class="term">distCoeffs:</span>
+						<dd><p class="para">Input vector of distortion coefficients (k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6]]) of 4, 5, or 8 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</p></dd></dt>
+			<dt><span class="term">newCameraMatrix:</span> 
+						<dd><p class="para">Camera matrix of the distorted image. By default, it is the same as cameraMatrix but you may additionally scale and shift the result by using a different matrix.</p></dd></dt></dl></div>
+	<div class="refsection"><h3 class="title">Description</h3>
+
+		<p class="para">The function transforms an image to compensate radial and tangential lens distortion.
+		Those pixels in the destination image, for which there is no correspondent pixels in the source image, are filled with zeros (black color).</p></div>
+
+	<div class="refsection"><h3 class="title">Examples</h3>
+
+		<div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">image</span> <span class="scilaboperator">=</span> <span class="scilabid">imread</span><span class="scilabopenclose">(</span><span class="scilabstring">&#0034;</span><span class="scilabstring">/media/Data-2/Pictures/pic.jpg</span><span class="scilabstring">&#0034;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabcomment">// TO ADD</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+	<div class="refsection"><h3 class="title">Authors</h3>
+
+		<ul class="itemizedlist"><li class="member">Sukul Bagai</li>
+			<li class="member">Priyanka Hiranandani</li>
+			<li class="member">Abhilasha Sancheti</li>
+			<li class="member">Shubheksha Jalan</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="showMatchedFeatures.html">&lt;&lt; showMatchedFeatures</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry version="5.0-subset Scilab" xml:id="montage" xml:lang="en_US"
+					xmlns="http://docbook.org/ns/docbook"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:svg="http://www.w3.org/2000/svg"
+					xmlns:ns3="http://www.w3.org/1999/xhtml"
+					xmlns:mml="http://www.w3.org/1998/Math/MathML"
+					xmlns:db="http://docbook.org/ns/docbook">
+
+	<refnamediv>
+		<refname>montage</refname>
+
+		<refpurpose>Creates a montage with a list of images</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<title>Calling Sequence</title>
+
+		<synopsis>output_image = montage(List input_images, int no_of_rows, int no_of_cols);</synopsis>
+	</refsynopsisdiv>
+	
+	<refsection>
+   		<title>Arguments</title>
+		<variablelist>
+			<varlistentry><term>input_images: </term>
+				<listitem><para>A list of images which have to be included in the montage</para></listitem>
+			</varlistentry>
+			<varlistentry><term>no_of_rows: </term>
+				<listitem><para>number of rows in montage</para></listitem>
+			</varlistentry>
+			<varlistentry><term>no_of_cols: </term>
+				<listitem><para>number of columns in montage</para></listitem>
+			</varlistentry>
+		</variablelist>
+	</refsection>
+	
+	<refsection>
+		<title>Description</title>
+		<para>
+			The function creates a montage with the list of images. Montage is created row-wise with images taken in order from the list. Note that the following condition should hold true:-  no_of_rows*no_of_cols >= no_of_images > (no_of_rows-1)*(no_of_cols)
+		</para>
+	</refsection>
+
+	<refsection>
+		<title>Example</title>
+		<programlisting role="example"><![CDATA[
+							a = imread("/home/Pictures/img.jpg");
+							b = imread("/home/Pictures/img2.jpg");
+							l = list(a,b,b,a);
+							c = montage(l,2,2);
+							imshow(c);
+   		]]></programlisting>
+	</refsection>
+
+	<refsection>
+		<title>Authors</title>
+
+		<simplelist type="vert">
+			<member>Sukul Bagai</member>
+		</simplelist>
+	</refsection>
+</refentry>

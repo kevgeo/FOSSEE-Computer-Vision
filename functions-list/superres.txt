@@ -1,0 +1,10 @@
+********************** superres module *******************************
+
+********************** Super Resolution *******************************
+
+---- OOP ----
+superres::SuperResolution
+superres::SuperResolution::setInput
+superres::SuperResolution::nextFrame
+superres::SuperResolution::collectGarbage
+superres::createSuperResolution_BTVL1

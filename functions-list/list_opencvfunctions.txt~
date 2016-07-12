@@ -1,0 +1,50 @@
+
+********************** Core module *******************************
+
+----- OOP -----
+1.Point
+2.Point3_
+3.Size_
+4.Rect_
+5.RotatedRect
+6.TermCriteria
+7.Matx
+8.Vec
+9.Scalar_
+10.Range
+11.Ptr	
+12.Mat
+13.InputArray
+14.OutputArray
+15.NAryMatIterator
+16.SparseMat
+17.Algorithm
+18.
+
+---- Function ----
+
+********************** imgproc module *******************************
+
+----- OOP -----
+1.BaseColumnFilter
+2.BaseFilter
+3.BaseRowFilter
+4.FilterEngine
+5.
+
+---- Function ----
+1.bilateralFilter
+2.adaptiveBilateralFilter
+3.blur
+4.borderInterpolate
+5.boxFilter
+6.buildPyramid
+7.copyMakeBorder
+8.createBoxFilter
+9.createDerivFilter
+10.createGaussianFilter
+11.createLinearFilter
+12.createMorphologyFilter
+13.createSeparableLinearFilter
+14.dilate
+15.

@@ -1,0 +1,88 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>gaussianblur</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="filter2D.html">&lt;&lt; filter2D</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="getTextSize.html">getTextSize &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Image Processing Toolbox</a> &gt;&gt; <a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a> &gt; gaussianblur</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">gaussianblur</h1>
+
+		<p class="refpurpose">Blurs an image using a Gaussian filter</p></div>
+
+	<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+		<div class="synopsis"><pre><span class="default">output_image</span><span class="default"> = </span><span class="functionid">gaussianblur</span><span class="default">(</span><span class="default">input_image</span><span class="default">,</span><span class="default">int</span> <span class="default">ksize_height</span><span class="default">,</span><span class="default">int</span> <span class="default">ksize_width</span><span class="default">,</span><span class="default">double</span> <span class="default">sigmaX</span><span class="default">,</span><span class="default">double</span> <span class="default">sigmaY</span><span class="default">);</span></pre></div></div>
+	
+	<div class="refsection"><h3 class="title">Arguments</h3>
+		<dl><dt><span class="term">input_image:</span>
+				<dd><p class="para">the image matrix on which blur has to be applied</p></dd></dt>
+			<dt><span class="term">ksize_height:</span>
+				<dd><p class="para">height of gaussian kernel size</p></dd></dt>
+			<dt><span class="term">ksize_width:</span>
+				<dd><p class="para">width of gaussian kernel size</p></dd></dt>
+			<dt><span class="term">sigmaX:</span>
+				<dd><p class="para">Gaussian kernel standard deviation in x-direction</p></dd></dt>
+			<dt><span class="term">sigmaY:</span>
+				<dd><p class="para">Gaussian kernel standard deviation in y-direction</p></dd></dt></dl></div>
+	
+	<div class="refsection"><h3 class="title">Description</h3>
+		<p class="para">The function convolves the source image with the specified Gaussian kernel. In-place filtering is supported</p></div>
+
+	<div class="refsection"><h3 class="title">Example</h3>
+		<div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">a</span> <span class="scilaboperator">=</span> <span class="scilabid">imread</span><span class="scilabopenclose">(</span><span class="scilabstring">&#0034;</span><span class="scilabstring">/home/Pictures/img.jpg</span><span class="scilabstring">&#0034;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabid">gaussianblur</span><span class="scilabopenclose">(</span><span class="scilabid">a</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">imshow</span><span class="scilabopenclose">(</span><span class="scilabid">b</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+	<div class="refsection"><h3 class="title">Authors</h3>
+
+		<ul class="itemizedlist"><li class="member">Sukul Bagai</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="filter2D.html">&lt;&lt; filter2D</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_58976135fe91d2be030b16e4b684f630.html">Image Processing Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="getTextSize.html">getTextSize &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>
