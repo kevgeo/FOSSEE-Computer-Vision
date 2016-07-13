@@ -39,10 +39,14 @@ extern "C"
     CheckInputArgument(pvApiCtx, 4, 4);
     CheckOutputArgument(pvApiCtx, 2, 2);
 
-    
+    InputArray cameraMatrix1, InputArray distCoeffs1, InputArray cameraMatrix2, InputArray distCoeffs2, 
+    Size imageSize, InputArray R, InputArray T, OutputArray R1, OutputArray R2, OutputArray P1, OutputArray P2, 
+    OutputArray Q, 
+    int flags=CALIB_ZERO_DISPARITY, double alpha=-1, Size newImageSize=Size(), Rect* validPixROI1=0, 
+    Rect* validPixROI2=0 
 
     //-> Input
-    Mat points1,points2;
+    Mat cameraMatrix1,cameraMatrix2;
     double width,height; // For Image Size
     Mat F; // Fundamental Matrix
     double threshold;

@@ -22,13 +22,14 @@ extern "C"
   #include <localization.h>
   #include <sciprint.h>
   #include "../common.h"
-  
-  int opencv_stereoRectifyUncalibrated(char *fname, unsigned long fname_len)
+    
+  int opencv_calibrateCamera(char *fname, unsigned long fname_len)
   {
 
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr  = NULL;
     int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
@@ -39,21 +40,39 @@ extern "C"
     CheckInputArgument(pvApiCtx, 4, 4);
     CheckOutputArgument(pvApiCtx, 2, 2);
 
-    InputArray points1, InputArray points2, InputArray F, 
-    Size imgSize, OutputArray H1, OutputArray H2, double threshold=5
-
+   nputArrayOfArrays objectPoints, InputArrayOfArrays imagePoints, Size imageSize, InputOutputArray cameraMatrix, 
+   InputOutputArray distCoeffs, OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs, int flags=0, 
+   TermCriteria criteria=TermCriteria( TermCriteria::COUNT+TermCriteria::EPS, 30, DBL_EPSILON
+    
     //-> Input
-    Mat points1,points2;
+    double *objectpoints = NULL ;
+    double *imagepoints = NULL;
     double width,height; // For Image Size
-    Mat F; // Fundamental Matrix
-    double threshold;
     //-> Output
-    Mat H1,H2; // Homography matrices
+    Mat cameraMatrix;
+    Mat distCoeffs;
+    Vector<Mat> rvecs;
+    Vector<Mat> tvecs;    
 
     //-> Get feature point in first image
-    retrieveImage(points1,1);
+    //retrieveImage(points1,1);
 
-    //-> Get points per row value
+    //-> Get calibration points
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &objectpoints); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    //-> Get image points
     sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
     if (sciErr.iErr)
     {
@@ -61,14 +80,15 @@ extern "C"
         return 0; 
     }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr2, &pts_rows);
-    if(intErr)
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &imagepoints); 
+    if(sciErr.iErr)
     {
-       return intErr;
+        printError(&sciErr, 0);
+        return 0;
     }
 
 
-    //-> Get points per column value
+    //-> Get width value
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
     if (sciErr.iErr)
     {
@@ -76,12 +96,29 @@ extern "C"
         return 0; 
     }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr3, &pts_cols);
+    intErr = getScalarDouble(pvApiCtx, piAddr3, &width);
     if(intErr)
     {
        return intErr;
     }
 
+    //-> Get column value
+    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    intErr = getScalarDouble(pvApiCtx, piAddr4, &height);
+    if(intErr)
+    {
+       return intErr;
+    }
+
+    calibrateCamera
+
+    /*
     //-> Getting flags string
             sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
             if (sciErr.iErr)
@@ -153,6 +190,7 @@ extern "C"
     {
         found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners);
     }
+    */
 
     double found2 = double(found);
 

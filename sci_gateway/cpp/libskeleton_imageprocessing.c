@@ -11,14 +11,18 @@ extern Gatefunc has_frame;
 extern Gatefunc read_frame;
 extern Gatefunc opencv_VideoReader;
 extern Gatefunc opencv_KalmanFilter;
-extern Gatefunc opencv_decomposeProjectionMatrix;
+extern Gatefunc opencv_findChessboardCorners;
+extern Gatefunc opencv_drawChessboardCorners;
+extern Gatefunc opencv_check;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,has_frame,"hasFrame"},
   {(Myinterfun)sci_gateway_without_putlhsvar,read_frame,"readFrame"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_KalmanFilter,"KalmanFilter"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_decomposeProjectionMatrix,"decomposeProjectionMatrix"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_check,"check"},
 };
  
 int C2F(libskeleton_imageprocessing)()

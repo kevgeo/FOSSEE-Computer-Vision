@@ -20,8 +20,8 @@ composeRT
 -convertPointsHomogeneous
 -correctMatches
 -decomposeProjectionMatrix
--drawChessboardCorners
--findChessboardCorners
+-drawChessboardCorners -->
+-findChessboardCorners -->
 -findCirclesGrid
 -solvePnP
 -solvePnPRansac

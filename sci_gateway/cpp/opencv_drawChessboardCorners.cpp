@@ -34,18 +34,19 @@ extern "C"
     int *piAddr4  = NULL;
     int *piAddr5  = NULL;
     int *piAddr6  = NULL;
-    int i,j,k ;
+    //int i,j,k ;
     int *piLen = NULL;
     char **pstData = NULL;  //-> why double pointer?? and what is it
     //checking input argument
-    CheckInputArgument(pvApiCtx, 6, 6);
+    CheckInputArgument(pvApiCtx, 5, 5);
     CheckOutputArgument(pvApiCtx, 1, 1);
 
     //-> Input
     Mat Image;
     double pts_rows,pts_cols; // Points per row and column
-    double *xcoords = NULL;
-    double *ycoords = NULL;
+    double *coords = NULL;
+    //double *xcoords = NULL;
+    //double *ycoords = NULL;
     double patternWasFound; 
     
     //-> Get projection matrix
@@ -80,7 +81,7 @@ extern "C"
        return intErr;
     }
 
-    //-> Get x coordinates of corner
+    //-> Get coordinates of corner
     sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
     if (sciErr.iErr)
     {
@@ -88,14 +89,23 @@ extern "C"
         return 0; 
     }
 
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr4, &iRows, &iCols, &xcoords);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr4, &iRows, &iCols, &coords);
     if(sciErr.iErr)
     {
         printError(&sciErr, 0);
         return 0;
     }   
 
-    //-> Get y coordinates of corner
+    int size = (iRows*iCols)/2;
+    vector<Point2f> corners(size); // To store xcoords and ycoords
+    int j = 0;
+    for(int i=0; i<size; i++)
+    {
+        corners[i].x = coords[j++];
+        corners[i].y = coords[j++];
+    }
+
+    //-> Get value telling whether pattern was found
     sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
     if (sciErr.iErr)
     {
@@ -103,37 +113,7 @@ extern "C"
         return 0; 
     }
 
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr5, &iRows, &iCols, &ycoords);
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0);
-        return 0;
-    }
-
-    //i = 0;
-    /*while(xcoords[i])
-    {
-        i++;
-    }*/
-
-    int size = iRows*iCols;
-    vector<Point2f> corners(size); // To store xcoords and ycoords
-    
-    for(int i=0; i<size; i++)
-    {
-        corners[i].x = xcoords[i];
-        corners[i].y = ycoords[i];
-    }
-
-    //-> Get value telling whether pattern was found
-    sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
-    if (sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    intErr = getScalarDouble(pvApiCtx, piAddr6, &patternWasFound);
+    intErr = getScalarDouble(pvApiCtx, piAddr5, &patternWasFound);
     if(intErr)
     {
        return intErr;

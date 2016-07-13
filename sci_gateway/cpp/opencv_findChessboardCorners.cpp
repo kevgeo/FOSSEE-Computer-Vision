@@ -29,10 +29,10 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr = NULL;
     int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
-    int i,j,k ;
     int *piLen = NULL;
     char **pstData = NULL;  //-> why double pointer?? and what is it
     //checking input argument
@@ -126,32 +126,40 @@ extern "C"
             iCols=0;
             free(piLen);
 
-    if(strcmp(flags,"CV_CALIB_CB_ADAPTIVE_THRESH"))
+    if(strcmp(flags,"CV_CALIB_CB_ADAPTIVE_THRESH") == 0)
     {
         found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_ADAPTIVE_THRESH);
     }
 
-    else if(strcmp(flags,"CV_CALIB_CB_NORMALIZE_IMAGE"))
+    else if(strcmp(flags,"CV_CALIB_CB_NORMALIZE_IMAGE") == 0)
     {
         found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_NORMALIZE_IMAGE);
     }
 
-    else if(strcmp(flags,"CV_CALIB_CB_FILTER_QUADS"))
+    else if(strcmp(flags,"CV_CALIB_CB_FILTER_QUADS") == 0)
     {
         found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_FILTER_QUADS);
     }
 
-    else if(strcmp(flags,"CALIB_CB_FAST_CHECK"))
+    else if(strcmp(flags,"CALIB_CB_FAST_CHECK") == 0)
     {
         found =  findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CALIB_CB_FAST_CHECK);
     }       
 
     else 
     {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners);
+        sciprint("Wrong flag value used. Look at documentation for correct flag names.\n");
+        return 0;
     }
 
+
     double found2 = double(found);
+
+    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, found2);
+    if(intErr)
+    {
+       return intErr;
+    }
 
     //-> X & Y coordinates of detected corners
     double *xcoords;
@@ -169,30 +177,33 @@ extern "C"
         ycoords[i] = corners[i].y;
     }
 
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, coords_size, 1, xcoords); 
+    
+    int size2 = 2*corners.size();
+    int j = 0;
+    double *coords = NULL; // This will be returned as output, having the coordinates
+    coords = (double*)malloc(sizeof(double)*size2);
+    int k = 0;
+    int i = 0;
+    while( j < size2 )
+    {
+        coords[j++] = xcoords[k++];
+        coords[j++] = ycoords[i++];  
+    }
+    
+    
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2 , 2, coords_size, coords); 
     if(sciErr.iErr)
     {
         printError(&sciErr, 0); 
         return 0; 
     }
-
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, coords_size, 1, ycoords); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, found2);
-    if(intErr)
-    {
-       return intErr;
-    }
+    
+    
 
     //-> Returning outputs
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1; 
     AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2;
-    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3; 
+    //AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3; 
     
 
     //-> Returning the Output Variables as arguments to the Scilab environment

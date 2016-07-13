@@ -94,10 +94,11 @@ names = [
 	   //"solvePnP","opencv_solvePnP";
 	   //"solvePnPRansac","opencv_solvePnPRansac";
 	   //"findCirclesGrid","opencv_findCirclesGrid";
-	   "decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
+	   //->"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
-	   //"findChessboardCorners","opencv_findChessboardCorners";
-	   //"drawChessboardCorners","opencv_drawChessboardCorners";
+	   "findChessboardCorners","opencv_findChessboardCorners";
+	   "drawChessboardCorners","opencv_drawChessboardCorners";
+	    "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
             //"imfindcircles", "opencv_imfindcircles";
@@ -198,10 +199,11 @@ files = [
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
 	  //"opencv_findCirclesGrid.cpp",
-	  "opencv_decomposeProjectionMatrix.cpp"
+	  //->"opencv_decomposeProjectionMatrix.cpp"
 	  //"opencv_RQDecomp3x3.cpp",
-	  //"opencv_findChessboardCorners.cpp",
-	  //"opencv_drawChessboardCorners.cpp"
+	  "opencv_findChessboardCorners.cpp",
+	  "opencv_drawChessboardCorners.cpp",
+	  "opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",
             //"opencv_imfindcircles.cpp",
