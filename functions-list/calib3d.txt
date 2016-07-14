@@ -17,12 +17,11 @@ composeRT
 -computeCorrespondEpilines
 -convertPointsToHomogeneous
 -convertPointsFromHomogeneous
--convertPointsHomogeneous
 -correctMatches
 -decomposeProjectionMatrix
 -drawChessboardCorners -->
 -findChessboardCorners -->
--findCirclesGrid
+-findCirclesGrid -->
 -solvePnP
 -solvePnPRansac
 -findFundamentalMat

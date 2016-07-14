@@ -22,7 +22,7 @@ composeRT
 -decomposeProjectionMatrix
 -drawChessboardCorners -->
 -findChessboardCorners -->
--findCirclesGrid
+-findCirclesGrid -->
 -solvePnP
 -solvePnPRansac
 -findFundamentalMat
@@ -38,7 +38,7 @@ initCameraMatrix2D
 -Rodrigues
 stereoCalibrate
 stereoRectify
-stereoRectifyUncalibrated
+
 
 
 

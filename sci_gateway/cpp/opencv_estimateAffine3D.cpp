@@ -29,22 +29,50 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr  = NULL;
+    int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
-    int i,j,k ;
+    //int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 4, 4);
     CheckOutputArgument(pvApiCtx, 2, 2) ;
 
-    Mat src,dst;
-    Mat out,inliers;
+    double *first = NULL;
+    double *second = NULL;
+    Mat out(3,4,CV_64F);
+    vector<uchar> inliers;
     double ransacThreshold,confidence;
 
     //-> Get first input 3d point set
-    retrieveImage(src,1);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &first);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
     //-> Get second input 3d point set
-    retrieveImage(dst,2);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &second);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
     //-> Get ransacThreshold value
     sciErr = getVarAddressFromPosition(pvApiCtx,3,&piAddr3);
@@ -80,28 +108,66 @@ extern "C"
         return 0; 
     }   
 
+    int size = (iRows*iCols)/3;
+    //-> Stroing x,y,z coordinates
+    vector<Point3f> src(size);
+    vector<Point3f> dst(size);
+
+    int j = 0;
+    for(int i=0; i<size; i++)
+    {
+        src[i].x = first[j++];
+        src[i].y = first[j++];
+        src[i].z = first[j++];
+    }
+
+    j = 0;
+    for(int i=0; i<size; i++)
+    {
+        dst[i].x = second[j++];
+        dst[i].y = second[j++];
+        dst[i].z = second[j++];
+    }
+
     //-> Calling estimateAffine3D function
     int ret = estimateAffine3D(src, dst, out, inliers, ransacThreshold, confidence);
     
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(out.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,out,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
+    double *aff = NULL; // affine transformation matrix
+    aff = (double*)malloc(sizeof(double)*3*4);
+    int k = 0;
+    for(int i = 0; i<3; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            aff[k++] = out.at<double>(i,j);
+        }
+    }
+
+    int size2 = inliers.size(); // number of inlier points
+    double *inlier_pts = NULL;
+    inlier_pts = (double*)malloc(sizeof(double)*size2);
+    k = 0; // index for inlier_pts
+    for(int i=0; i<size2; i++)
+    {
+        inlier_pts[k++] = inliers[i];
+    }
+
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , 3, 4, aff); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(inliers.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,inliers,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-
-    //Assigning the list as the Output Variable
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, size2, 1, inlier_pts); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    
     AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
 
     //Returning the Output Variables as arguments to the Scilab environment

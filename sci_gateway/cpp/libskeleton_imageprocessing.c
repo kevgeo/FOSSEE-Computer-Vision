@@ -11,6 +11,10 @@ extern Gatefunc has_frame;
 extern Gatefunc read_frame;
 extern Gatefunc opencv_VideoReader;
 extern Gatefunc opencv_KalmanFilter;
+extern Gatefunc opencv_convertPointsToHomogeneous;
+extern Gatefunc opencv_convertPointsFromHomogeneous;
+extern Gatefunc opencv_estimateAffine3D;
+extern Gatefunc opencv_findCirclesGrid;
 extern Gatefunc opencv_findChessboardCorners;
 extern Gatefunc opencv_drawChessboardCorners;
 extern Gatefunc opencv_check;
@@ -20,6 +24,10 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,read_frame,"readFrame"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_KalmanFilter,"KalmanFilter"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_estimateAffine3D,"estimateAffine3D"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_check,"check"},

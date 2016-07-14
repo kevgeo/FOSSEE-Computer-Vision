@@ -2,7 +2,7 @@
 <!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN" "http://java.sun.com/products/javahelp/toc_1_0.dtd">
 <toc version="1.0">
 <tocitem target="index" text="Image Processing Toolbox">
-<tocitem target="section_58976135fe91d2be030b16e4b684f630" text="Image Processing Toolbox">
+<tocitem target="section_03bab810058a518184ac4053f7082711" text="Image Processing Toolbox">
 <tocitem target="blur" text="blur"/>
 <tocitem target="canny" text="canny"/>
 <tocitem target="cornerEigenValAndVecs" text="cornerEigenValsAndVecs"/>
