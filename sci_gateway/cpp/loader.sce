@@ -17,6 +17,7 @@ list_functions = [ 'imread';
                    'KalmanFilter';
                    'convertPointsToHomogeneous';
                    'convertPointsFromHomogeneous';
+                   'matMulDeriv';
                    'estimateAffine3D';
                    'initCameraMatrix2D';
                    'findCirclesGrid';

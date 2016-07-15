@@ -13,6 +13,7 @@ extern Gatefunc opencv_VideoReader;
 extern Gatefunc opencv_KalmanFilter;
 extern Gatefunc opencv_convertPointsToHomogeneous;
 extern Gatefunc opencv_convertPointsFromHomogeneous;
+extern Gatefunc opencv_matMulDeriv;
 extern Gatefunc opencv_estimateAffine3D;
 extern Gatefunc opencv_initCameraMatrix2D;
 extern Gatefunc opencv_findCirclesGrid;
@@ -27,6 +28,7 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_KalmanFilter,"KalmanFilter"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_matMulDeriv,"matMulDeriv"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_estimateAffine3D,"estimateAffine3D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_initCameraMatrix2D,"initCameraMatrix2D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},

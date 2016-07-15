@@ -38,38 +38,116 @@ extern "C"
     CheckInputArgument(pvApiCtx, 2, 2);
     CheckOutputArgument(pvApiCtx, 2, 2) ;
 
-    Mat A,B;
-    Mat dABdA,dABdB;
+    //-> Input
+    double *matrix1;
+    double *matrix2;
 
-    //-> Get first multiplied matrix
-    retrieveImage(A,1);
+    //-> Get first matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get second multiplied matrix
-    retrieveImage(B,2);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &matrix1);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
+    int rows1 = iRows;
+    int cols1 = iCols;
+
+    //-> Get second matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &matrix2);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+         return 0;
+    }   
+
+    int rows2 = iRows;
+    int cols2 = iCols;
     
+    if( cols1 != rows2 )
+    {
+        sciprint("Make sure that the dimensions of both matrices meets the property of matrix multiplication");
+        return 0;
+    }
+
+
+    Mat A(rows1,cols1,CV_32F);
+    Mat B(rows2,cols2,CV_32F);
+    
+    k = 0;
+    for(int i=0; i<rows1; i++)
+    {
+        for(int j=0; j<cols1; j++)
+            A.at<double>(i,j) = matrix1[k++];
+    }
+
+    k = 0;
+    for(int i=0; i<rows2; i++)
+    {
+        for(int j=0; j<cols2; j++)
+            B.at<double>(i,j) = matrix2[k++];
+    }
+
+    Mat dABdA,dABdB;
+ 
     //-> Calling filterSpeckles function
     matMulDeriv(A, B, dABdA, dABdB );
     
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(dABdA.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,dABdA,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    double *output1 = NULL;
+    output1 = (double*)malloc(sizeof(double)*rows1*cols2);
+    double *output2 = NULL;
+    output2 = (double*)malloc(sizeof(double)*rows1*cols2);
+
+    k = 0;
+    //-> First output derivative matrix
+    for(int i=0; i<rows1; i++)
+    {
+        for(int j=0; j<cols2; j++)
+            output1[k++] = dABdA.at<double>(i,j);
+    }
+
+    k = 0;
+    //-> Second output derivative matrix
+    for(int i=0; i<rows1; i++)
+    {
+        for(int j=0; j<cols2; j++)
+            output2[k++] = dABdB.at<double>(i,j);
+    }
+
+  sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , rows1, cols2, output1); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2 , rows1, cols2, output2); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    
+   
+    
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(dABdB.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,dABdB,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-
-    //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
 
     //Returning the Output Variables as arguments to the Scilab environment

@@ -83,7 +83,7 @@ names = [
 	   //"findFundamentalMat","opencv_findFundamentalMat";
 	   //"findHomography","opencv_findHomography";
 	   //"filterSpeckles","opencv_filterSpeckles";
-	   //"matMulDeriv","opencv_matMulDeriv";
+	   "matMulDeriv","opencv_matMulDeriv";
 	   "estimateAffine3D","opencv_estimateAffine3D";
 	   //"Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
@@ -187,7 +187,7 @@ files = [
 	  //"opencv_findFundamentalMat.cpp",
 	  //"opencv_findHomography.cpp",
 	  //"opencv_filterSpeckles.cpp",
-	  //"opencv_matMulDeriv.cpp",
+	  "opencv_matMulDeriv.cpp",
 	  "opencv_estimateAffine3D.cpp",
 	  //"opencv_Rodrigues.cpp",
 	  //"opencv_reprojectImageTo3D.cpp",
