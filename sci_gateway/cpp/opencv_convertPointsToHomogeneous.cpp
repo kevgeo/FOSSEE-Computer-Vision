@@ -31,34 +31,56 @@ extern "C"
     int intErr = 0;
     int iRows=0,iCols=0;
     int *piAddr = NULL;
-    int *piAddrNew = NULL;
-    int *piAddr2  = NULL;
-    int *piAddr3  = NULL;
-    int *piAddr4  = NULL;
-    int i,j,k ;
-    double *pstData = NULL;
-    double *rectdata = NULL;
-    double groupThreshold, eps;
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-     //-> Get first image 
-    Mat inImage, outImage;
-    retrieveImage(inImage,1);
+    double *input = NULL;
+    //-> Get points
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &input);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    int size = (iRows*iCols)/2;
+    vector<Point2f> src(size);
+    int j = 0;
+    for(int i = 0; i<size; i++)
+    {
+        src[i].x = input[j++];
+        src[i].y = input[j++];
+    }
+
+    vector<Point3f> dst;
     //-> Calling convertPointsToHomogeneous function
-    convertPointsToHomogeneous(inImage, outImage);
-
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(outImage.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,outImage,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-
+    convertPointsToHomogeneous(src, dst);
+    
+    double *output = NULL;
+    output = (double*)malloc(sizeof(double)*size);
+    j = 0;
+    for(int i=0; i<size; i++)
+    {
+        output[j++] = dst[i].x;
+        output[j++] = dst[i].y;
+        output[j++] = dst[i].z;
+    }
  
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 3, size, output); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     //Returning the Output Variables as arguments to the Scilab environment

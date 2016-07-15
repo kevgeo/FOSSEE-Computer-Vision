@@ -34,22 +34,28 @@ extern "C"
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
     int *piAddr5  = NULL;
+    int *piAddr6  = NULL;
+     int *piAddrChild = NULL;
+    int iPrec = 0,iItem = 0;
     int i,j,k ;
     //checking input argument
-    CheckInputArgument(pvApiCtx, 5, 5);
-    CheckOutputArgument(pvApiCtx, 1, 1) ;
+    CheckInputArgument(pvApiCtx, 6, 6);
+    CheckOutputArgument(pvApiCtx, 2, 2) ;
 
     double *objectPoints = NULL;
     double *imagePoints = NULL;
+    double list_size;
     double width,height; //For image size
     double aspectRatio;
     int size1_r,size1_c;
     int size2_r,size2_c;
     Mat npoints; //output
 
+    vector<vector<Point2f> > imPts;
+    vector<vector<Point3f> > obPts;
+    int Rows,Cols;
 
-    nputArrayOfArrays objectPoints, InputArrayOfArrays imagePoints, Size imageSize, double aspectRatio=1
-    //-> Get calibration pattern points 
+    //-> Get list size 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
     if (sciErr.iErr)
     {
@@ -57,53 +63,115 @@ extern "C"
         return 0; 
     }
 
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &objectPoints); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0);
-        return 0;
-    }
-
-    size1_r = iRows;
-    size1_c = iCols;
-    iRows = 0;
-    iCols = 0;
-
-    //-> Get projections of the calibration pattern points 
-    sciErr = getVarAddressFromPosition(pvApiCtx,2,&piAddr2);
-    if (sciErr.iErr)
-    {
-        printError(&sciErr, 0);
-        return 0;
-    }
-    
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &imagePoints); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0);
-        return 0;
-    } 
-
-    size2_r = iRows;
-    size2_c = iCols;
-    iRows = 0;
-    iCols = 0;
-
-    //-> Get width 
-    sciErr = getVarAddressFromPosition(pvApiCtx,3,&piAddr3);
-    if (sciErr.iErr)
-    {
-        printError(&sciErr, 0);
-        return 0;
-    }
-    
-    intErr = getScalarDouble(pvApiCtx, piAddr3, &width);
+    intErr = getScalarDouble(pvApiCtx, piAddr, &list_size);
     if(intErr)
     {
        return intErr;
     }
 
-    //-> Get height
+    /*//retrieving number of items in the list and type of data(integer/float)
+    sciErr = getVarAddressFromPosition(pvApiCtx,2,&piAddr);
+    if(sciErr.iErr)   
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+    sciErr = getListItemAddress(pvApiCtx,piAddr,1,&piAddrChild);
+    if(sciErr.iErr)   
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+    sciErr = getListItemNumber(pvApiCtx,piAddr,&iItem);
+    if(sciErr.iErr)   
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    */
+    for(int idx=1; idx<=list_size; idx++)
+    {
+        //-> Get calibration pattern points 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+
+        sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddr2, idx, &iRows, &iCols ,&objectPoints);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        int size = (iRows*iCols)/3;
+        Rows = iRows;
+        Cols = iCols;
+        vector<Point3f> values2(size);
+        sciprint("\nValue was added\n");
+
+        j = 0;
+        for(int i=0; i<size; i++)
+        {
+            values2[i].x = objectPoints[j++];
+            values2[i].y = objectPoints[j++];
+            values2[i].z = objectPoints[j++];
+        }
+
+        obPts.push_back(values2);
+    }
+
+  /*  sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &objectPoints); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+    */
+    
+
+    
+    for(int idx=1; idx<=list_size; idx++)
+    {
+        //-> Get projections of the calibration pattern points 
+        sciErr = getVarAddressFromPosition(pvApiCtx,3,&piAddr3);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddr3, idx, &iRows, &iCols ,&imagePoints);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        int size = (iRows*iCols)/2;
+        vector<Point2f> values1(size);
+
+        j = 0;
+        for(int i=0; i<size; i++)
+        {
+            values1[i].x = imagePoints[j++];
+            values1[i].y = imagePoints[j++];
+        }
+
+        imPts.push_back(values1);
+    }
+
+
+    /*sciErr = getMatrixOfDouble(pvApiCtx, piAddr3, &iRows, &iCols, &imagePoints); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    } 
+    */
+    
+    //-> Get width 
     sciErr = getVarAddressFromPosition(pvApiCtx,4,&piAddr4);
     if (sciErr.iErr)
     {
@@ -111,13 +179,13 @@ extern "C"
         return 0;
     }
     
-    intErr = getScalarDouble(pvApiCtx, piAddr4, &height);
+    intErr = getScalarDouble(pvApiCtx, piAddr4, &width);
     if(intErr)
     {
        return intErr;
     }
 
-    //-> Get aspectRatio
+    //-> Get height
     sciErr = getVarAddressFromPosition(pvApiCtx,5,&piAddr5);
     if (sciErr.iErr)
     {
@@ -125,48 +193,61 @@ extern "C"
         return 0;
     }
     
-    intErr = getScalarDouble(pvApiCtx, piAddr5, &aspectRatio);
+    intErr = getScalarDouble(pvApiCtx, piAddr5, &height);
     if(intErr)
     {
        return intErr;
     }
 
-    vector< vector<Point> > calib_points(size1_r, size1_c);
-    vector< vector<Point> > projections(size2_r,  size2_c);
-
-    for(int i=0; i<size1_r;i++)
+    //-> Get aspectRatio
+    sciErr = getVarAddressFromPosition(pvApiCtx,6,&piAddr6);
+    if (sciErr.iErr)
     {
-        for(int j=0; i<size1_c;j++)
-        {
-            calib_points[i][j] = Point(3,4);
-            //Point(objectPoints[i+j]);
-        }   
+        printError(&sciErr, 0);
+        return 0;
+    }
+    
+    intErr = getScalarDouble(pvApiCtx, piAddr6, &aspectRatio);
+    if(intErr)
+    {
+       return intErr;
     }
 
-    for(int i=0; i<size2_r;i++)
-    {
-        for(int j=0; i<size2_c;j++)
-        {
-            projections[i][j] = Point(4,3);
-            //Point(imagePoints[i+j]);
-        }   
-    }
+
 
     //-> Calling initCameraMatrix2D function
-    npoints = initCameraMatrix2D(calib_points, projections, Size(width,height), aspectRatio);
+    Mat cameraMatrix = initCameraMatrix2D(obPts, imPts, Size(width,height), aspectRatio);
+
     
+    double *output = NULL;
+    output = (double*)malloc(sizeof(double)*9);
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(npoints.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,npoints,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    k = 0;
+    for(int i=0; i<3;i++)
+    {
+        for(int j=0; j<3;j++)
+        {
+            output[k++] = cameraMatrix.at<double>(i,j);
+        }
+    }
 
- 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , 3, 3, output); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2 , Rows, Cols, objectPoints); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx); 
     return 0;

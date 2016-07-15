@@ -18,6 +18,7 @@ list_functions = [ 'imread';
                    'convertPointsToHomogeneous';
                    'convertPointsFromHomogeneous';
                    'estimateAffine3D';
+                   'initCameraMatrix2D';
                    'findCirclesGrid';
                    'findChessboardCorners';
                    'drawChessboardCorners';

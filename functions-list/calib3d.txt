@@ -15,8 +15,8 @@ calibrateCamera
 calibrationMatrixValues
 composeRT
 -computeCorrespondEpilines
--convertPointsToHomogeneous
--convertPointsFromHomogeneous
+-convertPointsToHomogeneous -->
+-convertPointsFromHomogeneous -->
 -correctMatches
 -decomposeProjectionMatrix
 -drawChessboardCorners -->
@@ -26,7 +26,7 @@ composeRT
 -solvePnPRansac
 -findFundamentalMat
 -findHomography
--estimateAffine3D
+-estimateAffine3D -->
 -filterSpeckles
 -getOptimalNewCameraMatrix
 initCameraMatrix2D
