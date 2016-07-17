@@ -31,31 +31,128 @@ extern "C"
     int intErr = 0;
     int iRows=0,iCols=0;
     int *piAddr  = NULL;
+    int *piAddr2  = NULL;
+    int *piAddr3  = NULL;
+    int *piAddr4  = NULL;
     int *piAddr5  = NULL;
+    int *piAddr6  = NULL;
+    int *piAddr7  = NULL;
     int i,j,k ;
     int *piLen = NULL;
     char **pstData = NULL;  //-> why double pointer?? and what is it
-    
+    double list_size;
     //checking input argument
     CheckInputArgument(pvApiCtx, 6, 6);
     CheckOutputArgument(pvApiCtx, 2, 2) ;
 
-    Mat objectPoints, imagePoints, cameraMatrix, distCoeffs;
+    double *objectPoints = NULL; 
+    double *imagePoints = NULL; 
+    double *cameraMatrix = NULL;
+    double *distCoeffs = NULL;
     double useExtrinsicGuess;
     char *flags = NULL; //-> Stores current string representing 'name' of name,value pair arguments
-    Mat rvec,tvec; //output
+    
+    //output
+    Mat rvec(3,1,cv::DataType<double>::type);
+    Mat tvec(3,1,cv::DataType<double>::type);
 
-    //-> Get array of object points
-    retrieveImage(objectPoints,1);
+    int Rows,Cols;
+    
+    //-> Get object points
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get array of corresponding image points
-    retrieveImage(imagePoints,2);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &objectPoints);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+
+    int size = (iRows*iCols)/3;
+    vector<Point3f> obPts(size);
+    k = 0;
+    for(int i=0; i<size; i++)
+    {
+        obPts[i].x = objectPoints[k++];
+        obPts[i].y = objectPoints[k++];
+        obPts[i].z = objectPoints[k++];
+    }
+
+     //-> Get image points
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &imagePoints);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+
+    int size2 = (iRows*iCols)/2;
+    vector<Point2f> imPts(size2);    
+    k = 0;
+    for(int i=0; i<size; i++)
+    {
+        imPts[i].x = imagePoints[k++];
+        imPts[i].y = imagePoints[k++];
+    }
+
 
     //-> Get camera matrix
-    retrieveImage(cameraMatrix,3);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get vector of distortion coefficients
-    retrieveImage(distCoeffs,4);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr3, &iRows, &iCols, &cameraMatrix);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+
+    Mat cameramatrix(3,3,CV_32F);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            cameramatrix.at<double>(i,j) = cameraMatrix[i+j*3];
+        }
+    }
+
+    //-> Get distortion coefficients
+    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr4, &iRows, &iCols, &distCoeffs);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    Mat distortioncoeffs(iRows,1,DataType<double>::type);
+
+    for(int i=0; i<iRows; i++)
+    {
+        distortioncoeffs.at<double>(i,0) = distCoeffs[i]; 
+    }
 
     //-> Get useExtrinsicGuess value
     sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
@@ -72,7 +169,7 @@ extern "C"
     }
     
     //-> Getting flags string
-            sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr); 
+            sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
             if (sciErr.iErr)
             {
                 printError(&sciErr, 0); 
@@ -81,7 +178,7 @@ extern "C"
 
             //-> Extracting name of next argument takes three calls to getMatrixOfString
             //-> First call to get rows and columns
-            sciErr = getMatrixOfString(pvApiCtx, piAddr, &iRows, &iCols, NULL, NULL); 
+            sciErr = getMatrixOfString(pvApiCtx, piAddr6, &iRows, &iCols, NULL, NULL); 
             if (sciErr.iErr)
             {
                 printError(&sciErr, 0); 
@@ -91,7 +188,7 @@ extern "C"
             piLen = (int*) malloc(sizeof(int) * iRows * iCols);
 
             //-> Second call to retrieve length of each string
-            sciErr = getMatrixOfString(pvApiCtx,  piAddr,  &iRows,  &iCols,  piLen,  NULL); 
+            sciErr = getMatrixOfString(pvApiCtx,  piAddr6,  &iRows,  &iCols,  piLen,  NULL); 
             if (sciErr.iErr)
             {
                 printError(&sciErr, 0); 
@@ -105,7 +202,7 @@ extern "C"
             }
 
             //-> Third call to retrieve data
-            sciErr = getMatrixOfString(pvApiCtx, piAddr, &iRows, &iCols, piLen, pstData); 
+            sciErr = getMatrixOfString(pvApiCtx, piAddr6, &iRows, &iCols, piLen, pstData); 
             if (sciErr.iErr)
             {
                 printError(&sciErr, 0); 
@@ -118,63 +215,76 @@ extern "C"
             iCols=0;
             free(piLen);
 
+    bool ret;
     //-> Calling solvePnP function
     if(useExtrinsicGuess == 0)
     {
-        if(strcmp (flags,"CV_ITERATIVE") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        if(strcmp (flags,"CV_ITERATIVE") == 0 )
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,false,CV_ITERATIVE);
         }
 
-        else if(strcmp (flags,"CV_P3P") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        else if(strcmp (flags,"CV_P3P") == 0)
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,false,CV_P3P);
         }
 
-        else if(strcmp (flags,"CV_EPNP") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        else if(strcmp (flags,"CV_EPNP") == 0)
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,false,CV_EPNP);
         }   
     }
 
     else if(useExtrinsicGuess == 1)
     {
-        if(strcmp (flags,"CV_ITERATIVE") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        if(strcmp (flags,"CV_ITERATIVE") == 0)
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,true,CV_ITERATIVE);
         }
 
-        else if(strcmp (flags,"CV_P3P") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        else if(strcmp (flags,"CV_P3P") == 0)
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,true,CV_P3P);
         }
 
-        else if(strcmp (flags,"CV_EPNP") )
-        {   bool ret = solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs
+        else if(strcmp (flags,"CV_EPNP") == 0)
+        {   ret = solvePnP(obPts, imPts, cameramatrix, distortioncoeffs
                         ,rvec,tvec,true,CV_EPNP);
         } 
     
     }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(rvec.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,rvec,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    double *output1 = NULL; 
+    output1 = (double*)malloc(sizeof(double)*3);
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(tvec.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,tvec,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    for(int i=0; i<3; i++)
+    {
+        output1[i] = rvec.at<double>(i);
+    }
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , 3, 1, output1); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
+
+    double *output2 = NULL; 
+    output2 = (double*)malloc(sizeof(double)*3);
+
+    for(int i=0; i<3; i++)
+    {
+        output2[i] = tvec.at<double>(i);
+    }
+
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2 , 3, 1, output2); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2; 
 
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx);

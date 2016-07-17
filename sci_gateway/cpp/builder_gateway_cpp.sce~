@@ -76,28 +76,29 @@ names = [
 	    //"drawKeypoints","opencv_drawKeypoints";
 	    //"drawMatches","opencv_drawMatches";
 	    //"groupRectangles","opencv_groupRectangles";
-	   "convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
-	   "convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
+	   //"convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
+	   //"convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
 	   //"correctMatches","opencv_correctMatches";
 	   //"computeCorrespondEpilines","opencv_computeCorrespondEpilines";
 	   //"findFundamentalMat","opencv_findFundamentalMat";
 	   //"findHomography","opencv_findHomography";
-	   //"filterSpeckles","opencv_filterSpeckles";
-	   "matMulDeriv","opencv_matMulDeriv";
-	   "estimateAffine3D","opencv_estimateAffine3D";
-	   //"Rodrigues","opencv_Rodrigues";
-	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
+	   "filterSpeckles","opencv_filterSpeckles";
+	   //"matMulDeriv","opencv_matMulDeriv";
+	   //"estimateAffine3D","opencv_estimateAffine3D";
+	   "Rodrigues","opencv_Rodrigues";
+	   "reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptimalNewCameraMatrix","opencv_getOptimalNewCameraMatrix";
 	   //"projectPoints","opencv_projectPoints";
-	   "initCameraMatrix2D","opencv_initCameraMatrix2D";
+	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
 	   //"solvePnP","opencv_solvePnP";
 	   //"solvePnPRansac","opencv_solvePnPRansac";
-	   "findCirclesGrid","opencv_findCirclesGrid";
-	   //->"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
-           //"RQDecomp3x3","opencv_RQDecomp3x3";
-	   "findChessboardCorners","opencv_findChessboardCorners";
-	   "drawChessboardCorners","opencv_drawChessboardCorners";
-	    "check","opencv_check";
+	   //"findCirclesGrid","opencv_findCirclesGrid";
+	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
+           "RQDecomp3x3","opencv_RQDecomp3x3";
+	   "composeRT","opencv_composeRT";
+	   //"findChessboardCorners","opencv_findChessboardCorners";
+	   //"drawChessboardCorners","opencv_drawChessboardCorners";
+	   // "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
             //"imfindcircles", "opencv_imfindcircles";
@@ -180,28 +181,29 @@ files = [
 	  //"opencv_drawKeypoints.cpp",
 	  //"opencv_drawMatches.cpp",
 	  //"opencv_groupRectangles.cpp",
-	  "opencv_convertPointsToHomogeneous.cpp",
-	  "opencv_convertPointsFromHomogeneous.cpp",
+	  //"opencv_convertPointsToHomogeneous.cpp",
+	  //"opencv_convertPointsFromHomogeneous.cpp",
 	  //"opencv_correctMatches.cpp",
 	  //"opencv_computeCorrespondEpilines.cpp",
 	  //"opencv_findFundamentalMat.cpp",
 	  //"opencv_findHomography.cpp",
-	  //"opencv_filterSpeckles.cpp",
-	  "opencv_matMulDeriv.cpp",
-	  "opencv_estimateAffine3D.cpp",
-	  //"opencv_Rodrigues.cpp",
-	  //"opencv_reprojectImageTo3D.cpp",
+	  "opencv_filterSpeckles.cpp",
+	  //"opencv_matMulDeriv.cpp",
+	  //"opencv_estimateAffine3D.cpp",
+	  "opencv_Rodrigues.cpp",
+	  "opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptimalNewCameraMatrix.cpp",
 	  //"opencv_projectPoints.cpp",
-	  "opencv_initCameraMatrix2D.cpp",
+	  //"opencv_initCameraMatrix2D.cpp",
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
-	  "opencv_findCirclesGrid.cpp",
-	  //->"opencv_decomposeProjectionMatrix.cpp"
-	  //"opencv_RQDecomp3x3.cpp",
-	  "opencv_findChessboardCorners.cpp",
-	  "opencv_drawChessboardCorners.cpp",
-	  "opencv_check.cpp"
+	  //"opencv_findCirclesGrid.cpp",
+	  //"opencv_decomposeProjectionMatrix.cpp"
+	  "opencv_RQDecomp3x3.cpp",
+	  "opencv_composeRT.cpp"
+	  //"opencv_findChessboardCorners.cpp",
+	  //"opencv_drawChessboardCorners.cpp",
+	  //"opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",
             //"opencv_imfindcircles.cpp",

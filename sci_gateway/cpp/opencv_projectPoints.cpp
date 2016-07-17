@@ -29,34 +29,136 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr  = NULL;
+    int *piAddr2  = NULL;
+    int *piAddr3  = NULL;
+    int *piAddr4  = NULL;
+    int *piAddr5  = NULL;
     int *piAddr6  = NULL;
     int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 6, 6);
-    CheckOutputArgument(pvApiCtx, 2, 2) ;
+    CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-    Mat objectPoints, rvec, tvec, cameraMatrix, distCoeffs;
-    Mat imagePoints, jacobian;
+    //-> Input
+    double *objectPoints = NULL; 
+    double *rvec = NULL;
+    double *tvec = NULL; 
+    double *cameraMatrix = NULL;
+    double *distCoeffs = NULL;
     double aspectRatio;
     int num_InputArgs;
 
-    //->get number of arguments entered
-    num_InputArgs = *getNbInputArgument(pvApiCtx);
-    
-    //-> Get array of object points
-    retrieveImage(objectPoints,1);
+    //-> Get object points
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get rotation vector values
-    retrieveImage(rvec,2);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &objectPoints);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    } 
 
-    //-> Get translation vector values
-    retrieveImage(tvec,3);
 
-    //-> Get camera matrix values
-    retrieveImage(cameraMatrix,4);
+    int size = (iRows*iCols)/3;
+    vector<Point3f> obPts(size);
+    k = 0;
+    for(int i=0; i<size; i++)
+    {
+        obPts[i].x = objectPoints[k++];
+        obPts[i].y = objectPoints[k++];
+        obPts[i].z = objectPoints[k++];
+    }
 
-    //-> Get vector of distortion coefficients
-    retrieveImage(distCoeffs,5);
+    //-> Get rotation vector
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &rvec);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    } 
+
+    Mat Rvec(3,1,cv::DataType<double>::type);
+    for(int i=0; i<3; i++)
+        Rvec.at<double>(i) = rvec[i];
+
+    //-> Get translation vector
+    sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr3, &iRows, &iCols, &tvec);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    } 
+
+    Mat Tvec(3,1,cv::DataType<double>::type);
+    for(int i=0; i<3; i++)
+        Tvec.at<double>(i) = tvec[i]; 
+
+    //-> Get camera matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr4, &iRows, &iCols, &cameraMatrix);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+
+    Mat cameramatrix(3,3,CV_32F);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            cameramatrix.at<double>(i,j) = cameraMatrix[i+j*3];
+        }
+    }
+
+    //-> Get distortion coefficients
+    sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr5, &iRows, &iCols, &distCoeffs);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    Mat distortioncoeffs(iRows,1,DataType<double>::type);
+
+    for(int i=0; i<iRows; i++)
+    {
+        distortioncoeffs.at<double>(i) = distCoeffs[i]; 
+    }
+
 
     //-> Get aspect ratio value
     sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
@@ -72,30 +174,32 @@ extern "C"
        return intErr;
     }    
 
+    Mat jacobian;
+    vector<Point2f> imagePoints;
     // Calling projectPoints function
-    projectPoints(objectPoints,rvec,tvec,cameraMatrix,distCoeffs,imagePoints,jacobian,aspectRatio);
+    projectPoints(obPts,Rvec,Tvec,cameramatrix,distortioncoeffs,imagePoints,jacobian,aspectRatio);
+
+    size = imagePoints.size();
+    double *output = NULL;
+    output = (double*)malloc(sizeof(double)*size*2);
+
+    j = 0;
+    //Storing x and y coordinates
+    for(int i=0; i<size; i++)
+    {
+        output[j++] = imagePoints[i].x;
+        output[j++] = imagePoints[i].y;
+    }
     
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 2, size, output); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(imagePoints.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,imagePoints,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(jacobian.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,jacobian,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
-
+   
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;    
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx);
     return 0;

@@ -28,40 +28,91 @@ extern "C"
 
     SciErr sciErr;
     int intErr = 0;
+    int *piAddr = NULL;
     int iRows=0,iCols=0;
     int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 2, 2) ;
 
-    Mat src,dst,jacobian;
+     
+    //-> Input
+    double *src = NULL;
+
+    //-> Output
+    Mat dstMatrix,jacobianMatrix;
 
     //-> Get the input rotation vector
-    retrieveImage(src,1);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &src);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    Mat srcMatrix(iRows,iCols,DataType<double>::type);
+    for(int i=0; i<iRows; i++)
+    {
+        for(int j=0; j<iCols; j++)
+        {
+            srcMatrix.at<double>(i,j) = src[i+j*iRows];
+        }
+    }
+    
     
     //-> Calling Rodrigues function
-    Rodrigues(src, dst, jacobian);
+    Rodrigues(srcMatrix, dstMatrix, jacobianMatrix);
     
+    iRows = dstMatrix.rows;
+    iCols = dstMatrix.cols;
+    
+    double *dst = NULL;
+    dst = (double*)malloc(sizeof(double)*iRows*iCols);
+    for(int i=0; i<iRows; i++)
+    {
+        for(int j=0; j<iCols; j++)
+        {
+            dst[i+j*iRows] = dstMatrix.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(dst.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,dst,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, iRows, iCols, dst); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(jacobian.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,jacobian,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    iRows = jacobianMatrix.rows;
+    iCols = jacobianMatrix.cols;
+    
+    double *jacobian = NULL;
+    jacobian = (double*)malloc(sizeof(double)*iRows*iCols);
+    for(int i=0; i<iRows; i++)
+    {
+        for(int j=0; j<iCols; j++)
+        {
+            jacobian[i+j*iRows] = jacobianMatrix.at<double>(i,j);
+        }
+    }
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, iRows, iCols, jacobian); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2;
 
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx); 

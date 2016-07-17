@@ -11,30 +11,22 @@ extern Gatefunc has_frame;
 extern Gatefunc read_frame;
 extern Gatefunc opencv_VideoReader;
 extern Gatefunc opencv_KalmanFilter;
-extern Gatefunc opencv_convertPointsToHomogeneous;
-extern Gatefunc opencv_convertPointsFromHomogeneous;
-extern Gatefunc opencv_matMulDeriv;
-extern Gatefunc opencv_estimateAffine3D;
-extern Gatefunc opencv_initCameraMatrix2D;
-extern Gatefunc opencv_findCirclesGrid;
-extern Gatefunc opencv_findChessboardCorners;
-extern Gatefunc opencv_drawChessboardCorners;
-extern Gatefunc opencv_check;
+extern Gatefunc opencv_filterSpeckles;
+extern Gatefunc opencv_Rodrigues;
+extern Gatefunc opencv_reprojectImageTo3D;
+extern Gatefunc opencv_RQDecomp3x3;
+extern Gatefunc opencv_composeRT;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,has_frame,"hasFrame"},
   {(Myinterfun)sci_gateway_without_putlhsvar,read_frame,"readFrame"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_KalmanFilter,"KalmanFilter"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_matMulDeriv,"matMulDeriv"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_estimateAffine3D,"estimateAffine3D"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_initCameraMatrix2D,"initCameraMatrix2D"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_check,"check"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_filterSpeckles,"filterSpeckles"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_Rodrigues,"Rodrigues"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_reprojectImageTo3D,"reprojectImageTo3D"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_RQDecomp3x3,"RQDecomp3x3"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_composeRT,"composeRT"},
 };
  
 int C2F(libskeleton_imageprocessing)()

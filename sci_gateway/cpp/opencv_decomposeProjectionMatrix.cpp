@@ -29,15 +29,20 @@ extern "C"
 
     SciErr sciErr;
     int intErr = 0;
+    int *piAddr = NULL;
+    int iRows=0,iCols=0;
+
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
-    CheckOutputArgument(pvApiCtx, 1, 1);
+    CheckOutputArgument(pvApiCtx, 7, 7);
+
+    double *input = NULL;
 
     //-> Input
     Mat projMatrix = (Mat_<double>(3,4));
+    
     //-> Outputs
     Mat cameraMatrix = (Mat_<double>(3,3)); 
-    //Mat cameraMatrix;
     Mat rotMatrix = (Mat_<double>(3,3)); 
     Mat transVect = (Mat_<double>(4,1));
     //-> Optionl outputs
@@ -47,9 +52,28 @@ extern "C"
     Mat eulerAngles; 
     
     //-> Get projection matrix
-    retrieveImage(projMatrix,1);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &input);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
     
+    int k = 0;
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            projMatrix.at<double>(i,j) = input[i+j*iRows];
+        }
+    }
 
     //-> Calling decomposeProjectionMatrix function
     decomposeProjectionMatrix(projMatrix, cameraMatrix, rotMatrix, transVect,
@@ -57,12 +81,12 @@ extern "C"
     
     double *output1; //For camera matrix 
     output1 = (double*)malloc(sizeof(double)*9);
-    int k = 0;
+    
     for(int i=0; i<3; i++)
     {
         for(int j=0; j<3; j++)
         {
-            output1[k++] = cameraMatrix.at<double>(i,j);
+            output1[i+j*3] = cameraMatrix.at<double>(i,j);
         }
     }
 
@@ -75,79 +99,114 @@ extern "C"
     //-> Returning Output
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1; 
 
-   /*
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(cameraMatrix.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,cameraMatrix,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-    */
-    /*
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(rotMatrix.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,rotMatrix,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    double *output2; //For rotMatrix 
+    output2 = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            output2[i+j*3] = rotMatrix.at<double>(i,j);
+        }
+    }
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, 3, 3, output2); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2;
+    
+    double *output3; //For transvect 
+    output3 = (double*)malloc(sizeof(double)*4);
+    for(int i=0; i<4; i++)
+    {
+        output3[i] = transVect.at<double>(i,0);   
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring3 = type2str(transVect.type());
-    checker = (char *)malloc(tempstring3.size() + 1);
-    memcpy(checker, tempstring3.c_str(), tempstring3.size() + 1);
-    returnImage(checker,transVect,3); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, 4, 1, output3); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx) + 3;
-   */
-    /*
-    //temp variable was not needed, hence has been discarded
-    string tempstring4 = type2str(rotMatrixX.type());
-    checker = (char *)malloc(tempstring4.size() + 1);
-    memcpy(checker, tempstring4.c_str(), tempstring4.size() + 1);
-    returnImage(checker,rotMatrixX,4); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    double *output4; //For rotMatrX
+    output4 = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            output4[i+j*3] = rotMatrixX.at<double>(i,j);
+        }
+    }
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 4) = nbInputArgument(pvApiCtx) + 4;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+4, 3, 3, output4); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 4) = nbInputArgument(pvApiCtx)+4;
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring5 = type2str(rotMatrixY.type());
-    checker = (char *)malloc(tempstring5.size() + 1);
-    memcpy(checker, tempstring5.c_str(), tempstring5.size() + 1);
-    returnImage(checker,rotMatrixY,5); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    double *output5; //For rotMatrY
+    output5 = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            output5[i+j*3] = rotMatrixY.at<double>(i,j);
+        }
+    }
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx) + 5;
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+5, 3, 3, output5); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx)+5;
+   
+    double *output6; //For rotMatrZ
+    output6 = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            output6[i+j*3] = rotMatrixZ.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring6 = type2str(rotMatrixZ.type());
-    checker = (char *)malloc(tempstring6.size() + 1);
-    memcpy(checker, tempstring6.c_str(), tempstring6.size() + 1);
-    returnImage(checker,rotMatrixZ,6); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+6, 3, 3, output6); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 6) = nbInputArgument(pvApiCtx)+6;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 6) = nbInputArgument(pvApiCtx) + 6;
+    double *output7; //For eulerangles
+    output7 = (double*)malloc(sizeof(double)*3);
+    for(int i=0; i<3; i++)
+    {
+        output7[i] = eulerAngles.at<double>(i);
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring7 = type2str(eulerAngles.type());
-    checker = (char *)malloc(tempstring7.size() + 1);
-    memcpy(checker, tempstring7.c_str(), tempstring7.size() + 1);
-    returnImage(checker,eulerAngles,7); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+7, 3, 1, output7); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 7) = nbInputArgument(pvApiCtx)+7;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 7) = nbInputArgument(pvApiCtx) + 7;
-    */
 
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx);

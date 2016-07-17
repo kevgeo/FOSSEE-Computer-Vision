@@ -9,6 +9,13 @@ b = [ 18.0 25.0 26.0 29.0;
 
 in2 = list(b)
 
-[output1] = initCameraMatrix2D(1,in2,in1,1280,1024,0);
+[output1 output2] = initCameraMatrix2D(1,in2,in1,1280,1024,0);
+
+in3 = [0
+0
+0
+0]
+
+output3 = getOptimalNewCameraMatrix(output1,in3,1280,1024,0.3,1280,1024,0)
 
 //output is correct

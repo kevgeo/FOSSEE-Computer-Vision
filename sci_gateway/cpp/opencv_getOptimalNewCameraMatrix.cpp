@@ -30,27 +30,82 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr  = NULL;
+    int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
     int *piAddr5  = NULL;
     int *piAddr6  = NULL;
+    int *piAddr7  = NULL;
+    int *piAddr8  = NULL;
     int i,j,k ;
     //checking input argument
-    CheckInputArgument(pvApiCtx, 6, 6);
+    CheckInputArgument(pvApiCtx, 8, 8);
     CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-    Mat cameraMatrix, distCoeffs;
+    
+    double *cameramatrix = NULL;
+    double *distcoeffs = NULL;
+
+    Mat cameraMatrix(3,3,CV_32F); 
     Mat new_cameraMatrix;
     double width,height; // for image size
-    Size newImgSize;
+    double width2,height2; // for new image size
     Rect* validPixROI;
     double alpha,centerPrincipalPoint;
     
-    //-> Get input camera matrix
-    retrieveImage(cameraMatrix,1);
+    //-> Get camera matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get perspective transformation matrix
-    retrieveImage(distCoeffs,2);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &cameramatrix);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+
+    if(iRows*iCols != 9)
+    {
+        sciprint("Camera matrix must have 3x3 dimensions.\n");
+        return 0;
+    }
+
+
+    k = 0;
+    for(int i=0; i<3;i++)
+    {
+        for(int j=0; j<3;j++)
+        {
+            cameraMatrix.at<double>(i,j) = cameramatrix[k++];
+        }
+    }
+
+    //-> Get distortion coefficients
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &distcoeffs);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }    
+
+     Mat distCoeffs(iRows,iCols,DataType<double>::type);
+     int size = iRows*iCols;
+     for(int i=0; i<size; i++)
+     {
+        distCoeffs.at<double>(i) = distcoeffs[i];
+     }
 
     //-> Get width of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
@@ -81,6 +136,8 @@ extern "C"
        return intErr;
     }
 
+    Size imgSize(width,height);
+
     //-> Get alpha value
     sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
     if (sciErr.iErr)
@@ -101,7 +158,8 @@ extern "C"
         Scierror(999,"Alpha value must be between 0 and 1.");
     }
 
-    //-> Get centralPrincipalPoint value
+    
+    //-> Get new width of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
     if (sciErr.iErr)
     {
@@ -109,8 +167,39 @@ extern "C"
         return 0; 
     }
 
+    intErr = getScalarDouble(pvApiCtx, piAddr6, &width2);
+    if(intErr)
+    {
+       return intErr;
+    }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr6, &centerPrincipalPoint);
+    //-> Get new height of image
+    sciErr = getVarAddressFromPosition(pvApiCtx, 7, &piAddr7); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+
+    intErr = getScalarDouble(pvApiCtx, piAddr7, &height2);
+    if(intErr)
+    {
+       return intErr;
+    }
+
+    Size newImgSize(width2,height2);
+
+    //-> Get centralPrincipalPoint value
+    sciErr = getVarAddressFromPosition(pvApiCtx, 8, &piAddr8); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+
+    intErr = getScalarDouble(pvApiCtx, piAddr8, &centerPrincipalPoint);
     if(intErr)
     {
        return intErr;
@@ -123,27 +212,37 @@ extern "C"
 
     if( centerPrincipalPoint == 0)
     {
-        new_cameraMatrix =  getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, Size(width,height), 
+        new_cameraMatrix =  getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imgSize, 
                                                         alpha , newImgSize, validPixROI,false);
 
     }
 
     else if( centerPrincipalPoint == 1)
     {
-        new_cameraMatrix =  getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, Size(width,height),
+        new_cameraMatrix =  getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imgSize,
                                                              alpha , newImgSize, validPixROI,true); 
     }
     
+    double *output = NULL;
+    output = (double*)malloc(sizeof(double)*9);
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(new_cameraMatrix.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,new_cameraMatrix,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    k = 0;
+    for(int i=0; i<3;i++)
+    {
+        for(int j=0; j<3;j++)
+        {
+            output[k++] = new_cameraMatrix.at<double>(i,j);
+        }
+    }
 
- 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , 3, 3, output); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    
+
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     //Returning the Output Variables as arguments to the Scilab environment

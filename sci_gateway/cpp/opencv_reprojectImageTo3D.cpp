@@ -30,6 +30,7 @@ extern "C"
     int intErr = 0;
     int iRows=0,iCols=0;
     int *piAddr  = NULL;
+    int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
     int i,j,k ;
@@ -37,18 +38,44 @@ extern "C"
     CheckInputArgument(pvApiCtx, 4, 4);
     CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-    Mat disparity,outImage;
-    Mat PTMatrix; // perspective transformation matrix
+    //-> Input
+    Mat disparity;
+    double *PTMatrix;
     double handleMissingValues = 0;
     char **pstData = NULL;  //-> why double pointer?? and what is it
     char *ddepth = NULL; //-> Stores current string representing 'name' of name,value pair arguments
     int *piLen = NULL;
 
+    //-> Output
+    Mat outImage;
+
     //-> Get disparity image
     retrieveImage(disparity,1);
 
     //-> Get perspective transformation matrix
-    retrieveImage(PTMatrix,2);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &PTMatrix);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    } 
+
+    Mat ptMatrix(4,4,DataType<double>::type);
+    for(int i=0; i<4; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            ptMatrix.at<double>(i,j) = PTMatrix[i+j*4];
+        }
+    }
+
 
     //-> Get handleMissingValues
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
@@ -114,26 +141,26 @@ extern "C"
     if( handleMissingValues == 0)
     {
         if( ddepth == "CV_16S")
-            reprojectImageTo3D(disparity, outImage, PTMatrix, false , CV_16S);
+            reprojectImageTo3D(disparity, outImage, ptMatrix, false , CV_16S);
 
         else if( ddepth == "CV_32S")
-            reprojectImageTo3D(disparity, outImage, PTMatrix, false , CV_32S);
+            reprojectImageTo3D(disparity, outImage, ptMatrix, false , CV_32S);
         
         else
-            reprojectImageTo3D(disparity, outImage, PTMatrix, false , CV_32F );
+            reprojectImageTo3D(disparity, outImage, ptMatrix, false , CV_32F );
     
     }
 
     else if( handleMissingValues == 1)
     {
         if( ddepth == "CV_16S")
-            reprojectImageTo3D(disparity, outImage, PTMatrix, true , CV_16S);
+            reprojectImageTo3D(disparity, outImage, ptMatrix, true , CV_16S);
 
         else if( ddepth == "CV_32S")
-            reprojectImageTo3D(disparity, outImage, PTMatrix, true , CV_32S);
+            reprojectImageTo3D(disparity, outImage, ptMatrix, true , CV_32S);
         
         else
-            reprojectImageTo3D(disparity, outImage, PTMatrix, true , CV_32F );    
+            reprojectImageTo3D(disparity, outImage, ptMatrix, true , CV_32F );    
     
     }
     

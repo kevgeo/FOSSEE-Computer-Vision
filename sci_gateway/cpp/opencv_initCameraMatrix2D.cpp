@@ -40,7 +40,7 @@ extern "C"
     int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 6, 6);
-    CheckOutputArgument(pvApiCtx, 2, 2) ;
+    CheckOutputArgument(pvApiCtx, 1, 1) ;
 
     double *objectPoints = NULL;
     double *imagePoints = NULL;
@@ -49,8 +49,7 @@ extern "C"
     double aspectRatio;
     int size1_r,size1_c;
     int size2_r,size2_c;
-    Mat npoints; //output
-
+    
     vector<vector<Point2f> > imPts;
     vector<vector<Point3f> > obPts;
     int Rows,Cols;
@@ -110,7 +109,6 @@ extern "C"
         Rows = iRows;
         Cols = iCols;
         vector<Point3f> values2(size);
-        sciprint("\nValue was added\n");
 
         j = 0;
         for(int i=0; i<size; i++)
@@ -222,12 +220,12 @@ extern "C"
     double *output = NULL;
     output = (double*)malloc(sizeof(double)*9);
 
-    k = 0;
+    //k = 0;
     for(int i=0; i<3;i++)
     {
         for(int j=0; j<3;j++)
         {
-            output[k++] = cameraMatrix.at<double>(i,j);
+            output[i+j*3] = cameraMatrix.at<double>(i,j);
         }
     }
 
@@ -238,16 +236,8 @@ extern "C"
         return 0; 
     }
     
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2 , Rows, Cols, objectPoints); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
     //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx); 
     return 0;

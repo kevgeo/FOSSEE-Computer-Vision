@@ -39,10 +39,10 @@ extern "C"
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 5, 5);
 
-   
-
-   //-> Input
-    Mat src = (Mat_<double>(3,3));
+    //-> Input
+    double *src = NULL;
+    Mat srcMatrix = (Mat_<double>(3,3));
+    
     //-> Outputs
     Mat mtxR  = (Mat_<double>(3,3)); 
     Mat mtxQ  = (Mat_<double>(3,3)); 
@@ -51,65 +51,129 @@ extern "C"
     Mat Qy = (Mat_<double>(3,3)); 
     Mat Qz = (Mat_<double>(3,3));
     
-    //-> Get projection matrix
-    retrieveImage(src,1);
+    //-> Get input matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &src);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            srcMatrix.at<double>(i,j) = src[i+j*3];
+        }
+    }
+
 
     //-> Calling decomposeProjectionMatrix function
-    RQDecomp3x3(src, mtxR, mtxQ,
-                 Qx,Qy,Qz);
+    RQDecomp3x3(srcMatrix, mtxR, mtxQ,Qx,Qy,Qz);
     
+    //-> Variable for returning output matrices
+    double *traingularMatrix = NULL;
+    double *orthogonalMatrix = NULL;
+    double *rotX = NULL;
+    double *rotY = NULL;
+    double *rotZ = NULL;
 
-   //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(mtxR.type());
-    char *checker;
-    checker = (char *)malloc(tempstring.size() + 1);
-    memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,mtxR,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    traingularMatrix = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            traingularMatrix[i+j*3] = mtxR.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring2 = type2str(mtxQ.type());
-    checker = (char *)malloc(tempstring2.size() + 1);
-    memcpy(checker, tempstring2.c_str(), tempstring2.size() + 1);
-    returnImage(checker,mtxQ,2); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 3, 3, traingularMatrix); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
+    orthogonalMatrix = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            orthogonalMatrix[i+j*3] = mtxQ.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring3 = type2str(Qx.type());
-    checker = (char *)malloc(tempstring3.size() + 1);
-    memcpy(checker, tempstring3.c_str(), tempstring3.size() + 1);
-    returnImage(checker,Qx,3); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, 3, 3, orthogonalMatrix); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2; 
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx) + 3;
+    rotX = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            rotX[i+j*3] = Qx.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring4 = type2str(Qy.type());
-    checker = (char *)malloc(tempstring4.size() + 1);
-    memcpy(checker, tempstring4.c_str(), tempstring4.size() + 1);
-    returnImage(checker,Qy,4); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, 3, 3, rotX); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 4) = nbInputArgument(pvApiCtx) + 4;
+    rotY = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            rotY[i+j*3] = Qy.at<double>(i,j);
+        }
+    }
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring5 = type2str(Qz.type());
-    checker = (char *)malloc(tempstring5.size() + 1);
-    memcpy(checker, tempstring5.c_str(), tempstring5.size() + 1);
-    returnImage(checker,Qz,5); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+4, 3, 3, rotY); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 4) = nbInputArgument(pvApiCtx)+4;
 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx) + 5;
+    rotZ = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            rotZ[i+j*3] = Qz.at<double>(i,j);
+        }
+    }
+
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+5, 3, 3, rotZ); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+    //-> Returning Output
+    AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx)+5;
 
 
     //Returning the Output Variables as arguments to the Scilab environment
