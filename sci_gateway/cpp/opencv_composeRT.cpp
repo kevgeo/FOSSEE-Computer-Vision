@@ -49,7 +49,7 @@ extern "C"
     //-> Outputs
     Mat rvec3,tvec3;
     
-    //-> Get first rotation vector
+    //-> Get first rotation std::vector<char> v;
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
     if (sciErr.iErr)
     {

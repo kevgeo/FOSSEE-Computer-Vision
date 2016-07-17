@@ -29,32 +29,56 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
+    int *piAddr  = NULL;
     int *piAddr2  = NULL;
     int *piAddr3  = NULL;
     int *piAddr4  = NULL;
+    int *piAddr5  = NULL;
     int i,j,k ;
     int *piLen = NULL;
     char **pstData = NULL;  //-> why double pointer?? and what is it
     //checking input argument
-    CheckInputArgument(pvApiCtx, 4, 4);
-    CheckOutputArgument(pvApiCtx, 2, 2);
-
-    nputArray cameraMatrix, Size imageSize, double apertureWidth, double apertureHeight, double& fovx,
-     double& fovy, double& focalLength, Point2d& principalPoint, double& aspectRatio
+    CheckInputArgument(pvApiCtx, 5, 5);
+    CheckOutputArgument(pvApiCtx, 5, 5);
 
     //-> Input
-    Mat cameraMatrix = ;
+    double *cameramatrix = NULL;
     double width,height; // For Image Size
     double apertureWidth,apertureHeight; 
-    double threshold;
     //-> Output
     double fovx;
     double fovy;
+    double focalLength;
+    Point2d principalPoint;
+    double aspectRatio;
 
-    //-> Get feature point in first image
-    retrieveImage(points1,1);
+    //-> Get camera matrix
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
 
-    //-> Get points per row value
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &cameramatrix);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }   
+    
+    //-> Need to store the camera matrix 
+    //   in a Mat object
+    Mat cameraMatrix(3,3,DataType<double>::type);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            cameraMatrix.at<double>(i,j) = cameramatrix[i+j*3];
+        }
+    }
+
+    //-> Get width of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
     if (sciErr.iErr)
     {
@@ -62,14 +86,14 @@ extern "C"
         return 0; 
     }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr2, &pts_rows);
+    intErr = getScalarDouble(pvApiCtx, piAddr2, &width);
     if(intErr)
     {
        return intErr;
     }
 
 
-    //-> Get points per column value
+    //-> Get height of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
     if (sciErr.iErr)
     {
@@ -77,127 +101,92 @@ extern "C"
         return 0; 
     }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr3, &pts_cols);
+    intErr = getScalarDouble(pvApiCtx, piAddr3, &height);
     if(intErr)
     {
        return intErr;
     }
 
-    //-> Getting flags string
-            sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }
-
-            //-> Extracting name of next argument takes three calls to getMatrixOfString
-            //-> First call to get rows and columns
-            sciErr = getMatrixOfString(pvApiCtx, piAddr4, &iRows, &iCols, NULL, NULL); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }
-
-            piLen = (int*) malloc(sizeof(int) * iRows * iCols);
-
-            //-> Second call to retrieve length of each string
-            sciErr = getMatrixOfString(pvApiCtx,  piAddr4,  &iRows,  &iCols,  piLen,  NULL); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }
-            
-            pstData = (char**) malloc(sizeof(char*) * iRows * iCols);
-            for(int iterPstData = 0; iterPstData < iRows * iCols; iterPstData++)
-            {
-                pstData[iterPstData] = (char*) malloc(sizeof(char) * piLen[iterPstData] + 1); 
-            }
-
-            //-> Third call to retrieve data
-            sciErr = getMatrixOfString(pvApiCtx, piAddr4, &iRows, &iCols, piLen, pstData); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }   
-
-            flags = pstData[0];
-            free(pstData);
-            iRows=0;
-            iCols=0;
-            free(piLen);
-
-    if(strcmp(flags,"CV_CALIB_CB_ADAPTIVE_THRESH"))
+    //-> Get aperture width
+    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+    if (sciErr.iErr)
     {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_ADAPTIVE_THRESH);
+        printError(&sciErr, 0); 
+        return 0; 
     }
 
-    else if(strcmp(flags,"CV_CALIB_CB_NORMALIZE_IMAGE"))
+    intErr = getScalarDouble(pvApiCtx, piAddr4, &apertureWidth);
+    if(intErr)
     {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_NORMALIZE_IMAGE);
+       return intErr;
     }
-
-    else if(strcmp(flags,"CV_CALIB_CB_FILTER_QUADS"))
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_FILTER_QUADS);
-    }
-
-    else if(strcmp(flags,"CALIB_CB_FAST_CHECK"))
-    {
-        found =  findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CALIB_CB_FAST_CHECK);
-    }       
-
-    else 
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners);
-    }
-
-    double found2 = double(found);
-
-    //-> X & Y coordinates of detected corners
-    double *xcoords;
-    double *ycoords;
-    int coords_size = corners.size();
-    //vector<double> xcoords(corners.size());
-    //vector<double> ycoords(corners.size());
-   
-    xcoords = (double*)malloc(sizeof(double)*coords_size);
-    ycoords = (double*)malloc(sizeof(double)*coords_size);
     
-    for(int i=0; i<corners.size();i++)
-    {
-        xcoords[i] = corners[i].x;
-        ycoords[i] = corners[i].y;
-    }
-
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, coords_size, 1, xcoords); 
-    if(sciErr.iErr)
+    //-> Get aperture height
+    sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0); 
         return 0; 
     }
 
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, coords_size, 1, ycoords); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, found2);
+    intErr = getScalarDouble(pvApiCtx, piAddr5, &apertureHeight);
     if(intErr)
     {
        return intErr;
     }
 
+    //-> Calling calibrationMatrixValues function
+    calibrationMatrixValues(cameraMatrix, Size(width,height), apertureWidth, apertureHeight, fovx, fovy, 
+    focalLength, principalPoint, aspectRatio);
+    
+    //-> Returning output field of view along horizontal axis
+    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, fovx);
+    if(intErr)
+    {
+       return intErr;
+    }
     //-> Returning outputs
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1; 
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2;
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
+
+    //-> Returning output field of view along vertical axis
+    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, fovy);
+    if(intErr)
+    {
+       return intErr;
+    }
+    //-> Returning outputs
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2; 
+
+    //-> Returning focal length
+    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, focalLength);
+    if(intErr)
+    {
+       return intErr;
+    }
+    //-> Returning outputs
     AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3; 
-    
+
+    //-> Returning principal point
+    double *coords = NULL; // coordinates of principal point
+    coords = (double*)malloc(sizeof(double)*2);
+    coords[0] = principalPoint.x;
+    coords[1] = principalPoint.y;
+
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+4 , 1, 2, coords); 
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0); 
+        return 0; 
+    }
+
+    //-> Returning aspect ratio
+    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+5, aspectRatio);
+    if(intErr)
+    {
+       return intErr;
+    }
+    //-> Returning outputs
+    AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx)+5;
 
     //-> Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx);

@@ -1,7 +1,7 @@
 //*******************************************************************************************************
 // Authors : Kevin George
 //
-// findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,flags);
+// filterSpeckles(inImage, newval, maxSpeckleSize, maxDiff, outImage );
 //               
 //*******************************************************************************************************
 
@@ -22,223 +22,299 @@ extern "C"
   #include <localization.h>
   #include <sciprint.h>
   #include "../common.h"
-    
+  
   int opencv_calibrateCamera(char *fname, unsigned long fname_len)
   {
+	  	SciErr sciErr;
+	    int intErr = 0;
+	    int iRows=0,iCols=0;
+	    int *piAddr = NULL;
+	    int *piAddr2  = NULL;
+	    int *piAddr3  = NULL;
+	    int *piAddr4  = NULL;
+	    int *piAddr5  = NULL;
+	    int *piAddr6  = NULL;
+	    int *piAddr7  = NULL;
+	    int *piAddr8  = NULL;
+	    int *piAddr9  = NULL;
+	    int *piAddr10  = NULL;
+	     int *piAddrChild = NULL;
+	    int iPrec = 0,iItem = 0;
+	    int i,j,k ;
+	    //checking input argument
+	    CheckInputArgument(pvApiCtx, 10, 10);
+	    CheckOutputArgument(pvApiCtx, 1, 4) ;
 
-    SciErr sciErr;
-    int intErr = 0;
-    int iRows=0,iCols=0;
-    int *piAddr  = NULL;
-    int *piAddr2  = NULL;
-    int *piAddr3  = NULL;
-    int *piAddr4  = NULL;
-    int i,j,k ;
-    int *piLen = NULL;
-    char **pstData = NULL;  //-> why double pointer?? and what is it
-    //checking input argument
-    CheckInputArgument(pvApiCtx, 4, 4);
-    CheckOutputArgument(pvApiCtx, 2, 2);
+	    //-> Input
+	    double *objectPoints = NULL;
+	    double *imagePoints = NULL;
+	    double *imagePoints2 = NULL;
+	    double *cameramatrix1 = NULL;
+	    double *distcoeffs1 = NULL;
+	    double *cameramatrix2 = NULL;
+	    double *distcoeffs2 = NULL;
+	    double list_size;
+	    double term_crit_count,term_crit_eps; // term criteria paramerters
+	    double width,height; //For image size
+	    double aspectRatio;
+	    int size1_r,size1_c;
+	    int size2_r,size2_c;
+	    
+	    vector<vector<Point3f> > obPts;
+	    vector<vector<Point2f> > imPts;
+	    int Rows,Cols;
 
-   nputArrayOfArrays objectPoints, InputArrayOfArrays imagePoints, Size imageSize, InputOutputArray cameraMatrix, 
-   InputOutputArray distCoeffs, OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs, int flags=0, 
-   TermCriteria criteria=TermCriteria( TermCriteria::COUNT+TermCriteria::EPS, 30, DBL_EPSILON
+	    //-> Output
+	    Mat rotationMatrix;
+  		Mat translationVector;
+ 		Mat essentialMatrix;
+  		Mat fundamentalMatrix;
+	    
+	    //-> Get list size 
+	    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
+	    if (sciErr.iErr)
+	    {
+	        printError(&sciErr, 0); 
+	        return 0; 
+	    }
+
+	    intErr = getScalarDouble(pvApiCtx, piAddr, &list_size);
+	    if(intErr)
+	    {
+	       return intErr;
+	    }
+
+	    for(int idx=1; idx<=list_size; idx++)
+	    {
+	        //-> Get calibration pattern points 
+	        sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
+	        if (sciErr.iErr)
+	        {
+	            printError(&sciErr, 0); 
+	            return 0; 
+	        }
+
+	        sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddr2, idx, &iRows, &iCols ,&objectPoints);
+	        if(sciErr.iErr)
+	        {
+	            printError(&sciErr, 0);
+	            return 0;
+	        }
+	        int size = (iRows*iCols)/3;
+	        Rows = iRows;
+	        Cols = iCols;
+	        vector<Point3f> values2(size);
+
+	        //j = 0;
+	        for(int i=0; i<Rows; i++)
+	        {
+	            for(int j=0; j<Cols; j++)
+	            {
+		            if(j==0)
+		            	values2[i].x = objectPoints[i+j*Rows];
+		            
+		            else if(j==1)
+		            	values2[i].y = objectPoints[i+j*Rows];
+		            else
+		            	values2[i].z = objectPoints[i+j*Rows];
+	        	}
+	        }
+
+	        obPts.push_back(values2);
+	    }
+
+	  for(int idx=1; idx<=list_size; idx++)
+      {
+        //-> Get projections of calibration pattern points 
+        sciErr = getVarAddressFromPosition(pvApiCtx,3,&piAddr3);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddr3, idx, &iRows, &iCols ,&imagePoints);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        int size = (iRows*iCols)/2;
+        vector<Point2f> values1(size);
+
+        j = 0;
+        for(int i=0; i<size; i++)
+        {
+            values1[i].x = imagePoints[j++];
+            values1[i].y = imagePoints[j++];
+        }
+
+        imPts.push_back(values1);
+     }
+
+        //-> Get width of image
+        sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+
+        intErr = getScalarDouble(pvApiCtx, piAddr3, &width);
+        if(intErr)
+        {
+           return intErr;
+        }
+
+        //-> Get height of image
+        sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+
+        intErr = getScalarDouble(pvApiCtx, piAddr4, &height);
+        if(intErr)
+        {
+           return intErr;
+        }
+
+
+        //-> Get camera matrix
+        sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr5, &iRows, &iCols, &cameramatrix1);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        
+        //-> Need to store the camera matrix 
+        //   in a Mat object
+        Mat cameraMatrix(3,3,DataType<double>::type);
+        for(int i=0; i<3; i++)
+        {
+            for(int j=0; j<3; j++)
+            {
+                cameraMatrix.at<double>(i,j) = cameramatrix1[i+j*3];
+            }
+        }
+
+        //-> Get distortion coefficients
+        sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr6, &iRows, &iCols, &distcoeffs1);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        Mat distCoeffs(iRows,1,DataType<double>::type);
+
+        for(int i=0; i<iRows; i++)
+        {
+            distCoeffs.at<double>(i,0) = distcoeffs1[i]; 
+        }
+
+
+        vector<Mat> rvecs;
+        vector<Mat> tvecs;
+        calibrateCamera(obPts, imPts, Size(width,height), 
+                        cameraMatrix, distCoeffs, rvecs, tvecs);
+  
+
+
+    int *outList = NULL;
     
-    //-> Input
-    double *objectpoints = NULL ;
-    double *imagepoints = NULL;
-    double width,height; // For Image Size
-    //-> Output
-    Mat cameraMatrix;
-    Mat distCoeffs;
-    Vector<Mat> rvecs;
-    Vector<Mat> tvecs;    
-
-    //-> Get feature point in first image
-    //retrieveImage(points1,1);
-
-    //-> Get calibration points
-    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
-    if (sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &objectpoints); 
+    //-> Return rotation vectors 
+    int num = rvecs.size();
+    sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, num, &outList);
     if(sciErr.iErr)
     {
-        printError(&sciErr, 0);
-        return 0;
+           printError(&sciErr, 0);
+           return 0;
     }
 
-    //-> Get image points
-    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
-    if (sciErr.iErr)
+    for(int idx=0; idx<num; idx++)
     {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
+        Rows = rvecs[idx].rows;
+        Cols = rvecs[idx].cols;
+        double *rotMatrix = NULL;
+        rotMatrix = (double*)malloc(sizeof(double)*Rows*Cols);
 
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &iRows, &iCols, &imagepoints); 
+        for(int i=0; i<Rows; i++)
+        {
+        	for(int j=0; j<Cols; j++)
+        	{
+        		rotMatrix[i+j*Rows] = rvecs[idx].at<double>(i,j);
+        	}
+        }
+
+        sciErr = createMatrixOfDoubleInList(pvApiCtx, nbInputArgument(pvApiCtx)+1, outList, idx+1, Rows, Cols, rotMatrix);
+      	if(sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+        free(rotMatrix);
+
+    }
+    //Assigning the list as the Output Variable
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+
+    //-> Return translation vectors 
+    int num2 = tvecs.size();
+    sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 2, num2, &outList);
     if(sciErr.iErr)
     {
-        printError(&sciErr, 0);
-        return 0;
+           printError(&sciErr, 0);
+           return 0;
     }
 
-
-    //-> Get width value
-    sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
-    if (sciErr.iErr)
+    for(int idx=0; idx<num2; idx++)
     {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
+        Rows = tvecs[idx].rows;
+        Cols = tvecs[idx].cols;
+        double *transMatrix = NULL;
+        transMatrix = (double*)malloc(sizeof(double)*Rows*Cols);
 
-    intErr = getScalarDouble(pvApiCtx, piAddr3, &width);
-    if(intErr)
-    {
-       return intErr;
-    }
-
-    //-> Get column value
-    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
-    if (sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    intErr = getScalarDouble(pvApiCtx, piAddr4, &height);
-    if(intErr)
-    {
-       return intErr;
-    }
-
-    calibrateCamera
-
-    /*
-    //-> Getting flags string
-            sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
-            if (sciErr.iErr)
+        for(int i=0; i<Rows; i++)
+        {
+            for(int j=0; j<Cols; j++)
             {
-                printError(&sciErr, 0); 
-                return 0; 
+                transMatrix[i+j*Rows] = tvecs[i].at<double>(i,j);
             }
+        }
 
-            //-> Extracting name of next argument takes three calls to getMatrixOfString
-            //-> First call to get rows and columns
-            sciErr = getMatrixOfString(pvApiCtx, piAddr4, &iRows, &iCols, NULL, NULL); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }
+        sciErr = createMatrixOfDoubleInList(pvApiCtx, nbInputArgument(pvApiCtx)+2, outList, idx+1, Rows, Cols, transMatrix);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0); 
+            return 0; 
+        }
+        free(transMatrix);
 
-            piLen = (int*) malloc(sizeof(int) * iRows * iCols);
-
-            //-> Second call to retrieve length of each string
-            sciErr = getMatrixOfString(pvApiCtx,  piAddr4,  &iRows,  &iCols,  piLen,  NULL); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }
-            
-            pstData = (char**) malloc(sizeof(char*) * iRows * iCols);
-            for(int iterPstData = 0; iterPstData < iRows * iCols; iterPstData++)
-            {
-                pstData[iterPstData] = (char*) malloc(sizeof(char) * piLen[iterPstData] + 1); 
-            }
-
-            //-> Third call to retrieve data
-            sciErr = getMatrixOfString(pvApiCtx, piAddr4, &iRows, &iCols, piLen, pstData); 
-            if (sciErr.iErr)
-            {
-                printError(&sciErr, 0); 
-                return 0; 
-            }   
-
-            flags = pstData[0];
-            free(pstData);
-            iRows=0;
-            iCols=0;
-            free(piLen);
-
-    if(strcmp(flags,"CV_CALIB_CB_ADAPTIVE_THRESH"))
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_ADAPTIVE_THRESH);
     }
+    //Assigning the list as the Output Variable
+    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;
 
-    else if(strcmp(flags,"CV_CALIB_CB_NORMALIZE_IMAGE"))
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_NORMALIZE_IMAGE);
-    }
-
-    else if(strcmp(flags,"CV_CALIB_CB_FILTER_QUADS"))
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CV_CALIB_CB_FILTER_QUADS);
-    }
-
-    else if(strcmp(flags,"CALIB_CB_FAST_CHECK"))
-    {
-        found =  findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners,CALIB_CB_FAST_CHECK);
-    }       
-
-    else 
-    {
-        found = findChessboardCorners(inImage,Size(pts_rows,pts_cols),corners);
-    }
-    */
-
-    double found2 = double(found);
-
-    //-> X & Y coordinates of detected corners
-    double *xcoords;
-    double *ycoords;
-    int coords_size = corners.size();
-    //vector<double> xcoords(corners.size());
-    //vector<double> ycoords(corners.size());
-   
-    xcoords = (double*)malloc(sizeof(double)*coords_size);
-    ycoords = (double*)malloc(sizeof(double)*coords_size);
-    
-    for(int i=0; i<corners.size();i++)
-    {
-        xcoords[i] = corners[i].x;
-        ycoords[i] = corners[i].y;
-    }
-
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, coords_size, 1, xcoords); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, coords_size, 1, ycoords); 
-    if(sciErr.iErr)
-    {
-        printError(&sciErr, 0); 
-        return 0; 
-    }
-
-    intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, found2);
-    if(intErr)
-    {
-       return intErr;
-    }
-
-    //-> Returning outputs
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1; 
-    AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2;
-    AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3; 
-    
-
-    //-> Returning the Output Variables as arguments to the Scilab environment
+	
+    //Returning the Output Variables as arguments to the Scilab environment
     ReturnArguments(pvApiCtx);
-    return 0;
- }
 
+  	return 0;
+  }
 }

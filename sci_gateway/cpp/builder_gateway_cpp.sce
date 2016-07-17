@@ -7,8 +7,8 @@ names = [
                   //"detectBRISKFeatures", "opencv_detectBRISKFeatures";
                   //"BRISKPoints", "opencv_BRISKPoints";
                   //"VideoReader", "opencv_VideoReader";
-                  "hasFrame", "has_frame";
-                  "readFrame", "read_frame";
+                  //"hasFrame", "has_frame";
+                  //"readFrame", "read_frame";
 		  //"extractHOGFeatures","opencv_extractHOGFeatures";
 		 //"extractFeatures","opencv_extractFeatures";
 		//"matchFeatures","opencv_matchFeatures";
@@ -17,13 +17,13 @@ names = [
 		"VideoReader","opencv_VideoReader";
 		//"opticalFlowFarneback","opencv_opticalFlowFarneback";
 		//"ForegroundDetector","opencv_ForegroundDetector";
-		"KalmanFilter","opencv_KalmanFilter";
+		//"KalmanFilter","opencv_KalmanFilter";
 		//"readKalmanFilter","opencv_readKalmanFilter";
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
 		//"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
 		//"isfilterseparable","opencv_isfilterseparable";
-		//"epipolarlines","opencv_epipolarlines";
+		"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
             //"canny","opencv_canny";
@@ -82,11 +82,11 @@ names = [
 	   //"computeCorrespondEpilines","opencv_computeCorrespondEpilines";
 	   //"findFundamentalMat","opencv_findFundamentalMat";
 	   //"findHomography","opencv_findHomography";
-	   "filterSpeckles","opencv_filterSpeckles";
+	   //"filterSpeckles","opencv_filterSpeckles";
 	   //"matMulDeriv","opencv_matMulDeriv";
 	   //"estimateAffine3D","opencv_estimateAffine3D";
-	   "Rodrigues","opencv_Rodrigues";
-	   "reprojectImageTo3D","opencv_reprojectImageTo3D";
+	   //"Rodrigues","opencv_Rodrigues";
+	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptimalNewCameraMatrix","opencv_getOptimalNewCameraMatrix";
 	   //"projectPoints","opencv_projectPoints";
 	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
@@ -94,8 +94,11 @@ names = [
 	   //"solvePnPRansac","opencv_solvePnPRansac";
 	   //"findCirclesGrid","opencv_findCirclesGrid";
 	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
-           "RQDecomp3x3","opencv_RQDecomp3x3";
-	   "composeRT","opencv_composeRT";
+           //"RQDecomp3x3","opencv_RQDecomp3x3";
+	   //"composeRT","opencv_composeRT";
+	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
+	   //"stereoCalibrate","opencv_stereoCalibrate";
+	   //"calibrateCamera","opencv_calibrateCamera";
 	   //"findChessboardCorners","opencv_findChessboardCorners";
 	   //"drawChessboardCorners","opencv_drawChessboardCorners";
 	   // "check","opencv_check";
@@ -121,13 +124,13 @@ files = [
 //"opencv_matchFeatures.cpp",
 //"opencv_showMatchedFeatures.cpp",
 //"opencv_VideoReader.cpp",
-//"opencv_opticalFlowFarneback.cpp",
+//"opencv_opticalFlowFarneback.cpp"
 //"opencv_ForegroundDetector.cpp",
-"opencv_KalmanFilter.cpp",
+//"opencv_KalmanFilter.cpp"
 //"opencv_estimateGeometricTransform.cpp",
 //"opencv_convolver.cpp",
 //"opencv_isfilterseparable.cpp",
-//"opencv_epipolarlines.cpp",		
+"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",
             //"opencv_canny.cpp",
@@ -187,11 +190,11 @@ files = [
 	  //"opencv_computeCorrespondEpilines.cpp",
 	  //"opencv_findFundamentalMat.cpp",
 	  //"opencv_findHomography.cpp",
-	  "opencv_filterSpeckles.cpp",
+	  //"opencv_filterSpeckles.cpp",
 	  //"opencv_matMulDeriv.cpp",
 	  //"opencv_estimateAffine3D.cpp",
-	  "opencv_Rodrigues.cpp",
-	  "opencv_reprojectImageTo3D.cpp",
+	  //"opencv_Rodrigues.cpp",
+	  //"opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptimalNewCameraMatrix.cpp",
 	  //"opencv_projectPoints.cpp",
 	  //"opencv_initCameraMatrix2D.cpp",
@@ -199,10 +202,13 @@ files = [
 	  //"opencv_solvePnPRansac.cpp",
 	  //"opencv_findCirclesGrid.cpp",
 	  //"opencv_decomposeProjectionMatrix.cpp"
-	  "opencv_RQDecomp3x3.cpp",
-	  "opencv_composeRT.cpp"
+	  //"opencv_RQDecomp3x3.cpp",
+	  //"opencv_composeRT.cpp",
+	  //"opencv_calibrationMatrixValues.cpp",
+	  //"opencv_stereoCalibrate.cpp",
+	  //"opencv_calibrateCamera.cpp",
 	  //"opencv_findChessboardCorners.cpp",
-	  //"opencv_drawChessboardCorners.cpp",
+	  //"opencv_drawChessboardCorners.cpp"
 	  //"opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",

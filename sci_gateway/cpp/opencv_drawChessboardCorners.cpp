@@ -95,7 +95,7 @@ extern "C"
         printError(&sciErr, 0);
         return 0;
     }   
-
+    
     int size = (iRows*iCols)/2;
     vector<Point2f> corners(size); // To store xcoords and ycoords
     int j = 0;

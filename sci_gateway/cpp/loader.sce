@@ -11,15 +11,8 @@ if bOK then
 end
 //
 list_functions = [ 'imread';
-                   'hasFrame';
-                   'readFrame';
                    'VideoReader';
-                   'KalmanFilter';
-                   'filterSpeckles';
-                   'Rodrigues';
-                   'reprojectImageTo3D';
-                   'RQDecomp3x3';
-                   'composeRT';
+                   'epipolarlines';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack
