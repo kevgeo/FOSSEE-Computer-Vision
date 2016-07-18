@@ -20,10 +20,10 @@ names = [
 		//"KalmanFilter","opencv_KalmanFilter";
 		//"readKalmanFilter","opencv_readKalmanFilter";
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
-		//"convolver","opencv_convolver";
+		"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
 		//"isfilterseparable","opencv_isfilterseparable";
-		"epipolarlines","opencv_epipolarlines";
+		//"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
             //"canny","opencv_canny";
@@ -87,20 +87,20 @@ names = [
 	   //"estimateAffine3D","opencv_estimateAffine3D";
 	   //"Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
-	   //"getOptimalNewCameraMatrix","opencv_getOptimalNewCameraMatrix";
-	   //"projectPoints","opencv_projectPoints";
+	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
+	   "projectPoints","opencv_projectPoints";
 	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
-	   //"solvePnP","opencv_solvePnP";
-	   //"solvePnPRansac","opencv_solvePnPRansac";
+	   "solvePnP","opencv_solvePnP";
+	  "solvePnPRansac","opencv_solvePnPRansac";
 	   //"findCirclesGrid","opencv_findCirclesGrid";
 	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
 	   //"composeRT","opencv_composeRT";
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
-	   //"stereoCalibrate","opencv_stereoCalibrate";
+	   "stereoCalibrate","opencv_stereoCalibrate";
 	   //"calibrateCamera","opencv_calibrateCamera";
-	   //"findChessboardCorners","opencv_findChessboardCorners";
-	   //"drawChessboardCorners","opencv_drawChessboardCorners";
+	   "findChessboardCorners","opencv_findChessboardCorners";
+	   "drawChessboardCorners","opencv_drawChessboardCorners";
 	   // "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
@@ -128,9 +128,9 @@ files = [
 //"opencv_ForegroundDetector.cpp",
 //"opencv_KalmanFilter.cpp"
 //"opencv_estimateGeometricTransform.cpp",
-//"opencv_convolver.cpp",
-//"opencv_isfilterseparable.cpp",
-"opencv_epipolarlines.cpp"		
+"opencv_convolver.cpp",
+//"opencv_isfilterseparable.cpp"
+//"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",
             //"opencv_canny.cpp",
@@ -185,30 +185,30 @@ files = [
 	  //"opencv_drawMatches.cpp",
 	  //"opencv_groupRectangles.cpp",
 	  //"opencv_convertPointsToHomogeneous.cpp",
-	  //"opencv_convertPointsFromHomogeneous.cpp",
+	  //"opencv_convertPointsFromHomogeneous.cpp"
 	  //"opencv_correctMatches.cpp",
 	  //"opencv_computeCorrespondEpilines.cpp",
 	  //"opencv_findFundamentalMat.cpp",
 	  //"opencv_findHomography.cpp",
 	  //"opencv_filterSpeckles.cpp",
 	  //"opencv_matMulDeriv.cpp",
-	  //"opencv_estimateAffine3D.cpp",
-	  //"opencv_Rodrigues.cpp",
+	  //"opencv_estimateAffine3D.cpp"
+	  //"opencv_Rodrigues.cpp"
 	  //"opencv_reprojectImageTo3D.cpp",
-	  //"opencv_getOptimalNewCameraMatrix.cpp",
-	  //"opencv_projectPoints.cpp",
-	  //"opencv_initCameraMatrix2D.cpp",
-	  //"opencv_solvePnP.cpp",
-	  //"opencv_solvePnPRansac.cpp",
-	  //"opencv_findCirclesGrid.cpp",
+	  //"opencv_getOptNewCameraMatrix.cpp",
+	  "opencv_projectPoints.cpp",
+	  //"opencv_initCameraMatrix2D.cpp"
+	  "opencv_solvePnP.cpp",
+	  "opencv_solvePnPRansac.cpp",
+	  //"opencv_findCirclesGrid.cpp"
 	  //"opencv_decomposeProjectionMatrix.cpp"
-	  //"opencv_RQDecomp3x3.cpp",
-	  //"opencv_composeRT.cpp",
-	  //"opencv_calibrationMatrixValues.cpp",
-	  //"opencv_stereoCalibrate.cpp",
+	  //"opencv_RQDecomp3x3.cpp"
+	  //"opencv_composeRT.cpp"
+	  //"opencv_calibrationMatrixValues.cpp"
+	  "opencv_stereoCalibrate.cpp",
 	  //"opencv_calibrateCamera.cpp",
-	  //"opencv_findChessboardCorners.cpp",
-	  //"opencv_drawChessboardCorners.cpp"
+	  "opencv_findChessboardCorners.cpp",
+	  "opencv_drawChessboardCorners.cpp"
 	  //"opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",

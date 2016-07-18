@@ -51,7 +51,7 @@ extern "C"
   		int num_InputArgs;  //-> gives total number of arguments
   		int iRows, iCols;
         int rows,cols; //-> Used to check if size given is correct
-        int result; //-> Returned by function
+        double result; //-> Returned by function
         int *piLen = NULL;
         char **pstData = NULL;  //-> why double pointer?? and what is it 
   		char *currentArg = NULL; //-> Stores current string representing 'name' of name,value pair arguments
@@ -244,7 +244,7 @@ extern "C"
 	    else
 	       	result = 0; //-> Filter is not separable
 
-        intErr = createScalarInteger32(pvApiCtx, nbInputArgument(pvApiCtx)+1, result);
+        intErr = createScalarDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, result);
 
 
         //-> Returning Output

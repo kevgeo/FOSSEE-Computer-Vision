@@ -37,7 +37,7 @@ extern "C"
     int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
-    CheckOutputArgument(pvApiCtx, 5, 5);
+    CheckOutputArgument(pvApiCtx, 1, 5);
 
     //-> Input
     double *src = NULL;
