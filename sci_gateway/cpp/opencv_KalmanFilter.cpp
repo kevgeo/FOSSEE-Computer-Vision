@@ -46,8 +46,8 @@ extern "C"
         char *currentArg = NULL; //-> Stores current string representing 'name' of name,value pair arguments
         bool *providedArgs = NULL; //-> Used to check that optional argument is not entered more than once
         //-> Name,Value Pair Variables
-            int dynamParams,measureParams;
-            int controlParams,type;
+            double dynamParams,measureParams,controlParams;
+            int type;
             //char *colour = NULL;
             string colour;
             string drawPath; 
@@ -57,7 +57,7 @@ extern "C"
         //-> Checks the number of arguments
         //-> pvApiCtx is a Scilab environment pointer
         //-> Checks number of input and output arguments
-        CheckInputArgument(pvApiCtx, 1, 16);                     
+        CheckInputArgument(pvApiCtx, 2, 16);                     
         CheckOutputArgument(pvApiCtx, 1, 1);                    
 
         //-> Count number of input arguments
@@ -188,7 +188,7 @@ extern "C"
 //****************************************************** Name,Value - dynamParams *****************************************************************
 
 
-            if(strcmp(currentArg, "dynamParams")==0)
+            else if(strcmp(currentArg, "dynamParams")==0)
             {
 
                 if(iter+1<= num_InputArgs && !providedArgs[0])
@@ -200,15 +200,15 @@ extern "C"
                         return 0; 
                     }
 
-                    intErr = getScalarInteger32(pvApiCtx, piAddr, &dynamParams); 
+                    intErr = getScalarDouble(pvApiCtx, piAddr, &dynamParams); 
                     if(intErr)
                     {
                         return intErr; 
                     }   
 
-                    if( dynamParams < 0)
+                    if( dynamParams <= 0)
                     {
-                        Scierror(999," Invalid Value for dynamParams. Please enter a non negative Double value\\n");
+                        Scierror(999," Invalid Value for dynamParams. Please enter value more than zero.\n");
                         return 0;
                     }
 
@@ -240,15 +240,15 @@ extern "C"
                         return 0; 
                     }
 
-                    intErr = getScalarInteger32(pvApiCtx, piAddr, &measureParams); 
+                    intErr = getScalarDouble(pvApiCtx, piAddr, &measureParams); 
                     if(intErr)
                     {
                         return intErr; 
                     }   
 
-                    if( measureParams < 0)
+                    if( measureParams <= 0)
                     {
-                        Scierror(999," Invalid Value for measureParams. Please enter a non negative Double value\\n");
+                        Scierror(999," Invalid Value for measureParams. Please enter value more than zero.\n");
                         return 0;
                     }
 
@@ -281,15 +281,15 @@ extern "C"
                         return 0; 
                     }
 
-                    intErr = getScalarInteger32(pvApiCtx, piAddr, &controlParams); 
+                    intErr = getScalarDouble(pvApiCtx, piAddr, &controlParams); 
                     if(intErr)
                     {
                         return intErr; 
                     }   
 
-                    if( controlParams < 0)
+                    if( controlParams <= 0)
                     {
-                        Scierror(999," Invalid Value for controlParams. Please enter a non negative Double value\\n");
+                        Scierror(999," Invalid Value for controlParams. Please enter value more than zero.\n");
                         return 0;
                     }
 
@@ -468,6 +468,11 @@ extern "C"
                     free(piLen);
 
                    providedArgs[6] = 1;
+                   if( drawPath!="true" && drawPath!="True" && drawPath!="False" && drawPath!="false" )
+                    {
+                        Scierror(999,"Invalid value for drawpath");
+                        return 0;
+                    }
                 }
 
                 else if(providedArgs[6]) // Send an error message if an argument is provided more than once. Same for all optional arguments.
@@ -523,7 +528,7 @@ extern "C"
 
                     //-> Third call to retrieve data
                     sciErr = getMatrixOfString(pvApiCtx, piAddr, &iRows, &iCols, piLen, pstData); 
-                    if (sciErr.iErr)
+                        if (sciErr.iErr)
                     {
                         printError(&sciErr, 0); 
                         return 0; 
@@ -536,6 +541,12 @@ extern "C"
                     free(piLen);
 
                    providedArgs[7] = 1;
+                   if( sec!="true" && sec!="True" && sec!="False" && sec!="false" )
+                    {
+                        Scierror(999,"Invalid value for delay");
+                        return 0;
+                    }
+
                 }
 
                 else if(providedArgs[7]) // Send an error message if an argument is provided more than once. Same for all optional arguments.
@@ -550,6 +561,11 @@ extern "C"
                 }
             }
 
+            else
+            {
+                Scierror(999, "Incorrect Name type. Please re-enter the correct Name-Value pair arguments\n"); 
+                    return 0;  
+            }
 
         }//-> Braces of big for loop
     
@@ -734,7 +750,11 @@ extern "C"
                     cv::Scalar(20, 255, 255), rangeRes);
         }
 
-
+        else
+        {
+            Scierror(999,"The colour entered was mispelled or it is not there in the options of colour to track\n");
+            return 0;
+        }       
 
         // <<<<< Color Thresholding
 

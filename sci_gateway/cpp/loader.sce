@@ -13,6 +13,8 @@ end
 list_functions = [ 'imread';
                    'extractHOGFeatures';
                    'VideoReader';
+                   'KalmanFilter';
+                   'convolver';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack

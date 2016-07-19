@@ -17,10 +17,10 @@ names = [
 		"VideoReader","opencv_VideoReader";
 		//"opticalFlowFarneback","opencv_opticalFlowFarneback";
 		//"ForegroundDetector","opencv_ForegroundDetector";
-		//"KalmanFilter","opencv_KalmanFilter";
+		"KalmanFilter","opencv_KalmanFilter";
 		//"readKalmanFilter","opencv_readKalmanFilter";
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
-		//"convolver","opencv_convolver";
+		"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
 		//"isfilterseparable","opencv_isfilterseparable";
 		//"epipolarlines","opencv_epipolarlines";
@@ -118,7 +118,7 @@ files = [
 //"opencv_detectBRISKFeatures.cpp",
 //"opencv_BRISKPoints.cpp",
 "opencv_VideoReader.cpp",
-"opencv_extractHOGFeatures.cpp"
+"opencv_extractHOGFeatures.cpp",
 //"opencv_cvtColor.cpp",
 //"opencv_extractFeatures.cpp",
 //"opencv_matchFeatures.cpp",
@@ -126,9 +126,9 @@ files = [
 //"opencv_VideoReader.cpp",
 //"opencv_opticalFlowFarneback.cpp"
 //"opencv_ForegroundDetector.cpp",
-//"opencv_KalmanFilter.cpp"
+"opencv_KalmanFilter.cpp",
 //"opencv_estimateGeometricTransform.cpp",
-//"opencv_convolver.cpp",
+"opencv_convolver.cpp"
 //"opencv_isfilterseparable.cpp"
 //"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
