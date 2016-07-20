@@ -54,7 +54,7 @@ extern "C"
         char *currentArg = NULL; //-> Stores current string representing 'name' of name,value pair arguments
         bool *providedArgs = NULL; //-> Used to check that optional argument is not entered more than once
         double *values1 = NULL;
-        float *values2 =NULL;
+        //float *values2 =NULL;
         double size;
         double scalar;
         int iRows = 0; 
@@ -67,12 +67,11 @@ extern "C"
 
         //-> Checks the number of arguments
         //-> pvApiCtx is a Scilab environment pointer
-        CheckInputArgument(pvApiCtx, 1, 7);                     //Check on Number of Input Arguments
+        CheckInputArgument(pvApiCtx, 7, 7);                     //Check on Number of Input Arguments
         CheckOutputArgument(pvApiCtx, 1, 1);                    //Check on Number of Output Arguments
 
     	//-> Read Image
         retrieveImage( image_1, 1);
-        //retrieveImage(image_2, 2);
 
         //-> Count number of input arguments
         num_InputArgs = *getNbInputArgument(pvApiCtx);
@@ -150,13 +149,13 @@ extern "C"
                          return intErr; 
                     }
 
-                    if( size < 0)
+                    if( size <= 0)
                     {
                           Scierror(999," Invalid Value size. Please enter a non negative Double value\\n");
                           return 0;
                     }
                 
-                    if( (rows*cols) != size && providedArgs[0]==1)
+                    if( ((rows*cols) != size*size) && providedArgs[0]==1)
                     {   
                       Scierror(999,"Invalid size given\n");
                       return 0;  
@@ -206,7 +205,7 @@ extern "C"
                     }*/
                     rows = iRows;
                     cols = iCols;
-                    if( (rows*cols!=size) && (providedArgs[0]==1) )
+                    if( (rows*cols!=size*size) && (providedArgs[0]==1) )
                     {   
                       Scierror(999,"Invalid size entered\n");
                       return 0;
@@ -246,7 +245,7 @@ extern "C"
 
                     if( scalar == 0)
                     {
-                          Scierror(999," Invalid scalar value. Please enter a non negative Double value\n");
+                          Scierror(999," Invalid scalar value. Please enter value more than zero.\n");
                           return 0;
                     }
 
@@ -273,13 +272,21 @@ extern "C"
 
 //*****************************************************  Actual Processing  *************************************************************
   		
-        values2 = (float*)malloc(sizeof(float)*size*size);
-                for(int i=0; i<size*size; i++)
+        //values2 = (float*)malloc(sizeof(float)*size*size);
+        int size2 = int(size);
+        float** values2 = new float*[size2];
+        for(int i = 0; i < size2; ++i)
+            values2[i] = new float[size2]; 
+
+                for(int i=0; i<size2; i++)
                 {
-                    values2[i] = (float)values1[i];
+                    for(int j=0; j<size2; j++)
+                        values2[i][j] = (float)values1[i+j*size2];
                 }
         
-        Mat kernel( (size/2),(size/2),CV_32F, values2);
+        //Mat kernel( (size/2),(size/2),CV_32F, values2);
+        Mat kernel( size,size,CV_32F, values2);
+
 
   	    Mat kernel2 = kernel/ (float)(scalar);
 
@@ -292,6 +299,7 @@ extern "C"
         ddepth = -1;
         filter2D(image_1, image_2, ddepth,kernel2,anchor,delta, BORDER_DEFAULT);
 
+        /*
   	    //-> If grayscale
         if( image_2.channels() == 1)
         {
@@ -363,6 +371,13 @@ extern "C"
                 free(blue); 
 
         }
+        */
+        string tempstring = type2str(image_2.type());
+        char *checker;
+        checker = (char *)malloc(tempstring.size() + 1);
+        memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
+        returnImage(checker, image_2, 1);
+        free(checker);
 
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
         ReturnArguments(pvApiCtx);

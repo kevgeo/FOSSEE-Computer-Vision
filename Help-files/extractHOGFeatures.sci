@@ -1,7 +1,7 @@
 // Extracts HOG feature values from image
 //
 // Calling Sequence
-// values = extractHOGFeatures(I1);
+// values = extractHOGFeatures(Image);
 // values = extractHOGFeatures(image, name, value,...);
 // 
 // Parameters 
