@@ -218,14 +218,15 @@ extern "C"
 //*****************************************************  Actual Processing  *************************************************************
  
         int size2 = int(rows*cols);
-        float *kdata = new float[size2*size2];
-
-        for(int i = 0;i<size2*size2; i++)
+        float *kdata = new float[size2];
+        int idx = 0;
+        for(int i = 0;i<rows; i++)
         {
-        	kdata[i] = float(data[i]);
+        	for(int j = 0; j<rows; j++)
+                kdata[idx++] = float(data[i+j*rows]);
         }
 
- 		Mat kernel( size2, size2, CV_32F, kdata);
+ 		Mat kernel( rows, cols, CV_32F, kdata);
  		SVD::compute(kernel,s,u,v);
 
  		int count = 0;
@@ -233,8 +234,11 @@ extern "C"
 	    {
 	      for(int j = 0; j < s.cols; j++)
 	        {
-	          if( s.at<float>(i,j) != 0)
-	            count++;
+                if(i==j)
+	           {
+                    if( s.at<float>(i,j) != 0)
+	                   count++;
+                }
 	        }
 	    }
 

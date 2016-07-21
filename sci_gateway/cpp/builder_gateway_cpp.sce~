@@ -13,16 +13,16 @@ names = [
 		 //"extractFeatures","opencv_extractFeatures";
 		//"matchFeatures","opencv_matchFeatures";
 		//"cvtColor","opencv_cvtColor";
-		"showMatchedFeatures","opencv_showMatchedFeatures";
+		//"showMatchedFeatures","opencv_showMatchedFeatures";
 		"VideoReader","opencv_VideoReader";
-		"opticalFlowFarneback","opencv_opticalFlowFarneback";
+		//"opticalFlowFarneback","opencv_opticalFlowFarneback";
 		//"ForegroundDetector","opencv_ForegroundDetector";
 		//"KalmanFilter","opencv_KalmanFilter";
 		//"readKalmanFilter","opencv_readKalmanFilter";
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
 		//"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
-		//"isfilterseparable","opencv_isfilterseparable";
+		"isfilterseparable","opencv_isfilterseparable";
 		//"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
@@ -122,14 +122,14 @@ files = [
 //"opencv_cvtColor.cpp",
 //"opencv_extractFeatures.cpp",
 //"opencv_matchFeatures.cpp",
-"opencv_showMatchedFeatures.cpp",
+//"opencv_showMatchedFeatures.cpp",
 //"opencv_VideoReader.cpp",
-"opencv_opticalFlowFarneback.cpp",
+//"opencv_opticalFlowFarneback.cpp",
 //"opencv_ForegroundDetector.cpp",
 //"opencv_KalmanFilter.cpp",
 //"opencv_estimateGeometricTransform.cpp",
 //"opencv_convolver.cpp"
-//"opencv_isfilterseparable.cpp"
+"opencv_isfilterseparable.cpp"
 //"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",

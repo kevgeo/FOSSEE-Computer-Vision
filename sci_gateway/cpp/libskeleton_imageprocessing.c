@@ -7,14 +7,12 @@ extern "C" {
 #include <MALLOC.h>
 static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
-extern Gatefunc opencv_showMatchedFeatures;
 extern Gatefunc opencv_VideoReader;
-extern Gatefunc opencv_opticalFlowFarneback;
+extern Gatefunc opencv_isfilterseparable;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_showMatchedFeatures,"showMatchedFeatures"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_opticalFlowFarneback,"opticalFlowFarneback"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_isfilterseparable,"isfilterseparable"},
 };
  
 int C2F(libskeleton_imageprocessing)()
