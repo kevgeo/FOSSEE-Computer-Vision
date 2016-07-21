@@ -12,6 +12,7 @@ end
 //
 list_functions = [ 'imread';
                    'extractHOGFeatures';
+                   'showMatchedFeatures';
                    'VideoReader';
                    'KalmanFilter';
                    'convolver';

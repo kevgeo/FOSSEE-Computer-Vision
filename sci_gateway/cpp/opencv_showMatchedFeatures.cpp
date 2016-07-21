@@ -87,7 +87,8 @@ extern "C"
 
 //******************************************************  Retrieval of 3rd,4th,5th args  *******************************************************************
 
-    /*        
+    /*  This is code which wasn't working when working with matchfeatures function
+        Have to find a way to make it work with matchfeatures function s      
          /*************** Size of good matches **************
         sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr); 
             if (sciErr.iErr)
@@ -184,8 +185,8 @@ extern "C"
 
         for( int i = 0; i < descriptors_1.rows; i++ )
         { 
-            //if( matches[i].distance <= max(2*min_dist, 0.02) )
-            if( matches[i].distance <= (2*min_dist) )
+            if( matches[i].distance <= max(2*min_dist, 0.02) )
+            //if( matches[i].distance <= (2*min_dist) )
             { good_matches.push_back( matches[i]); }
         }
 
@@ -194,80 +195,14 @@ extern "C"
                 good_matches,img_matches, Scalar::all(-1), Scalar::all(-1),
                vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
-        //-> Show detected matches
-        //imshow( "Good Matches", img_matches );
-        //waitKey(0);
-
-        if( img_matches.channels() == 1)
-        {
-            sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 1, &outList);
-            if(sciErr.iErr)
-            {
-                printError(&sciErr, 0);
-                return 0;
-            }
-            red = (unsigned char *)malloc(sizeof(unsigned char)*img_matches.rows*img_matches.cols);
-
-            for(int k=0;k<img_matches.rows;k++)
-                for(int p=0;p<img_matches.cols;p++)
-                    red[k+img_matches.rows*p]=img_matches.at<uchar>(k, p);
-
-            sciErr = createMatrixOfUnsignedInteger8InList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, outList, 1, img_matches.rows, img_matches.cols, red);
-            if(sciErr.iErr)
-            {
-                printError(&sciErr, 0);
-                return 0;
-            }                       
-            free(red);
-        }
-
-        else
-        {
-            sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 3, &outList);
-            if(sciErr.iErr)
-            {
-                    printError(&sciErr, 0);
-                    return 0;
-            }
-
-            red = (unsigned char *)malloc(sizeof(unsigned char)*img_matches.rows*img_matches.cols);
-            green = (unsigned char *)malloc(sizeof(unsigned char)*img_matches.rows*img_matches.cols);
-            blue = (unsigned char *)malloc(sizeof(unsigned char)*img_matches.rows*img_matches.cols);
-
-            for(int k=0;k<img_matches.rows;k++)
-            {
-                for(int p=0;p<img_matches.cols;p++)
-                {
-                    Vec3b intensity = img_matches.at<Vec3b>(k, p);
-                    red[k+img_matches.rows*p]=intensity.val[2];
-                    green[k+img_matches.rows*p]=intensity.val[1];
-                    blue[k+img_matches.rows*p]=intensity.val[0];
-                }
-            }
-
-            sciErr = createMatrixOfUnsignedInteger8InList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, outList, 1, img_matches.rows, img_matches.cols, red);
-                if(sciErr.iErr)
-                {
-                    printError(&sciErr, 0);
-                    return 0;
-                }
-                sciErr = createMatrixOfUnsignedInteger8InList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, outList, 2, img_matches.rows, img_matches.cols, green);
-                if(sciErr.iErr)
-                {
-                    printError(&sciErr, 0);
-                    return 0;
-                }                   
-                sciErr = createMatrixOfUnsignedInteger8InList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, outList, 3, img_matches.rows, img_matches.cols, blue);
-                if(sciErr.iErr)
-                {
-                    printError(&sciErr, 0);
-                    return 0;
-                }
-                free(red);
-                free(green);
-                free(blue); 
-
-        }
+        
+        //-> Returning Image
+        string tempstring = type2str(img_matches.type());
+        char *checker;
+        checker = (char *)malloc(tempstring.size() + 1);
+        memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
+        returnImage(checker, img_matches, 1);
+        free(checker);
 
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
         ReturnArguments(pvApiCtx);

@@ -13,7 +13,7 @@ names = [
 		 //"extractFeatures","opencv_extractFeatures";
 		//"matchFeatures","opencv_matchFeatures";
 		//"cvtColor","opencv_cvtColor";
-		//"showMatchedFeatures","opencv_showMatchedFeatures";
+		"showMatchedFeatures","opencv_showMatchedFeatures";
 		"VideoReader","opencv_VideoReader";
 		//"opticalFlowFarneback","opencv_opticalFlowFarneback";
 		//"ForegroundDetector","opencv_ForegroundDetector";
@@ -122,7 +122,7 @@ files = [
 //"opencv_cvtColor.cpp",
 //"opencv_extractFeatures.cpp",
 //"opencv_matchFeatures.cpp",
-//"opencv_showMatchedFeatures.cpp",
+"opencv_showMatchedFeatures.cpp",
 //"opencv_VideoReader.cpp",
 //"opencv_opticalFlowFarneback.cpp"
 //"opencv_ForegroundDetector.cpp",

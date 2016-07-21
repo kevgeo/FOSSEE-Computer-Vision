@@ -5,9 +5,9 @@
 // 
 // Parameters 
 // Image : Input image matrix
-// size :  This is basically the dimension of the kernel. Since only square matrix kernel is supported, size is either column or row size of kernel.
-// values : Kernel or filter
-// scalar : The value which is multiplied to the whole kernel
+// int size :  This is basically the dimension of the kernel. Since only square matrix kernel is supported, size is either column or row size of kernel.
+// array(float) values : Kernel or filter
+// int scalar : The value which is multiplied to the whole kernel
 //
 // Description
 // The function extracts the HOG feature values from an image and stores them in a vector.

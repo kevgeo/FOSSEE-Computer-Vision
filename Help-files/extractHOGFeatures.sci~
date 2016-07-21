@@ -2,14 +2,14 @@
 //
 // Calling Sequence
 // values = extractHOGFeatures(Image);
-// values = extractHOGFeatures(image, name, value,...);
+// values = extractHOGFeatures(Image,"CellSize",<value>,"BlockSize",<value>,"BlockOverlap",<value>,"NumBins",<value>);
 // 
 // Parameters 
 // Image : Input image matrix
-// CellSize : Determines the cell size in pixels.
-// BlockSize : Determines the block size in pixels.
-// BlockOverlap : Specifies the amount of block overlap. It must be a multiple of CellSize.
-// NumBins : Specifies the number of bins.
+// double CellSize : Determines the cell size in pixels.
+// double BlockSize : Determines the block size in pixels.
+// double BlockOverlap : Specifies the amount of block overlap. It must be a multiple of CellSize.
+// int NumBins : Specifies the number of bins.
 //
 // Description
 // The function extracts the HOG feature values from an image and stores them in a vector.
