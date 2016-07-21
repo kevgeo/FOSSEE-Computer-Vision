@@ -5,7 +5,7 @@
 // 
 // Parameters 
 // Image : Input image matrix
-// size :  This is basically the dimension of the kernel. Since only square matrix kernel is supported, size is either column or row size of kernel
+// size :  This is basically the dimension of the kernel. Since only square matrix kernel is supported, size is either column or row size of kernel.
 // values : Kernel or filter
 // scalar : The value which is multiplied to the whole kernel
 //

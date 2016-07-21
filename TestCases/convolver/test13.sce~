@@ -9,3 +9,4 @@ I2 = convolver(I1,"values","size","scalar");
 out1 = convolver(I1,"values","size","scalar");
 //output->in getMatrixOfDouble: Invalid argument type, double matrix expected
 
+a = [ 0 -1 0; -1 5 -1; 0 -1 0];

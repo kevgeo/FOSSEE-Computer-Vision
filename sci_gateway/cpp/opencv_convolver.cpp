@@ -54,7 +54,7 @@ extern "C"
         char *currentArg = NULL; //-> Stores current string representing 'name' of name,value pair arguments
         bool *providedArgs = NULL; //-> Used to check that optional argument is not entered more than once
         double *values1 = NULL;
-        //float *values2 =NULL;
+        float *values2 =NULL;
         double size;
         double scalar;
         int iRows = 0; 
@@ -272,22 +272,17 @@ extern "C"
 
 //*****************************************************  Actual Processing  *************************************************************
   		
-        //values2 = (float*)malloc(sizeof(float)*size*size);
-        int size2 = int(size);
-        float** values2 = new float*[size2];
-        for(int i = 0; i < size2; ++i)
-            values2[i] = new float[size2]; 
+         values2 = (float*)malloc(sizeof(float)*size*size);
+         int idx = 0;
+         int size2 = int(size); // we need size2 in the for loop to assig values to float matrix values2
+         for(int i=0; i<size; i++)
+         {
+               for(int j=0; j<size; j++)
+                    values2[idx++] = (float)values1[i+j*size2];
+         }
 
-                for(int i=0; i<size2; i++)
-                {
-                    for(int j=0; j<size2; j++)
-                        values2[i][j] = (float)values1[i+j*size2];
-                }
-        
-        //Mat kernel( (size/2),(size/2),CV_32F, values2);
+
         Mat kernel( size,size,CV_32F, values2);
-
-
   	    Mat kernel2 = kernel/ (float)(scalar);
 
         Point anchor;

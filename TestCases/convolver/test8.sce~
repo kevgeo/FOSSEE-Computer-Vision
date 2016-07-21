@@ -3,51 +3,52 @@
 I1 = imread("box.png");
 
 //Kernel or filter and convolution on image is done with this kernel
-//This kernel will give same image with no change
-a = [0 0 0; 0 1 0; 0 0 0];
+//This kernel will blur the image 
+a = [ 0.0625 0.125 0.0625; 0.125 0.25 0.125; 0.0625 0.125 0.0625];
 
-//Checking if error message comes if we don't add "values" string in front of 'a' variable
+
 //Perforing convolution
-out1 = convolver(I1,"scalar",1,"size",3,a);
-//output->in getMatrixOfString: Invalid argument type, string matrix expected
-
+out1 = convolver(I1,"size",3,"values",a,"scalar",1);
+//-> Returns a blurred image
+//correct output is given
 
 //Reading image
 I2 = imread("lena.jpeg");
 
 //Kernel or filter and convolution on image is done with this kernel
-//This kernel will give same image with no change
-a = [0 0 0; 0 1 0; 0 0 0];
+//This kernel will blur the image 
+a = [ 0.0625 0.125 0.0625; 0.125 0.25 0.125; 0.0625 0.125 0.0625];
 
-//Checking if error message comes if we don't add "values" string in front of 'a' variable
 //Perforing convolution
-out2 = convolver(I2,"scalar",1,"size",3,a);
-//output->in getMatrixOfString: Invalid argument type, string matrix expected
+out2 = convolver(I2,"size",3,"values",a,"scalar",1);
+//-> Returns a blurred image
+//correct output is given
+
 
 
 //Reading image
 I3 = imread("clc1.jpg");
 
 //Kernel or filter and convolution on image is done with this kernel
-//This kernel will give same image with no change
-a = [0 0 0; 0 1 0; 0 0 0];
+//This kernel will blur the image 
+a = [ 0.0625 0.125 0.0625; 0.125 0.25 0.125; 0.0625 0.125 0.0625];
 
-//Checking if error message comes if we don't add "values" string in front of 'a' variable
+
 //Perforing convolution
-out3 = convolver(I3,"scalar",1,"size",3,a);
-//output->in getMatrixOfString: Invalid argument type, string matrix expected
+out3 = convolver(I3,"size",3,"values",a,"scalar",1);
+//-> Returns a blurred image
+//correct output is given
 
 
 //Reading grayscale image
 I4 = imread("left01.jpg");
 
 //Kernel or filter and convolution on image is done with this kernel
-//This kernel will give same image with no change
-a = [0 0 0; 0 1 0; 0 0 0];
+//This kernel will blur the image 
+a = [ 0.0625 0.125 0.0625; 0.125 0.25 0.125; 0.0625 0.125 0.0625];
 
-//Checking if error message comes if we don't add "values" string in front of 'a' variable
 //Perforing convolution
-out4 = convolver(I4,"scalar",1,"size",3,a);
-//output->in getMatrixOfString: Invalid argument type, string matrix expected
-
+out4 = convolver(I4,"size",3,"values",a,"scalar",1);
+//-> Returns a blurred image
+//correct output is given
 
