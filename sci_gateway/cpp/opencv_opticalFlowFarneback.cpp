@@ -208,7 +208,7 @@ extern "C"
                     //-> Checking if values are in proper range. Same for all optional arguments
                     if( NumPyramidLevels < 1)
                     {
-                        Scierror(999," Invalid Value for NumPyramidLevels. Please enter a non negative double value.\n");
+                        Scierror(999," Invalid Value for NumPyramidLevels. Please enter value more than or equal to one.\n");
                         return 0;
                     }       
 

@@ -1,5 +1,8 @@
-opticalFlowFarneback("FileName","ped.avi","NeighborhoodSize",-1);
 
-//output                                                                 
-//!--error 999 
-//Invalid Value for size of pixel Neighborhood. Please enter a non negative Double value.
+//Reading path of file and executing function
+//Checking if error message pops up when only when input is given when minimum should be 2
+opticalFlowFarneback("FileName");
+//output                                 
+//!--error 77 
+//opticalFlowFarneback: Wrong number of input argument(s): 2 to 14 expected.
+

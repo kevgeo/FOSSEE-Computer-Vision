@@ -1,5 +1,5 @@
-opticalFlowFarneback("FileName","ped.avi","Poly_Sigma",1.2,"FilterSize",6,
-"NeighborhoodSize",5,"NumIteration",3,"PyramidScale",0.5,"NumPyramidLevels",3);
-
-//output
-// Correct output is given
+opticalFlowFarneback("FileName","ped.avi","PyramidScale",3,"NumPyramidLevels",3);  
+//output                                                                               
+//!--error 999 
+//Invalid Value for PyramidScale. Please enter a value between zero and one.
+ 
