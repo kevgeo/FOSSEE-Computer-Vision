@@ -22,8 +22,8 @@ names = [
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
 		//"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
-		"isfilterseparable","opencv_isfilterseparable";
-		//"epipolarlines","opencv_epipolarlines";
+		//"isfilterseparable","opencv_isfilterseparable";
+		"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
             //"canny","opencv_canny";
@@ -129,8 +129,8 @@ files = [
 //"opencv_KalmanFilter.cpp",
 //"opencv_estimateGeometricTransform.cpp",
 //"opencv_convolver.cpp"
-"opencv_isfilterseparable.cpp"
-//"opencv_epipolarlines.cpp"		
+//"opencv_isfilterseparable.cpp"
+"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",
             //"opencv_canny.cpp",

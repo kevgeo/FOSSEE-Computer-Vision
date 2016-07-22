@@ -53,8 +53,8 @@ extern "C"
 
         //-> Checks the number of arguments
         //-> pvApiCtx is a Scilab environment pointer
-        CheckInputArgument(pvApiCtx, 1, 5);                     //Check on Number of Input Arguments
-        CheckOutputArgument(pvApiCtx, 1, 5);                    //Check on Number of Output Arguments
+        CheckInputArgument(pvApiCtx, 2, 2);                     //Check on Number of Input Arguments
+        CheckOutputArgument(pvApiCtx, 2, 2);                    //Check on Number of Output Arguments
 
     	//-> Read Image
         retrieveImage( img_1, 1);
@@ -163,6 +163,7 @@ extern "C"
 
 //************************************************ Returning first image **************************************************
 
+        /*
 	  	if( img_1.channels() == 1)
         {
             sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 1, &outList);
@@ -234,12 +235,13 @@ extern "C"
 
         }
 
-
+        */
 		  /*imshow("title", img_1);
 		  waitKey(0);
 		  imshow("title2", img_2);
 		  waitKey(0);*/
 
+          /*
 		  if( img_2.channels() == 1)
         {
             sciErr = createList(pvApiCtx, nbInputArgument(pvApiCtx) + 2, 1, &outList2);
@@ -310,7 +312,22 @@ extern "C"
                 free(blue2); 
 
         }
+        */
+        //-> Returning first image
+        string tempstring = type2str(img_1.type());
+        char *checker;
+        checker = (char *)malloc(tempstring.size() + 1);
+        memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
+        returnImage(checker, img_1, 1);
+        free(checker);
 
+        //-> Returning second image
+        string tempstring2 = type2str(img_2.type());
+        char *checker2;
+        checker2 = (char *)malloc(tempstring2.size() + 1);
+        memcpy(checker2, tempstring2.c_str(), tempstring2.size() + 1);
+        returnImage(checker2, img_2, 2);
+        free(checker2);
 
 		AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
 		AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx) + 2;

@@ -8,11 +8,11 @@ extern "C" {
 static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
 extern Gatefunc opencv_VideoReader;
-extern Gatefunc opencv_isfilterseparable;
+extern Gatefunc opencv_epipolarlines;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_isfilterseparable,"isfilterseparable"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_epipolarlines,"epipolarlines"},
 };
  
 int C2F(libskeleton_imageprocessing)()
