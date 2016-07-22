@@ -22,8 +22,8 @@ names = [
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
 		//"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
-		//"isfilterseparable","opencv_isfilterseparable";
-		"epipolarlines","opencv_epipolarlines";
+		"isfilterseparable","opencv_isfilterseparable";
+		//"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
             //"canny","opencv_canny";
@@ -76,8 +76,8 @@ names = [
 	    //"drawKeypoints","opencv_drawKeypoints";
 	    //"drawMatches","opencv_drawMatches";
 	    //"groupRectangles","opencv_groupRectangles";
-	   //"convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
-	   //"convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
+	   "convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
+	   "convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
 	   //"correctMatches","opencv_correctMatches";
 	   //"computeCorrespondEpilines","opencv_computeCorrespondEpilines";
 	   //"findFundamentalMat","opencv_findFundamentalMat";
@@ -85,15 +85,15 @@ names = [
 	   //"filterSpeckles","opencv_filterSpeckles";
 	   //"matMulDeriv","opencv_matMulDeriv";
 	   //"estimateAffine3D","opencv_estimateAffine3D";
-	   //"Rodrigues","opencv_Rodrigues";
+	   "Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
 	   //"projectPoints","opencv_projectPoints";
 	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
 	   //"solvePnP","opencv_solvePnP";
 	  //"solvePnPRansac","opencv_solvePnPRansac";
-	   //"findCirclesGrid","opencv_findCirclesGrid";
-	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
+	   "findCirclesGrid","opencv_findCirclesGrid";
+	   "decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
 	   //"composeRT","opencv_composeRT";
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
@@ -129,8 +129,8 @@ files = [
 //"opencv_KalmanFilter.cpp",
 //"opencv_estimateGeometricTransform.cpp",
 //"opencv_convolver.cpp"
-//"opencv_isfilterseparable.cpp"
-"opencv_epipolarlines.cpp"		
+"opencv_isfilterseparable.cpp",
+//"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",
             //"opencv_canny.cpp",
@@ -184,8 +184,8 @@ files = [
 	  //"opencv_drawKeypoints.cpp",
 	  //"opencv_drawMatches.cpp",
 	  //"opencv_groupRectangles.cpp",
-	  //"opencv_convertPointsToHomogeneous.cpp",
-	  //"opencv_convertPointsFromHomogeneous.cpp"
+	  "opencv_convertPointsToHomogeneous.cpp",
+	  "opencv_convertPointsFromHomogeneous.cpp",
 	  //"opencv_correctMatches.cpp",
 	  //"opencv_computeCorrespondEpilines.cpp",
 	  //"opencv_findFundamentalMat.cpp",
@@ -193,15 +193,15 @@ files = [
 	  //"opencv_filterSpeckles.cpp",
 	  //"opencv_matMulDeriv.cpp",
 	  //"opencv_estimateAffine3D.cpp"
-	  //"opencv_Rodrigues.cpp"
+	  "opencv_Rodrigues.cpp",
 	  //"opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptNewCameraMatrix.cpp",
 	  //"opencv_projectPoints.cpp",
 	  //"opencv_initCameraMatrix2D.cpp"
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
-	  //"opencv_findCirclesGrid.cpp"
-	  //"opencv_decomposeProjectionMatrix.cpp"
+	  "opencv_findCirclesGrid.cpp",
+	  "opencv_decomposeProjectionMatrix.cpp"
 	  //"opencv_RQDecomp3x3.cpp"
 	  //"opencv_composeRT.cpp"
 	  //"opencv_calibrationMatrixValues.cpp"

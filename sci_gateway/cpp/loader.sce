@@ -12,7 +12,12 @@ end
 //
 list_functions = [ 'imread';
                    'VideoReader';
-                   'epipolarlines';
+                   'isfilterseparable';
+                   'convertPointsToHomogeneous';
+                   'convertPointsFromHomogeneous';
+                   'Rodrigues';
+                   'findCirclesGrid';
+                   'decomposeProjectionMatrix';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack

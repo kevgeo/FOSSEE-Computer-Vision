@@ -57,6 +57,24 @@ extern "C"
         return 0;
     }
 
+    if( (iRows==3 && iCols!=3) )
+    {
+        if( iCols!= 1)
+        {    
+            Scierror(999,"Invalid Argument. 3x3 matrix, 1x3 and 3x1 vectors are only allowed.\n");
+                      return 0;
+        }
+    }
+    
+    if( (iCols==3 && iRows!=3) )
+    {
+        if( iRows!= 1)
+        {    
+            Scierror(999,"Invalid Argument. 3x3 matrix, 1x3 and 3x1 vectors are only allowed.\n");
+                      return 0;
+        }
+    }
+
     Mat srcMatrix(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {

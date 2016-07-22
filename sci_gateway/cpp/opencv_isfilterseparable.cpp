@@ -141,9 +141,9 @@ extern "C"
                     }
                     rows = iRows;
                     cols = iCols;
-                    if( (rows*cols!=size) && (providedArgs[1]==1))
+                    if( (rows!=cols) )
                     {   
-                      Scierror(999,"Invalid Argument. Data must be entered as matrix of values.\n");
+                      Scierror(999,"Invalid Argument. Matrix of equal rows and columns must be entered.\n");
                       return 0;
                     } 
 
