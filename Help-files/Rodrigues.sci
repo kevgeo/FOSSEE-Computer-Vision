@@ -11,7 +11,12 @@
 // partial derivatives of first output with respect to input.
 //
 // Examples
-// 
+// //Vector values
+// rotvec = [12;
+// 5;
+// 7];
+// //Converting "rotvec" vector to a rotation matrix
+// [rotmatrix jacobian2 ] = Rodrigues(rotvec);
 //
 // Author
 // Kevin George
