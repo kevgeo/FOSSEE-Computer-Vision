@@ -15,6 +15,7 @@ list_functions = [ 'imread';
                    'isfilterseparable';
                    'convertPointsToHomogeneous';
                    'convertPointsFromHomogeneous';
+                   'estimateAffine3D';
                    'findCirclesGrid';
                    'decomposeProjectionMatrix';
                    'composeRT';

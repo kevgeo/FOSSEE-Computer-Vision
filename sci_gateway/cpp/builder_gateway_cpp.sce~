@@ -84,7 +84,7 @@ names = [
 	   //"findHomography","opencv_findHomography";
 	   //"filterSpeckles","opencv_filterSpeckles";
 	   //"matMulDeriv","opencv_matMulDeriv";
-	   //"estimateAffine3D","opencv_estimateAffine3D";
+	   "estimateAffine3D","opencv_estimateAffine3D";
 	   //"Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
@@ -192,7 +192,7 @@ files = [
 	  //"opencv_findHomography.cpp",
 	  //"opencv_filterSpeckles.cpp",
 	  //"opencv_matMulDeriv.cpp",
-	  //"opencv_estimateAffine3D.cpp"
+	  "opencv_estimateAffine3D.cpp",
 	  //"opencv_Rodrigues.cpp",
 	  //"opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptNewCameraMatrix.cpp",

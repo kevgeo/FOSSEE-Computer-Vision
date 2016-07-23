@@ -1,3 +1,5 @@
+//Checking if error message pops up when row vector size is not 3
+
 TransVec1 = [4
 2
 3
@@ -20,4 +22,7 @@ TransVec2 = [2
 
 [RotVec3 TransVec3] = composeRT(RotVec1,TransVec1,RotVec2,TransVec2);
 
-//output is correct
+//output->
+//                                                                   !--error 999 
+//Only row vector of size 3x1 is allowed. Make sure that the inputs are of this size.
+ 

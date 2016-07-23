@@ -64,12 +64,18 @@ extern "C"
         return 0;
     }
 
-   if(iCols>1)
+   if( iCols>1)
     {
         Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
             return 0;
     }
     
+    if( iRows!=3)
+    {
+        Scierror(999,"Only row vector of size 3x1 is allowed. Make sure that the inputs are of this size.\n");
+            return 0;
+    }
+
     Mat rvec1(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {
@@ -97,6 +103,11 @@ extern "C"
     if(iCols>1)
     {
         Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
+    }
+    if( iRows!=3)
+    {
+        Scierror(999,"Only row vector of size 3x1 is allowed. Make sure that the inputs are of this size.\n");
             return 0;
     }
     
@@ -130,6 +141,12 @@ extern "C"
             return 0;
     }
 
+    if( iRows!=3)
+    {
+        Scierror(999,"Only row vector of size 3x1 is allowed. Make sure that the inputs are of this size.\n");
+            return 0;
+    }
+    
     Mat rvec2(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {
@@ -157,6 +174,11 @@ extern "C"
     if(iCols>1)
     {
         Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
+    }
+    if( iRows!=3)
+    {
+        Scierror(999,"Only row vector of size 3x1 is allowed.  Make sure that the inputs are of this size.\n");
             return 0;
     }
     
