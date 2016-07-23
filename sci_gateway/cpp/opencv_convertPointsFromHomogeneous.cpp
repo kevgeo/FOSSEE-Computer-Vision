@@ -1,8 +1,8 @@
 //*******************************************************************************************************
 // Authors : Kevin George
 //
-// sample inputs : output = convertPointsFromHomogeneous(input)
-// 
+// sample inputs : outImage = convertPointsToHomogeneous(inImage, outImage)
+// convertPointsToHomogeneous (inImage, outImage)
 //               
 //*******************************************************************************************************
 
@@ -31,18 +31,12 @@ extern "C"
     int intErr = 0;
     int iRows=0,iCols=0;
     int *piAddr = NULL;
-    int *piAddr2  = NULL;
-    int *piAddr3  = NULL;
-    int *piAddr4  = NULL;
-    double *pstData = NULL;
-    double *rectdata = NULL;
-    double groupThreshold, eps;
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-    double *input_pts = NULL;
-  
+    double *input = NULL;
+    //-> Get points
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
     if (sciErr.iErr)
     {
@@ -50,47 +44,50 @@ extern "C"
         return 0; 
     }
 
-    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &input_pts);
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &input);
     if(sciErr.iErr)
     {
         printError(&sciErr, 0);
         return 0;
     }
 
-    int size = iRows * iCols;
-    if(size != 4)
+    if( iRows>1 && iCols>1 )
     {
-      sciprint("Number of points must only be four.\n");
-      return 0;
-    } 
+        Scierror(999, "Please enter either row or column vector.\n"); 
+                    return 0; 
+    }
 
-    Mat1f src(4, 1); 
-    src(0) = -70;
-    src(1) = -95;
-    src(2) = -120;
-    src(3) = 1;
+    int size = (iRows*iCols)/3;
+    
+    vector<Point3f> src(size);
+    int j = 0;
+    for(int i = 0; i<size; i++)
+    {
+        src[i].x = input[j++];
+        src[i].y = input[j++];
+        src[i].z = input[j++];
+    }
 
-    // Reshape to 4 channel matrix
-    Mat temp = src.reshape(4);
-    Mat dst;
-
-    //-> Calling convertPointsFromHomogeneous function
-    convertPointsFromHomogeneous(temp, dst);
-
-    double *pts = NULL; //output
-    pts = (double*)malloc(sizeof(double)*4);
-
-    for(int i=0;i<3;i++)
-      pts[i] = dst.at<float>(i);
-
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1 , 1, 3, pts); 
+    vector<Point2f> dst;
+    //-> Calling convertPointsToHomogeneous function
+    convertPointsFromHomogeneous(src, dst);
+    int size2 = (dst.size()*2)-1;
+    double *output = NULL;
+    output = (double*)malloc(sizeof(double)*size2);
+    j = 0;
+    for(int i=0; i<dst.size(); i++)
+    {
+        output[j++] = dst[i].x;
+        output[j++] = dst[i].y;
+    }
+ 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 1, j, output); 
     if(sciErr.iErr)
     {
         printError(&sciErr, 0); 
         return 0; 
     }
 
- 
     //Assigning the list as the Output Variable
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     //Returning the Output Variables as arguments to the Scilab environment
