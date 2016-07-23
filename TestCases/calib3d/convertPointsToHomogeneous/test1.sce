@@ -22,3 +22,12 @@ in4 = [12; 13; 5; 22; 2];
 //Getting homogenous points
 out4 = convertPointsToHomogeneous(in4);
 //output is correct
+
+//N dimensional points
+//Checking if it works when matrix instead of vector is entered
+in5 = [12 13; 5 20];
+//Getting homogenous points
+out5 = convertPointsToHomogeneous(in5);
+//output->
+//                                     !--error 999 
+//Please enter either row or column vector.

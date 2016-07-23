@@ -64,6 +64,12 @@ extern "C"
         return 0;
     }
 
+   if(iCols>1)
+    {
+        Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
+    }
+    
     Mat rvec1(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {
@@ -88,6 +94,12 @@ extern "C"
         return 0;
     }
 
+    if(iCols>1)
+    {
+        Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
+    }
+    
     Mat tvec1(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {
@@ -110,6 +122,12 @@ extern "C"
     {
         printError(&sciErr, 0);
         return 0;
+    }
+
+    if(iCols>1)
+    {
+        Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
     }
 
     Mat rvec2(iRows,iCols,DataType<double>::type);
@@ -136,6 +154,12 @@ extern "C"
         return 0;
     }
 
+    if(iCols>1)
+    {
+        Scierror(999,"Only column vector is allowed. Make sure that the inputs are column vectors.\n");
+            return 0;
+    }
+    
     Mat tvec2(iRows,iCols,DataType<double>::type);
     for(int i=0; i<iRows; i++)
     {
@@ -145,7 +169,7 @@ extern "C"
         }
     }
 
-    //-> Calling decomposeProjectionMatrix function
+    //-> Calling composeRT function
     composeRT(rvec1, tvec1, rvec2, tvec2, rvec3, tvec3);
     
     //-> Variable for returning output matrices
@@ -160,7 +184,7 @@ extern "C"
     {
         for(int j=0; j<iCols; j++)
         {
-            r3[i+j*3] = rvec3.at<double>(i,j);
+            r3[i+j*iRows] = rvec3.at<double>(i,j);
         }
     }
 
@@ -181,7 +205,7 @@ extern "C"
     {
         for(int j=0; j<iCols; j++)
         {
-            t3[i+j*3] = tvec3.at<double>(i,j);
+            t3[i+j*iRows] = tvec3.at<double>(i,j);
         }
     }
 
