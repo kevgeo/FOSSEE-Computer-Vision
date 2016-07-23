@@ -266,7 +266,7 @@ extern "C"
             else
             {
                 sciprint("Wrong name-value argument pair has been entered by user\n");
-            }
+            } 
 
         }//-> End of big for loop
 

@@ -52,7 +52,7 @@ extern "C"
     
     vector<vector<Point2f> > imPts;
     vector<vector<Point3f> > obPts;
-    int Rows,Cols;
+    //int Rows,Cols;
 
     //-> Get list size 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr); 
@@ -105,17 +105,32 @@ extern "C"
             printError(&sciErr, 0);
             return 0;
         }
+        if( iCols!=3 )
+        {
+            Scierror(999,"Please enter an objectPoints matrix which is of N x 3 dimension.\n");
+                return 0;
+        }
+
         int size = (iRows*iCols)/3;
-        Rows = iRows;
-        Cols = iCols;
+        //Rows = iRows;
+        //Cols = iCols;
         vector<Point3f> values2(size);
 
-        j = 0;
+        /*j = 0;
         for(int i=0; i<size; i++)
         {
             values2[i].x = objectPoints[j++];
             values2[i].y = objectPoints[j++];
             values2[i].z = objectPoints[j++];
+        }
+        */
+        j = 0;
+        for(int i=0; i<size; i++)
+        {
+            values2[i].x = objectPoints[j];
+            values2[i].y = objectPoints[j+1*iRows];
+            values2[i].z = objectPoints[j+2*iRows];
+            j++;
         }
 
         obPts.push_back(values2);
@@ -147,14 +162,21 @@ extern "C"
             printError(&sciErr, 0);
             return 0;
         }
+        if( iCols!=2 )
+        {
+            Scierror(999,"Please enter an imagePoints matrix which is of N x 2 dimension.\n");
+                return 0;
+        }
+
         int size = (iRows*iCols)/2;
         vector<Point2f> values1(size);
 
         j = 0;
         for(int i=0; i<size; i++)
         {
-            values1[i].x = imagePoints[j++];
-            values1[i].y = imagePoints[j++];
+            values1[i].x = imagePoints[j];
+            values1[i].y = imagePoints[j+1*iRows];
+            j++;
         }
 
         imPts.push_back(values1);

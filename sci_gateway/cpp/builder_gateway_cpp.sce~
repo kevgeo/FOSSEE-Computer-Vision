@@ -89,7 +89,7 @@ names = [
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
 	   //"projectPoints","opencv_projectPoints";
-	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
+	   "initCameraMatrix2D","opencv_initCameraMatrix2D";
 	   //"solvePnP","opencv_solvePnP";
 	  //"solvePnPRansac","opencv_solvePnPRansac";
 	   "findCirclesGrid","opencv_findCirclesGrid";
@@ -197,7 +197,7 @@ files = [
 	  //"opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptNewCameraMatrix.cpp",
 	  //"opencv_projectPoints.cpp",
-	  //"opencv_initCameraMatrix2D.cpp"
+	  "opencv_initCameraMatrix2D.cpp",
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
 	  "opencv_findCirclesGrid.cpp",
