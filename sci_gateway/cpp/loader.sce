@@ -17,6 +17,8 @@ list_functions = [ 'imread';
                    'convertPointsFromHomogeneous';
                    'getOptimalNewCameraMatrix';
                    'findCirclesGrid';
+                   'findChessboardCorners';
+                   'drawChessboardCorners';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack

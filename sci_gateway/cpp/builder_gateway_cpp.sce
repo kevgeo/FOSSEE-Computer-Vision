@@ -99,8 +99,8 @@ names = [
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
 	   //"stereoCalibrate","opencv_stereoCalibrate";
 	   //"calibrateCamera","opencv_calibrateCamera";
-	   //"findChessboardCorners","opencv_findChessboardCorners";
-	   //"drawChessboardCorners","opencv_drawChessboardCorners";
+	   "findChessboardCorners","opencv_findChessboardCorners";
+	   "drawChessboardCorners","opencv_drawChessboardCorners";
 	   // "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
@@ -200,15 +200,15 @@ files = [
 	  "opencv_initCameraMatrix2D.cpp",
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
-	  "opencv_findCirclesGrid.cpp"
+	  "opencv_findCirclesGrid.cpp",
 	  //"opencv_decomposeProjectionMatrix.cpp",
 	  //"opencv_RQDecomp3x3.cpp"
 	  //"opencv_composeRT.cpp"
 	  //"opencv_calibrationMatrixValues.cpp"
 	  //"opencv_stereoCalibrate.cpp",
 	  //"opencv_calibrateCamera.cpp",
-	  //"opencv_findChessboardCorners.cpp",
-	  //"opencv_drawChessboardCorners.cpp"
+	  "opencv_findChessboardCorners.cpp",
+	  "opencv_drawChessboardCorners.cpp"
 	  //"opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",

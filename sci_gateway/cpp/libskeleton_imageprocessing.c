@@ -13,6 +13,8 @@ extern Gatefunc opencv_convertPointsToHomogeneous;
 extern Gatefunc opencv_convertPointsFromHomogeneous;
 extern Gatefunc opencv_getOptimalNewCameraMatrix;
 extern Gatefunc opencv_findCirclesGrid;
+extern Gatefunc opencv_findChessboardCorners;
+extern Gatefunc opencv_drawChessboardCorners;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
@@ -21,6 +23,8 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_getOptimalNewCameraMatrix,"getOptimalNewCameraMatrix"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
 };
  
 int C2F(libskeleton_imageprocessing)()
