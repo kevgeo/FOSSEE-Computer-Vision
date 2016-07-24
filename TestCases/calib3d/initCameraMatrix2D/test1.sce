@@ -1,3 +1,4 @@
+//Checking if function works
 a = [144.00 1011.0;
 237.0 801.0;
 242.0 583.0;

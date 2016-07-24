@@ -205,6 +205,11 @@ extern "C"
        return intErr;
     }
 
+    if( width <=0 )
+    {
+        Scierror(999,"Please ented valid width which is more than zero");
+    }
+
     //-> Get height
     sciErr = getVarAddressFromPosition(pvApiCtx,5,&piAddr5);
     if (sciErr.iErr)
@@ -217,6 +222,11 @@ extern "C"
     if(intErr)
     {
        return intErr;
+    }
+
+    if( height <=0 )
+    {
+        Scierror(999,"Please ented valid height which is more than zero");
     }
 
     //-> Get aspectRatio
