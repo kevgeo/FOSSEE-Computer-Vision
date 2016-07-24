@@ -18,6 +18,7 @@ list_functions = [ 'imread';
                    'getOptimalNewCameraMatrix';
                    'findCirclesGrid';
                    'decomposeProjectionMatrix';
+                   'calibrationMatrixValues';
                    'findChessboardCorners';
                    'drawChessboardCorners';
 ];

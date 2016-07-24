@@ -96,7 +96,7 @@ names = [
 	   "decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
 	   //"composeRT","opencv_composeRT";
-	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
+	   "calibrationMatrixValues","opencv_calibrationMatrixValues";
 	   //"stereoCalibrate","opencv_stereoCalibrate";
 	   //"calibrateCamera","opencv_calibrateCamera";
 	   "findChessboardCorners","opencv_findChessboardCorners";
@@ -204,7 +204,7 @@ files = [
 	  "opencv_decomposeProjectionMatrix.cpp",
 	  //"opencv_RQDecomp3x3.cpp"
 	  //"opencv_composeRT.cpp"
-	  //"opencv_calibrationMatrixValues.cpp"
+	  "opencv_calibrationMatrixValues.cpp",
 	  //"opencv_stereoCalibrate.cpp",
 	  //"opencv_calibrateCamera.cpp",
 	  "opencv_findChessboardCorners.cpp",

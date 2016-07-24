@@ -67,6 +67,12 @@ extern "C"
         return 0;
     }   
     
+    if( iRows!=3 || iCols !=3 )
+    {
+        Scierror(999,"Camera matrix should be 3x3.\n");
+            return 0;
+    }
+
     //-> Need to store the camera matrix 
     //   in a Mat object
     Mat cameraMatrix(3,3,DataType<double>::type);
@@ -92,6 +98,11 @@ extern "C"
        return intErr;
     }
 
+     if( width<=0 )
+    {
+        Scierror(999,"Image width should be more than zero.\n");
+            return 0;
+    }
 
     //-> Get height of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
@@ -105,6 +116,12 @@ extern "C"
     if(intErr)
     {
        return intErr;
+    }
+
+    if( height<=0 )
+    {
+        Scierror(999,"Image height should be more than zero.\n");
+            return 0;
     }
 
     //-> Get aperture width

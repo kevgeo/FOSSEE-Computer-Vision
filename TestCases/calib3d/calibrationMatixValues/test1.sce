@@ -1,3 +1,4 @@
+//Checking if function works
 camera = [2 33 12
 3 5 6
 1 56 7];

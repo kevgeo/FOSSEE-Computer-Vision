@@ -34,7 +34,7 @@ extern "C"
 
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
-    CheckOutputArgument(pvApiCtx, 7, 7);
+    CheckOutputArgument(pvApiCtx, 3, 7);
 
     double *input = NULL;
 
