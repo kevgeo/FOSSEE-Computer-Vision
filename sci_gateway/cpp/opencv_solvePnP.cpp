@@ -73,15 +73,22 @@ extern "C"
         return 0;
     }   
 
+    if( iCols!=3 )
+    {
+        Scierror(999,"Please make sure that objectPoints entered are 3D i.e having 3 coordinate values.\n");
+            return 0;
+    }
+
     int size = (iRows*iCols)/3;
     vector<Point3f> obPts(size);
     k = 0;
     for(int i=0; i<size; i++)
     {
-        obPts[i].x = objectPoints[k++];
-        obPts[i].y = objectPoints[k++];
-        obPts[i].z = objectPoints[k++];
-    }
+        obPts[i].x = objectPoints[k];
+        obPts[i].y = objectPoints[k+1*iRows];
+        obPts[i].z = objectPoints[k+2*iRows];
+        k++;
+    }   
 
      //-> Get image points
     sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
@@ -98,13 +105,20 @@ extern "C"
         return 0;
     }   
 
+    if( iCols!=2 )
+    {
+        Scierror(999,"Please make sure that imagePoints entered are 2D i.e having 2 coordinate values.\n");
+            return 0;
+    }
+    
     int size2 = (iRows*iCols)/2;
     vector<Point2f> imPts(size2);    
     k = 0;
     for(int i=0; i<size; i++)
     {
-        imPts[i].x = imagePoints[k++];
-        imPts[i].y = imagePoints[k++];
+        imPts[i].x = imagePoints[k];
+        imPts[i].y = imagePoints[k+1*iRows];
+        k++;
     }
 
 
@@ -123,6 +137,12 @@ extern "C"
         return 0;
     }   
 
+    if( iRows!=3 || iCols !=3 )
+    {
+        Scierror(999,"Please make sure that camera matrix is 3x3.\n");
+            return 0;
+    }
+    
     Mat cameramatrix(3,3,CV_32F);
     for(int i=0; i<3; i++)
     {
@@ -145,6 +165,15 @@ extern "C"
     {
         printError(&sciErr, 0);
         return 0;
+    }
+    
+    if( iCols == 1)
+    {
+        if( iRows!=4 && iRows!=5 && iRows!=8 )
+        {
+            Scierror(999,"Please enter column vector of distortion coefficients either with size 4,5 or 8.\n");
+            return 0;
+        }
     }
 
     Mat distortioncoeffs(iRows,1,DataType<double>::type);
