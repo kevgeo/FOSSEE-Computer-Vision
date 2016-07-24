@@ -8,25 +8,21 @@ extern "C" {
 static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
 extern Gatefunc opencv_VideoReader;
-extern Gatefunc opencv_isfilterseparable;
 extern Gatefunc opencv_convertPointsToHomogeneous;
 extern Gatefunc opencv_convertPointsFromHomogeneous;
-extern Gatefunc opencv_estimateAffine3D;
 extern Gatefunc opencv_initCameraMatrix2D;
 extern Gatefunc opencv_findCirclesGrid;
 extern Gatefunc opencv_decomposeProjectionMatrix;
-extern Gatefunc opencv_composeRT;
+extern Gatefunc opencv_RQDecomp3x3;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_isfilterseparable,"isfilterseparable"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_estimateAffine3D,"estimateAffine3D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_initCameraMatrix2D,"initCameraMatrix2D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_decomposeProjectionMatrix,"decomposeProjectionMatrix"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_composeRT,"composeRT"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_RQDecomp3x3,"RQDecomp3x3"},
 };
  
 int C2F(libskeleton_imageprocessing)()

@@ -37,7 +37,7 @@ extern "C"
     int i,j,k ;
     //checking input argument
     CheckInputArgument(pvApiCtx, 1, 1);
-    CheckOutputArgument(pvApiCtx, 1, 5);
+    CheckOutputArgument(pvApiCtx, 2, 5);
 
     //-> Input
     double *src = NULL;
@@ -64,6 +64,12 @@ extern "C"
     {
         printError(&sciErr, 0);
         return 0;
+    }
+
+    if( iRows!=3 || iCols!=3 )
+    {
+        Scierror(999,"Input matrix should be 3x3.\n");
+            return 0;
     }
 
     for(int i=0; i<3; i++)

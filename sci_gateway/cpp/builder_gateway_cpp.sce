@@ -22,7 +22,7 @@ names = [
 		//"estimateGeometricTransform","opencv_estimateGeometricTransform";
 		//"convolver","opencv_convolver";
 		//"warpaffine","opencv_warpaffine";
-		"isfilterseparable","opencv_isfilterseparable";
+		//"isfilterseparable","opencv_isfilterseparable";
 		//"epipolarlines","opencv_epipolarlines";
      		//"blur","opencv_blur";
             //"arrowedline","opencv_arrowedline";
@@ -84,7 +84,7 @@ names = [
 	   //"findHomography","opencv_findHomography";
 	   //"filterSpeckles","opencv_filterSpeckles";
 	   //"matMulDeriv","opencv_matMulDeriv";
-	   "estimateAffine3D","opencv_estimateAffine3D";
+	   //"estimateAffine3D","opencv_estimateAffine3D";
 	   //"Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
@@ -94,8 +94,8 @@ names = [
 	  //"solvePnPRansac","opencv_solvePnPRansac";
 	   "findCirclesGrid","opencv_findCirclesGrid";
 	   "decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
-           //"RQDecomp3x3","opencv_RQDecomp3x3";
-	   "composeRT","opencv_composeRT";
+           "RQDecomp3x3","opencv_RQDecomp3x3";
+	   //"composeRT","opencv_composeRT";
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
 	   //"stereoCalibrate","opencv_stereoCalibrate";
 	   //"calibrateCamera","opencv_calibrateCamera";
@@ -129,7 +129,7 @@ files = [
 //"opencv_KalmanFilter.cpp",
 //"opencv_estimateGeometricTransform.cpp",
 //"opencv_convolver.cpp"
-"opencv_isfilterseparable.cpp",
+//"opencv_isfilterseparable.cpp",
 //"opencv_epipolarlines.cpp"		
      		//"opencv_blur.cpp",
             //"opencv_arrowedline.cpp",
@@ -192,7 +192,7 @@ files = [
 	  //"opencv_findHomography.cpp",
 	  //"opencv_filterSpeckles.cpp",
 	  //"opencv_matMulDeriv.cpp",
-	  "opencv_estimateAffine3D.cpp",
+	  //"opencv_estimateAffine3D.cpp",
 	  //"opencv_Rodrigues.cpp",
 	  //"opencv_reprojectImageTo3D.cpp",
 	  //"opencv_getOptNewCameraMatrix.cpp",
@@ -202,8 +202,8 @@ files = [
 	  //"opencv_solvePnPRansac.cpp",
 	  "opencv_findCirclesGrid.cpp",
 	  "opencv_decomposeProjectionMatrix.cpp",
-	  //"opencv_RQDecomp3x3.cpp"
-	  "opencv_composeRT.cpp"
+	  "opencv_RQDecomp3x3.cpp"
+	  //"opencv_composeRT.cpp"
 	  //"opencv_calibrationMatrixValues.cpp"
 	  //"opencv_stereoCalibrate.cpp",
 	  //"opencv_calibrateCamera.cpp",
