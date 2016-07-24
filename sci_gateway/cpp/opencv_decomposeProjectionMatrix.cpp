@@ -65,7 +65,13 @@ extern "C"
         printError(&sciErr, 0);
         return 0;
     }
-    
+
+    if( iRows!=3 || iCols!=4 )
+    {
+        Scierror(999,"Projection matrix should be 3x4.\n");
+            return 0;
+    }
+
     int k = 0;
     for(int i=0; i<3; i++)
     {

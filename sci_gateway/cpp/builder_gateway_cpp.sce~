@@ -93,7 +93,7 @@ names = [
 	   //"solvePnP","opencv_solvePnP";
 	  //"solvePnPRansac","opencv_solvePnPRansac";
 	   "findCirclesGrid","opencv_findCirclesGrid";
-	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
+	   "decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
 	   //"composeRT","opencv_composeRT";
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
@@ -201,7 +201,7 @@ files = [
 	  //"opencv_solvePnP.cpp",
 	  //"opencv_solvePnPRansac.cpp",
 	  "opencv_findCirclesGrid.cpp",
-	  //"opencv_decomposeProjectionMatrix.cpp",
+	  "opencv_decomposeProjectionMatrix.cpp",
 	  //"opencv_RQDecomp3x3.cpp"
 	  //"opencv_composeRT.cpp"
 	  //"opencv_calibrationMatrixValues.cpp"
