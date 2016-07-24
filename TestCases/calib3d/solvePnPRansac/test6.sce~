@@ -1,13 +1,11 @@
-//Checking if function works
-obpts = [ .5 .5 -.5;
-	.5 .5 .5;
-	-.5 .5 .5;
-	.5 .5 .5;
-	.5 -.5 -.5;
-	-.5 -.5 -.5;
-	-.5 -.5 .5];
-
-
+//Checking if function works for different values
+obpts = [ 1 2 -3;
+	3.3 1.5 .2;
+	1.1 2.5 2.4;
+	.2 1.5 3.2;
+	2.3 -1.5 -.5;
+	-1 -3 5.5;
+	-1.5 -.5 3.5];
 
 impts = [282 274;
 	397 227;
@@ -26,12 +24,10 @@ dist = [0
 0
 0];
 
-iterations = 5;
+iterations = 10;
 
-reprojectionError = 1;
+reprojectionError = 3;
 
-minInliersCount = 3;
+minInliersCount = 5;
 
 [rvec tvec] = solvePnPRansac(obpts,impts,camera,dist,1,"CV_ITERATIVE",iterations,reprojectionError,minInliersCount);
-
-//output is correct

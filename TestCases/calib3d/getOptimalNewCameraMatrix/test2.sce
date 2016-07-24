@@ -1,4 +1,4 @@
-//Checking if function works in general
+//Checking if error message pops up when dist vector size is 6 instead of valid sizes 4,5 or 8
 
 a = [144.00 1011.0;
 237.0 801.0;
@@ -20,8 +20,12 @@ cameraMatrix = initCameraMatrix2D(1,in2,in1,1280,1024,0);
 dist = [0
 0
 0
+0
+0
 0];
 
 new_cameraMatrix = getOptimalNewCameraMatrix(cameraMatrix,dist,1280,1024,0.3,1280,1024,0);
 
-//output is correct
+//output->
+//   !--error 999 
+//Please enter column vector of distortion coefficients either with size 4,5 or 8.

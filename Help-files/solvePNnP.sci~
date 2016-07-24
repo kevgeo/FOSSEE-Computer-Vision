@@ -17,8 +17,8 @@
 //         3.CV_EPNP - based on paper “EPnP: Efficient Perspective-n-Point Camera Pose Estimation”,
 //                     by F.Moreno-Noguer, V.Lepetit and P.Fua . 
 // Output
-// rvec : Rotation vector 
-// tvec : Translation vector
+// MatrixOfDouble rvec : Rotation vector 
+// MatrixOfDouble tvec : Translation vector
 //
 // Description
 // The function computes pose of object from 2D and 3D points.

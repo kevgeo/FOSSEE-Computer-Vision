@@ -1,7 +1,8 @@
-// Computes pose of object from 2D and 3D points
+// Computes pose of object from 2D and 3D points using Ransac method.
 //
 // Calling Sequence
-// [rvec tvec] = solvePnP(objectPoints,imagePoints,cameraMatrix,distortionCoeffs,useExtrinsicGuess,flags);
+// [rvec tvec] = solvePnP(objectPoints,imagePoints,cameraMatrix,distortionCoeffs,useExtrinsicGuess,
+//                         flags,IterationsCount,reprojectionError,minInliersCount);
 // 
 // Parameters 
 // Input
@@ -16,12 +17,15 @@
 //	              by X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang.
 //         3.CV_EPNP - based on paper “EPnP: Efficient Perspective-n-Point Camera Pose Estimation”,
 //                     by F.Moreno-Noguer, V.Lepetit and P.Fua . 
+// IterationsCount : Number of iterations
+// reprojectionError : This is threshold for inlier points
+// minInliersCount : Number of inlier points to be found
 // Output
-// MatrixOfDouble rvec : Rotation vector 
-// MatrixOfDouble tvec : Translation vector
+// rvec : Rotation vector 
+// tvec : Translation vector
 //
 // Description
-// The function computes pose of object from 2D and 3D points.
+// The function computes pose of object from 2D and 3D points using Ransac method.
 //
 // Examples
 // obpts = [ .5 .5 -.5;
@@ -45,7 +49,10 @@
 //         0
 //         0
 //         0];
-//[rvec tvec] = solvePnP(obpts,impts,camera,dist,1,"CV_ITERATIVE");
+//iterations = 5;
+//reprojectionError = 1;
+//minInliersCount = 3;
+//[rvec tvec] = solvePnPRansac(obpts,impts,camera,dist,1,"CV_ITERATIVE",iterations,reprojectionError,minInliersCount);
 //
 // Author
 // Kevin George

@@ -76,6 +76,7 @@ names = [
 	    //"drawKeypoints","opencv_drawKeypoints";
 	    //"drawMatches","opencv_drawMatches";
 	    //"groupRectangles","opencv_groupRectangles";
+	   "initCameraMatrix2D","opencv_initCameraMatrix2D";
 	   "convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
 	   "convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
 	   //"correctMatches","opencv_correctMatches";
@@ -87,11 +88,10 @@ names = [
 	   //"estimateAffine3D","opencv_estimateAffine3D";
 	   //"Rodrigues","opencv_Rodrigues";
 	   //"reprojectImageTo3D","opencv_reprojectImageTo3D";
-	   //"getOptNewCameraMatrix","opencv_getOptNewCameraMatrix";
+	   "getOptimalNewCameraMatrix","opencv_getOptimalNewCameraMatrix";
 	   //"projectPoints","opencv_projectPoints";
-	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
-	   "solvePnP","opencv_solvePnP";
-	  "solvePnPRansac","opencv_solvePnPRansac";
+	   //"solvePnP","opencv_solvePnP";
+	  //"solvePnPRansac","opencv_solvePnPRansac";
 	   "findCirclesGrid","opencv_findCirclesGrid";
 	   //"decomposeProjectionMatrix","opencv_decomposeProjectionMatrix";
            //"RQDecomp3x3","opencv_RQDecomp3x3";
@@ -195,11 +195,11 @@ files = [
 	  //"opencv_estimateAffine3D.cpp",
 	  //"opencv_Rodrigues.cpp",
 	  //"opencv_reprojectImageTo3D.cpp",
-	  //"opencv_getOptNewCameraMatrix.cpp",
+	  "opencv_getOptimalNewCameraMatrix.cpp",
 	  //"opencv_projectPoints.cpp",
-	  //"opencv_initCameraMatrix2D.cpp",
-	  "opencv_solvePnP.cpp",
-	  "opencv_solvePnPRansac.cpp",
+	  "opencv_initCameraMatrix2D.cpp",
+	  //"opencv_solvePnP.cpp",
+	  //"opencv_solvePnPRansac.cpp",
 	  "opencv_findCirclesGrid.cpp"
 	  //"opencv_decomposeProjectionMatrix.cpp",
 	  //"opencv_RQDecomp3x3.cpp"

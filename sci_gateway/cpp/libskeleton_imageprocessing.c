@@ -8,18 +8,18 @@ extern "C" {
 static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
 extern Gatefunc opencv_VideoReader;
+extern Gatefunc opencv_initCameraMatrix2D;
 extern Gatefunc opencv_convertPointsToHomogeneous;
 extern Gatefunc opencv_convertPointsFromHomogeneous;
-extern Gatefunc opencv_solvePnP;
-extern Gatefunc opencv_solvePnPRansac;
+extern Gatefunc opencv_getOptimalNewCameraMatrix;
 extern Gatefunc opencv_findCirclesGrid;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_initCameraMatrix2D,"initCameraMatrix2D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_solvePnP,"solvePnP"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_solvePnPRansac,"solvePnPRansac"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_getOptimalNewCameraMatrix,"getOptimalNewCameraMatrix"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
 };
  

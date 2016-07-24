@@ -24,7 +24,7 @@ extern "C"
   #include <sciprint.h>
   #include "../common.h"
   
-  int opencv_getOptNewCameraMatrix(char *fname, unsigned long fname_len)
+  int opencv_getOptimalNewCameraMatrix(char *fname, unsigned long fname_len)
   {
 
     SciErr sciErr;
@@ -69,10 +69,10 @@ extern "C"
         return 0;
     }   
 
-    if(iRows*iCols != 9)
+    if( iRows!=3 || iCols !=3 )
     {
-        sciprint("Camera matrix must have 3x3 dimensions.\n");
-        return 0;
+        Scierror(999,"Please make sure that camera matrix is 3x3.\n");
+            return 0;
     }
 
 
@@ -81,7 +81,7 @@ extern "C"
     {
         for(int j=0; j<3;j++)
         {
-            cameraMatrix.at<double>(i,j) = cameramatrix[k++];
+            cameraMatrix.at<double>(i,j) = cameramatrix[i+j*3];
         }
     }
 
@@ -99,6 +99,15 @@ extern "C"
         printError(&sciErr, 0);
         return 0;
     }    
+
+    if( iCols == 1)
+    {
+        if( iRows!=4 && iRows!=5 && iRows!=8 )
+        {
+            Scierror(999,"Please enter column vector of distortion coefficients either with size 4,5 or 8.\n");
+            return 0;
+        }
+    }
 
      Mat distCoeffs(iRows,iCols,DataType<double>::type);
      int size = iRows*iCols;
@@ -121,6 +130,12 @@ extern "C"
        return intErr;
     }
 
+    if( width <=0 )
+    {
+        Scierror(999,"Original width size must be greater than zero.\n");
+            return 0;
+    }
+
     //-> Get height of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
     if (sciErr.iErr)
@@ -134,6 +149,12 @@ extern "C"
     if(intErr)
     {
        return intErr;
+    }
+
+    if( height <=0 )
+    {
+        Scierror(999,"Original height size must be greater than zero.\n");
+            return 0;
     }
 
     Size imgSize(width,height);
@@ -173,6 +194,11 @@ extern "C"
        return intErr;
     }
 
+    if( width2 <=0 )
+    {
+        Scierror(999,"New width size must be greater than zero.\n");
+            return 0;
+    }
     //-> Get new height of image
     sciErr = getVarAddressFromPosition(pvApiCtx, 7, &piAddr7); 
     if (sciErr.iErr)
@@ -186,6 +212,12 @@ extern "C"
     if(intErr)
     {
        return intErr;
+    }
+
+    if( height2 <=0 )
+    {
+        Scierror(999,"New height size must be greater than zero.\n");
+            return 0;
     }
 
     Size newImgSize(width2,height2);

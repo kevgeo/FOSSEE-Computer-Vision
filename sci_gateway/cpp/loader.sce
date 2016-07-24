@@ -12,10 +12,10 @@ end
 //
 list_functions = [ 'imread';
                    'VideoReader';
+                   'initCameraMatrix2D';
                    'convertPointsToHomogeneous';
                    'convertPointsFromHomogeneous';
-                   'solvePnP';
-                   'solvePnPRansac';
+                   'getOptimalNewCameraMatrix';
                    'findCirclesGrid';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
