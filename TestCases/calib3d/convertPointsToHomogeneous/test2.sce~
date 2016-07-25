@@ -1,9 +1,12 @@
-//N+1 dimensional points
-in = [ -75 -90 -120 1];
-//N dimensional points
-//Checking if error message pops up when no input is given
-output = convertPointsFromHomogeneous();
+
+in = [ -75 -90 30 ;
+-120 11 12;
+122 11 14];
+
+//Checking if error message pops up when input is 3D instead of 2D point set
+output = convertPointsToHomogeneous(in);
 //output->
-//!--error 77 
-//convertPointsFromHomogeneous: Wrong number of input argument(s): 1 expected.
+//    !--error 999 
+//Please enter 2D points matrix of size Nx2.
  
+
