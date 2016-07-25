@@ -9,6 +9,7 @@ static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
 extern Gatefunc opencv_VideoReader;
 extern Gatefunc opencv_convertPointsToHomogeneous;
+extern Gatefunc opencv_convertPointsFromHomogeneous;
 extern Gatefunc opencv_Rodrigues;
 extern Gatefunc opencv_projectPoints;
 extern Gatefunc opencv_solvePnP;
@@ -20,6 +21,7 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_Rodrigues,"opencv_Rodrigues"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_projectPoints,"projectPoints"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_solvePnP,"solvePnP"},

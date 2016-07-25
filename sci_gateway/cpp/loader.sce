@@ -13,6 +13,7 @@ end
 list_functions = [ 'imread';
                    'VideoReader';
                    'convertPointsToHomogeneous';
+                   'convertPointsFromHomogeneous';
                    'opencv_Rodrigues';
                    'projectPoints';
                    'solvePnP';

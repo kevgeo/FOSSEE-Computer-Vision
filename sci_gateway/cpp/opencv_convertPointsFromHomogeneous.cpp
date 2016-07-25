@@ -51,63 +51,38 @@ extern "C"
         return 0;
     }
 
-    if( iRows>1 && iCols>1 )
+    int size = 0;
+    if( iCols!=3 )
     {
-        Scierror(999, "Please enter either row or column vector.\n"); 
+        Scierror(999, "Please enter 3D points matrix of size Nx3.\n"); 
                     return 0; 
     }
 
-    int size = 0;
-    int check = 0;
-    if( (iRows*iCols)%2 == 0 )
-         size = (iRows*iCols)/2;
-    else
-    {
-        size = ((iRows*iCols)/2)+1;
-        check = 1;
-    } 
-
+    size = iRows;
     vector<Point3f> src(size);
     int j = 0;
     for(int i = 0; i<size; i++)
     {
-        src[i].x = input[j++];
-        if( check==1 && i==(size-1) )
-            break;
-         else   
-            src[i].y = input[j++];
+        src[i].x = input[j];
+        src[i].y = input[j+1*iRows];
+        src[i].z = input[j+2*iRows];
+        j++;
     }
 
     vector<Point2f> dst;
     //-> Calling convertPointsToHomogeneous function
     convertPointsFromHomogeneous(src, dst);
-    int size2 = 0;
-    if( check == 1) 
-        size2 = dst.size()*2;
-    else
-        size2 = (dst.size()*2)+1;
+    int size2 = dst.size()*2;
     double *output = NULL;
     output = (double*)malloc(sizeof(double)*size2);
     j = 0;
     for(int i=0; i<dst.size(); i++)
     {
-        output[j++] = dst[i].x;
-        if(check == 1)
-        {    
-            if( i == (dst.size()-1) ) 
-                output[j++] = dst[i].z;
-            else
-                output[j++] = dst[i].y;
-        }
-        else
-        {
-            output[j++] = dst[i].y;
-            if( i == (dst.size()-1) ) 
-                output[j++] = dst[i].z;   
-        }
+        output[j] = dst[i].x;
+        output[j+1*iRows] = dst[i].y;
     }
  
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 1, j, output); 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, dst.size(), 2, output); 
     if(sciErr.iErr)
     {
         printError(&sciErr, 0); 

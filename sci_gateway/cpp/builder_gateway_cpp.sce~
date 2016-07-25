@@ -78,7 +78,7 @@ names = [
 	    //"groupRectangles","opencv_groupRectangles";
 	   //"initCameraMatrix2D","opencv_initCameraMatrix2D";
 	   "convertPointsToHomogeneous","opencv_convertPointsToHomogeneous";
-	   //"convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
+	   "convertPointsFromHomogeneous","opencv_convertPointsFromHomogeneous";
 	   //"correctMatches","opencv_correctMatches";
 	   //"computeCorrespondEpilines","opencv_computeCorrespondEpilines";
 	   //"findFundamentalMat","opencv_findFundamentalMat";
@@ -185,7 +185,7 @@ files = [
 	  //"opencv_drawMatches.cpp",
 	  //"opencv_groupRectangles.cpp",
 	  "opencv_convertPointsToHomogeneous.cpp",
-	  //"opencv_convertPointsFromHomogeneous.cpp",
+	  "opencv_convertPointsFromHomogeneous.cpp",
 	  //"opencv_correctMatches.cpp",
 	  //"opencv_computeCorrespondEpilines.cpp",
 	  //"opencv_findFundamentalMat.cpp",
