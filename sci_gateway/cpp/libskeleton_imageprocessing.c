@@ -8,25 +8,23 @@ extern "C" {
 static int direct_gateway(char *fname,void F(void)) { F();return 0;};
 extern Gatefunc opencv_imread;
 extern Gatefunc opencv_VideoReader;
-extern Gatefunc opencv_initCameraMatrix2D;
 extern Gatefunc opencv_convertPointsToHomogeneous;
-extern Gatefunc opencv_convertPointsFromHomogeneous;
-extern Gatefunc opencv_getOptimalNewCameraMatrix;
+extern Gatefunc opencv_Rodrigues;
+extern Gatefunc opencv_projectPoints;
+extern Gatefunc opencv_solvePnP;
+extern Gatefunc opencv_solvePnPRansac;
 extern Gatefunc opencv_findCirclesGrid;
-extern Gatefunc opencv_decomposeProjectionMatrix;
-extern Gatefunc opencv_calibrationMatrixValues;
 extern Gatefunc opencv_findChessboardCorners;
 extern Gatefunc opencv_drawChessboardCorners;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_initCameraMatrix2D,"initCameraMatrix2D"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsToHomogeneous,"convertPointsToHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_convertPointsFromHomogeneous,"convertPointsFromHomogeneous"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_getOptimalNewCameraMatrix,"getOptimalNewCameraMatrix"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_Rodrigues,"opencv_Rodrigues"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_projectPoints,"projectPoints"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_solvePnP,"solvePnP"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_solvePnPRansac,"solvePnPRansac"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findCirclesGrid,"findCirclesGrid"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_decomposeProjectionMatrix,"decomposeProjectionMatrix"},
-  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_calibrationMatrixValues,"calibrationMatrixValues"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
 };

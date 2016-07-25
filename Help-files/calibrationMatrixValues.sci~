@@ -18,7 +18,7 @@
 // aspectRatio : It is ratio of focal length(pixels) in vertical direction to focal length in horizontal direction.
 //
 // Description
-// The function computes the useful camera properties from the camera matrix such as focal length,aspect ratio and field of view.
+// The function computes useful camera properties from the camera matrix such as focal length,aspect ratio and field of view.
 //
 // Examples
 // camera = [2 33 12

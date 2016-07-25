@@ -70,9 +70,10 @@ extern "C"
     k = 0;
     for(int i=0; i<size; i++)
     {
-        obPts[i].x = objectPoints[k++];
-        obPts[i].y = objectPoints[k++];
-        obPts[i].z = objectPoints[k++];
+        obPts[i].x = objectPoints[k];
+        obPts[i].y = objectPoints[k+1*iRows];
+        obPts[i].z = objectPoints[k+2*iRows];
+        k++;
     }
 
     //-> Get rotation vector
@@ -179,19 +180,20 @@ extern "C"
     // Calling projectPoints function
     projectPoints(obPts,Rvec,Tvec,cameramatrix,distortioncoeffs,imagePoints,jacobian,aspectRatio);
 
-    size = imagePoints.size();
+    int size2 = imagePoints.size();
     double *output = NULL;
-    output = (double*)malloc(sizeof(double)*size*2);
+    output = (double*)malloc(sizeof(double)*size2*2);
 
     j = 0;
     //Storing x and y coordinates
-    for(int i=0; i<size; i++)
+    for(int i=0; i<size2; i++)
     {
-        output[j++] = imagePoints[i].x;
-        output[j++] = imagePoints[i].y;
+        output[j]         = imagePoints[i].x;
+        output[j+1*size2] = imagePoints[i].y;
+        j++;
     }
     
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 2, size, output); 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, size, 2, output); 
     if(sciErr.iErr)
     {
         printError(&sciErr, 0); 

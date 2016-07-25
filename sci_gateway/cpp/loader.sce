@@ -12,13 +12,12 @@ end
 //
 list_functions = [ 'imread';
                    'VideoReader';
-                   'initCameraMatrix2D';
                    'convertPointsToHomogeneous';
-                   'convertPointsFromHomogeneous';
-                   'getOptimalNewCameraMatrix';
+                   'opencv_Rodrigues';
+                   'projectPoints';
+                   'solvePnP';
+                   'solvePnPRansac';
                    'findCirclesGrid';
-                   'decomposeProjectionMatrix';
-                   'calibrationMatrixValues';
                    'findChessboardCorners';
                    'drawChessboardCorners';
 ];
