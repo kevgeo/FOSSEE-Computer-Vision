@@ -72,7 +72,7 @@ names = [
             //"getgaussiankernel","opencv_getgaussiankernel";
             //"getrectsubpix","opencv_getrectsubpix";
             //"getrotationmatrix2D","opencv_getrotationmatrix2D";
-	    //"opencv_roipoly","opencv_roipoly";
+	    "opencv_roipoly","opencv_roipoly";
 	    //"drawKeypoints","opencv_drawKeypoints";
 	    //"drawMatches","opencv_drawMatches";
 	    //"groupRectangles","opencv_groupRectangles";
@@ -97,8 +97,8 @@ names = [
            //"RQDecomp3x3","opencv_RQDecomp3x3";
 	   //"composeRT","opencv_composeRT";
 	   //"calibrationMatrixValues","opencv_calibrationMatrixValues";
-	   //"stereoCalibrate","opencv_stereoCalibrate";
-	   //"calibrateCamera","opencv_calibrateCamera";
+	   "stereoCalibrate","opencv_stereoCalibrate";
+	   "calibrateCamera","opencv_calibrateCamera";
 	   "findChessboardCorners","opencv_findChessboardCorners";
 	   "drawChessboardCorners","opencv_drawChessboardCorners";
 	   // "check","opencv_check";
@@ -180,7 +180,7 @@ files = [
             //"opencv_getrectsubpix.cpp",
            // "opencv_getrotationmatrix2D.cpp",
 	   //"opencv_warpaffine.cpp",
-	  //"opencv_roipoly.cpp",
+	  "opencv_roipoly.cpp",
 	  //"opencv_drawKeypoints.cpp",
 	  //"opencv_drawMatches.cpp",
 	  //"opencv_groupRectangles.cpp",
@@ -205,8 +205,8 @@ files = [
 	  //"opencv_RQDecomp3x3.cpp"
 	  //"opencv_composeRT.cpp"
 	  //"opencv_calibrationMatrixValues.cpp",
-	  //"opencv_stereoCalibrate.cpp",
-	  //"opencv_calibrateCamera.cpp",
+	  "opencv_stereoCalibrate.cpp",
+	  "opencv_calibrateCamera.cpp",
 	  "opencv_findChessboardCorners.cpp",
 	  "opencv_drawChessboardCorners.cpp"
 	  //"opencv_check.cpp"

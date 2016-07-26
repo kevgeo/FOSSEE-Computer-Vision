@@ -1,2 +1,8 @@
+cvMaximum
+cvMean
+cvMinimum
+cvStandardDeviation
+cvVariance
 imshow
+roipoly
 show

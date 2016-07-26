@@ -1,0 +1,6 @@
+//Checking if function works
+I1 = imread("1.jpg");
+//Finding maximum values
+[val ind] = cvMaximum(I1(1));
+
+

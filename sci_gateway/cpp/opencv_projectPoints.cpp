@@ -129,7 +129,7 @@ extern "C"
         return 0;
     }   
 
-    Mat cameramatrix(3,3,CV_32F);
+    Mat cameramatrix(3,3,DataType<double>::type);
     for(int i=0; i<3; i++)
     {
         for(int j=0; j<3; j++)
@@ -176,11 +176,11 @@ extern "C"
     }    
 
     Mat jacobian;
-    vector<Point2f> imagePoints;
+    vector<Point2f> projectedPoints;
     // Calling projectPoints function
-    projectPoints(obPts,Rvec,Tvec,cameramatrix,distortioncoeffs,imagePoints,jacobian,aspectRatio);
+    projectPoints(obPts,Rvec,Tvec,cameramatrix,distortioncoeffs,projectedPoints,jacobian,aspectRatio);
 
-    int size2 = imagePoints.size();
+    int size2 = projectedPoints.size();
     double *output = NULL;
     output = (double*)malloc(sizeof(double)*size2*2);
 
@@ -188,12 +188,12 @@ extern "C"
     //Storing x and y coordinates
     for(int i=0; i<size2; i++)
     {
-        output[j]         = imagePoints[i].x;
-        output[j+1*size2] = imagePoints[i].y;
+        output[j]         = projectedPoints[i].x;
+        output[j+1*size2] = projectedPoints[i].y;
         j++;
     }
     
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, size, 2, output); 
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, size2, 2, output); 
     if(sciErr.iErr)
     {
         printError(&sciErr, 0); 

@@ -12,6 +12,7 @@ end
 //
 list_functions = [ 'imread';
                    'VideoReader';
+                   'opencv_roipoly';
                    'convertPointsToHomogeneous';
                    'convertPointsFromHomogeneous';
                    'opencv_Rodrigues';
@@ -19,6 +20,8 @@ list_functions = [ 'imread';
                    'solvePnP';
                    'solvePnPRansac';
                    'findCirclesGrid';
+                   'stereoCalibrate';
+                   'calibrateCamera';
                    'findChessboardCorners';
                    'drawChessboardCorners';
 ];

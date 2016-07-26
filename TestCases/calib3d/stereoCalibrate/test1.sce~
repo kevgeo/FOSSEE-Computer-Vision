@@ -66,7 +66,7 @@ width = 700;
 height = 525;
 obPts = list(obpts);
 coordinates1 = list(coordinates);
-coordinates2 = list(coordinates2)
+coordinates2 = list(coordinates2);
 
 [rotMatrix Transvec EMatrix FMatrix] = stereoCalibrate(1,obPts,coordinates1,coordinates2,camera1,dist1,camera2,dist2,width,height);
 

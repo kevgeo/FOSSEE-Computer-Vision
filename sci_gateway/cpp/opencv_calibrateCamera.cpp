@@ -1,4 +1,4 @@
-//*******************************************************************************************************
+    //*******************************************************************************************************
 // Authors : Kevin George
 //
 // filterSpeckles(inImage, newval, maxSpeckleSize, maxDiff, outImage );
@@ -42,8 +42,8 @@ extern "C"
 	    int iPrec = 0,iItem = 0;
 	    int i,j,k ;
 	    //checking input argument
-	    CheckInputArgument(pvApiCtx, 10, 10);
-	    CheckOutputArgument(pvApiCtx, 1, 4) ;
+	    CheckInputArgument(pvApiCtx, 7, 7);
+	    CheckOutputArgument(pvApiCtx, 2, 2);
 
 	    //-> Input
 	    double *objectPoints = NULL;
@@ -153,7 +153,7 @@ extern "C"
      }
 
         //-> Get width of image
-        sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr3); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
@@ -167,7 +167,7 @@ extern "C"
         }
 
         //-> Get height of image
-        sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr4); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
@@ -182,7 +182,7 @@ extern "C"
 
 
         //-> Get camera matrix
-        sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr5); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
@@ -208,7 +208,7 @@ extern "C"
         }
 
         //-> Get distortion coefficients
-        sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 7, &piAddr6); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 

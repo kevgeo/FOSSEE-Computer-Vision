@@ -1,7 +1,8 @@
-inImage = imread("1.jpg");
-inImage2 = imread("2.jpg");
-[found coordinates ] = findChessboardCorners(inImage,7,7,"CV_CALIB_CB_ADAPTIVE_THRESH");
-[found2 coordinates2 ] = findChessboardCorners(inImage2,7,7,"CV_CALIB_CB_ADAPTIVE_THRESH");
+inImage = imread("left01.jpg");
+inImage2 = imread("right01.jpg");
+[found coordinates ] = findChessboardCorners(inImage,8,6,"CV_CALIB_CB_ADAPTIVE_THRESH");
+[found2 coordinates2 ] = findChessboardCorners(inImage2,8,6,"CV_CALIB_CB_ADAPTIVE_THRESH");
+
 obpts = [0	0	0
 1	0	0
 2	0	0
