@@ -1,4 +1,4 @@
-//Checking if fucntion works
+//Checking if function works when camera matrix values has been changed
 obpts = [ .5 .5 -.5;
 	.5 .5 .5;
 	-.5 .5 .5;
@@ -17,9 +17,9 @@ impts = [282 274;
 	450 523;
 	566 475];
 
-camera = [ 1 0 0;
-0 1 0;
-0 0 1]
+camera = [ 0 0 0;
+0 2 0;
+1 0 0]
 
 dist = [0
 0
@@ -36,4 +36,4 @@ minInliersCount = 3;
 
 projPts = projectPoints(obpts,rvec,tvec, camera, dist, 2);
 
-//output is correct
+//output is 

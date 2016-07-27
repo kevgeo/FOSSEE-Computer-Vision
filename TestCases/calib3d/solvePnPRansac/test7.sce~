@@ -1,25 +1,20 @@
-//Checking if fucntion works
+//Checking if error message pops up when number of object and image points differ
 obpts = [ .5 .5 -.5;
 	.5 .5 .5;
 	-.5 .5 .5;
 	-.5 .5 -.5;
-	.5 -.5 -.5;
-	-.5 -.5 -.5;
-	-.5 -.5 .5];
+	.5 .5 -.5;];
 
 
 
 impts = [282 274;
 	397 227;
 	577 271;
-	462 318;
-	270 479;
-	450 523;
-	566 475];
+	462 318;];
 
-camera = [ 1 0 0;
-0 1 0;
-0 0 1]
+camera = [ 3 0 0;
+1 2 0;
+1 0 0]
 
 dist = [0
 0
@@ -34,6 +29,6 @@ minInliersCount = 3;
 
 [rvec tvec] = solvePnPRansac(obpts,impts,camera,dist,1,"CV_ITERATIVE",iterations,reprojectionError,minInliersCount);
 
-projPts = projectPoints(obpts,rvec,tvec, camera, dist, 2);
-
-//output is correct
+//output->
+//                                                   !--error 999 
+//The number of object points and image points should be the same.

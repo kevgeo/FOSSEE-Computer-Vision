@@ -1,3 +1,4 @@
+//Checking if function works
 inImage = imread("1.jpg");
 inImage2 = imread("2.jpg");
 [found coordinates ] = findChessboardCorners(inImage,7,7,"CV_CALIB_CB_ADAPTIVE_THRESH");

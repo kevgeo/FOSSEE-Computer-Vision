@@ -127,6 +127,13 @@ extern "C"
         k++;
     }
 
+    //-> Checking whether number of object and image points are same
+    //   ,else error
+    if( size != size2 )
+    {
+        Scierror(999,"The number of object points and image points should be the same.\n");
+            return 0;
+    }
 
     //-> Get camera matrix
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 

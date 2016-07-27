@@ -64,6 +64,11 @@ extern "C"
         return 0;
     } 
 
+    if( iCols!=3 )
+    {
+        Scierror(999,"Please make sure that objectPoints entered are 3D i.e having 3 coordinate values.\n");
+            return 0;
+    }
 
     int size = (iRows*iCols)/3;
     vector<Point3f> obPts(size);
@@ -129,6 +134,12 @@ extern "C"
         return 0;
     }   
 
+    if( iRows!=3 || iCols !=3 )
+    {
+        Scierror(999,"Please make sure that camera matrix is 3x3.\n");
+            return 0;
+    }
+
     Mat cameramatrix(3,3,DataType<double>::type);
     for(int i=0; i<3; i++)
     {
@@ -153,6 +164,15 @@ extern "C"
         return 0;
     }
 
+    if( iCols == 1)
+    {
+        if( iRows!=4 && iRows!=5 && iRows!=8 )
+        {
+            Scierror(999,"Please enter column vector of distortion coefficients either with size 4,5 or 8.\n");
+            return 0;
+        }
+    }
+    
     Mat distortioncoeffs(iRows,1,DataType<double>::type);
 
     for(int i=0; i<iRows; i++)

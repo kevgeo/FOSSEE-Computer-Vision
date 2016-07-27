@@ -63,6 +63,12 @@ extern "C"
        return intErr;
     }
 
+    if( pts_row<=0 )
+    {
+        Scierror(999,"Number of circles per row should be more than zero.\n");
+            return 0;
+    }
+
     //-> Get number of circles per column
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
     if (sciErr.iErr)
@@ -76,7 +82,13 @@ extern "C"
     {
        return intErr;
     }
-    
+   
+    if( pts_colum<=0 )
+    {
+        Scierror(999,"Number of circles per column should be more than zero.\n");
+            return 0;
+    }
+
     //-> Getting flags string
             sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr); 
             if (sciErr.iErr)
@@ -128,7 +140,7 @@ extern "C"
     //-> Calling findCirclesGrid function
     if(strcmp (flags,"CALIB_CB_SYMMETRIC_GRID") == 0 )
     {   
-         patternfound = findCirclesGrid(image, Size(pts_row,pts_colum), centers,CALIB_CB_SYMMETRIC_GRID);
+         patternfound = findCirclesGrid(image, Size(pts_row,pts_colum), centers,CALIB_CB_SYMMETRIC_GRID+CALIB_CB_CLUSTERING);
 
     }
 

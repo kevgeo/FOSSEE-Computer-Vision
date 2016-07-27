@@ -35,9 +35,6 @@ extern "C"
 	    int *piAddr5  = NULL;
 	    int *piAddr6  = NULL;
 	    int *piAddr7  = NULL;
-	    int *piAddr8  = NULL;
-	    int *piAddr9  = NULL;
-	    int *piAddr10  = NULL;
 	     int *piAddrChild = NULL;
 	    int iPrec = 0,iItem = 0;
 	    int i,j,k ;
@@ -153,28 +150,28 @@ extern "C"
      }
 
         //-> Get width of image
-        sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr3); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
             return 0; 
         }
 
-        intErr = getScalarDouble(pvApiCtx, piAddr3, &width);
+        intErr = getScalarDouble(pvApiCtx, piAddr4, &width);
         if(intErr)
         {
            return intErr;
         }
 
         //-> Get height of image
-        sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr4); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr5); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
             return 0; 
         }
 
-        intErr = getScalarDouble(pvApiCtx, piAddr4, &height);
+        intErr = getScalarDouble(pvApiCtx, piAddr5, &height);
         if(intErr)
         {
            return intErr;
@@ -182,14 +179,14 @@ extern "C"
 
 
         //-> Get camera matrix
-        sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr5); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 6, &piAddr6); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
             return 0; 
         }
 
-        sciErr = getMatrixOfDouble(pvApiCtx, piAddr5, &iRows, &iCols, &cameramatrix1);
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr6, &iRows, &iCols, &cameramatrix1);
         if(sciErr.iErr)
         {
             printError(&sciErr, 0);
@@ -208,14 +205,14 @@ extern "C"
         }
 
         //-> Get distortion coefficients
-        sciErr = getVarAddressFromPosition(pvApiCtx, 7, &piAddr6); 
+        sciErr = getVarAddressFromPosition(pvApiCtx, 7, &piAddr7); 
         if (sciErr.iErr)
         {
             printError(&sciErr, 0); 
             return 0; 
         }
 
-        sciErr = getMatrixOfDouble(pvApiCtx, piAddr6, &iRows, &iCols, &distcoeffs1);
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr7, &iRows, &iCols, &distcoeffs1);
         if(sciErr.iErr)
         {
             printError(&sciErr, 0);
