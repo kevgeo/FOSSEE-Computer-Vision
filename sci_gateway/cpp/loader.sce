@@ -24,6 +24,8 @@ list_functions = [ 'imread';
                    'calibrateCamera';
                    'findChessboardCorners';
                    'drawChessboardCorners';
+                   'filterSpeckles';
+                   'disparity';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack

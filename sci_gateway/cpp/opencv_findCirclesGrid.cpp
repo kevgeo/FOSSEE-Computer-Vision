@@ -26,8 +26,8 @@ extern "C"
   int opencv_findCirclesGrid(char *fname, unsigned long fname_len)
   {
 
-    SciErr sciErr;
-    int intErr = 0;
+        SciErr sciErr;
+        int intErr = 0;
     int iRows=0,iCols=0;
     int *piAddr2  = NULL;
     int *piAddr3  = NULL;

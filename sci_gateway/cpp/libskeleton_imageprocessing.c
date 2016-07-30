@@ -20,6 +20,8 @@ extern Gatefunc opencv_stereoCalibrate;
 extern Gatefunc opencv_calibrateCamera;
 extern Gatefunc opencv_findChessboardCorners;
 extern Gatefunc opencv_drawChessboardCorners;
+extern Gatefunc opencv_filterSpeckles;
+extern Gatefunc opencv_disparity;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
@@ -35,6 +37,8 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_calibrateCamera,"calibrateCamera"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_findChessboardCorners,"findChessboardCorners"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_filterSpeckles,"filterSpeckles"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_disparity,"disparity"},
 };
  
 int C2F(libskeleton_imageprocessing)()

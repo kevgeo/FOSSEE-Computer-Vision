@@ -1,8 +1,6 @@
 //*******************************************************************************************************
 // Authors : Kevin George
 //
-// filterSpeckles(inImage, newval, maxSpeckleSize, maxDiff, outImage );
-//               
 //*******************************************************************************************************
 
 #include <numeric>
@@ -29,22 +27,28 @@ extern "C"
     SciErr sciErr;
     int intErr = 0;
     int iRows=0,iCols=0;
-    int *piAddr = NULL;
     int *piAddr2  = NULL;
     int *piAddr3  = NULL;
+    int *piAddr  = NULL;
     int *piAddr4  = NULL;
-    int i,j,k ;
+    int *piLen = NULL;
+    char **pstData = NULL;  //-> why double pointer?? and what is it
+    
     //checking input argument
     CheckInputArgument(pvApiCtx, 4, 4);
     CheckOutputArgument(pvApiCtx, 1, 1) ;
 
-    Mat inImage,outImage;
-    double newval,maxDiff,maxSpeckleSize;
+    //Input
+    Mat image;
+    double newVal; // disparity value to paint off speckles
+    double maxSpeckleSize; // maximum speckle size to consider it a speckle
+    double maxDiff;  // maximum difference between neighbor disparity pixels
+    //Output
 
-    //-> Get disparity map 
-    retrieveImage(inImage,1);
+    //-> Get disparity image.
+    retrieveImage(image,1);
 
-    //-> Getting disparity value
+    //-> Get disparity value to paint off speckles
     sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2); 
     if (sciErr.iErr)
     {
@@ -52,57 +56,57 @@ extern "C"
         return 0; 
     }
 
-    intErr = getScalarDouble(pvApiCtx, piAddr2, &newval);
+    intErr = getScalarDouble(pvApiCtx, piAddr2, &newVal);
     if(intErr)
     {
        return intErr;
     }
 
-    //-> Get maxSpeckleSize value 
-    sciErr = getVarAddressFromPosition(pvApiCtx,3,&piAddr3);
+
+    //-> Get maximum speckle size
+    sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
     if (sciErr.iErr)
     {
-        printError(&sciErr, 0);
-        return 0;
+        printError(&sciErr, 0); 
+        return 0; 
     }
-    
+
     intErr = getScalarDouble(pvApiCtx, piAddr3, &maxSpeckleSize);
     if(intErr)
     {
        return intErr;
-    } 
-
-    //-> Get maxDiff value 
-    sciErr = getVarAddressFromPosition(pvApiCtx,4,&piAddr4);
+    }
+   
+    //-> Get maximum speckle size
+    sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
     if (sciErr.iErr)
     {
-        printError(&sciErr, 0);
-        return 0;
+        printError(&sciErr, 0); 
+        return 0; 
     }
-    
+
     intErr = getScalarDouble(pvApiCtx, piAddr4, &maxDiff);
     if(intErr)
     {
        return intErr;
     }
+   
 
-    //-> Calling filterSpeckles function
-    filterSpeckles(inImage, newval, int(maxSpeckleSize), maxDiff, outImage );
-    
+    //Calling filterSpeckles function
+    filterSpeckles(image,newVal,maxSpeckleSize,maxDiff);
 
-    //temp variable was not needed, hence has been discarded
-    string tempstring = type2str(outImage.type());
+    //-> Returning Image
+    string tempstring = type2str(image.type());
     char *checker;
     checker = (char *)malloc(tempstring.size() + 1);
     memcpy(checker, tempstring.c_str(), tempstring.size() + 1);
-    returnImage(checker,outImage,1); //here, remove the temp as a parameter as it is not needed, and instead add 1 as the third parameter. 1 denotes that the first output       argument will be this variable
-    free(checker); //free memory taken up by checker
+    returnImage(checker, image, 1);
+    free(checker);
 
- 
-    //Assigning the list as the Output Variable
-    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    //-> Returning outputs
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
     //Returning the Output Variables as arguments to the Scilab environment
-    ReturnArguments(pvApiCtx); 
+    ReturnArguments(pvApiCtx);
     return 0;
 
  }

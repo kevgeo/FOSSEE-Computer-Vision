@@ -101,6 +101,8 @@ names = [
 	   "calibrateCamera","opencv_calibrateCamera";
 	   "findChessboardCorners","opencv_findChessboardCorners";
 	   "drawChessboardCorners","opencv_drawChessboardCorners";
+	   "filterSpeckles","opencv_filterSpeckles";
+	   "disparity","opencv_disparity";
 	   // "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
@@ -208,7 +210,9 @@ files = [
 	  "opencv_stereoCalibrate.cpp",
 	  "opencv_calibrateCamera.cpp",
 	  "opencv_findChessboardCorners.cpp",
-	  "opencv_drawChessboardCorners.cpp"
+	  "opencv_drawChessboardCorners.cpp",
+	  "opencv_filterSpeckles.cpp",
+	  "opencv_disparity.cpp"
 	  //"opencv_check.cpp"
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",
