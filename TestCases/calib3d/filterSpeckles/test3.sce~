@@ -1,7 +1,7 @@
 //Reading first stereo image
-I1 = imread("stereo1.png");
+I1 = imread("1.jpg");
 //Reading second stereo image
-I2 = imread("stereo2.png");
+I2 = imread("2.jpg");
 
 // Number of disparities
 numofDisparities = 144;

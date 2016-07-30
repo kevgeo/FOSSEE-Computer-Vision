@@ -1,3 +1,4 @@
+//Checking if error message pops up when only 3 inputs are given instead of 4
 //Reading first stereo image
 I1 = imread("stereo1.png");
 //Reading second stereo image
@@ -44,6 +45,9 @@ maxSpeckleSize = 12;
 // Get maxxDiff value
 maxDiff = 3;
 
-img = filterSpeckles(disp,newval,maxSpeckleSize,maxDiff);
-//output is correct
+img = filterSpeckles(disp,newval,maxSpeckleSize,);
 
+//output->
+//API Error:
+//	in getScalarDouble: Unable to get argument #4
+//	in getMatrixOfDouble: Invalid argument type, double matrix expected

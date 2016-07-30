@@ -55,14 +55,30 @@ extern "C"
     double SpeckleWindowSize,SpeckleRange,fullDP; 
 
 
+    int num_args = *getNbInputArgument(pvApiCtx);
+    if( num_args!=13 )
+    {
+        Scierror(999,"Function requires 13 arguments as input.\n");
+            return 0;
+    }
+
     //-> Get first stereo image.
     retrieveImage(image1,1);
 
     //-> Get second stereo image.
     retrieveImage(image2,2);
 
-    cvtColor(image1, g1, CV_BGR2GRAY);
-    cvtColor(image2, g2, CV_BGR2GRAY);
+    if( image1.channels()==3 || image1.channels()==4 )
+    {    
+        cvtColor(image1, g1, CV_BGR2GRAY);
+        cvtColor(image2, g2, CV_BGR2GRAY);
+    }
+
+    else
+    {
+        g1 = image1;
+        g2 = image2;
+    }
 
     //-> Get numofDisparities
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3); 
@@ -78,6 +94,12 @@ extern "C"
        return intErr;
     }
 
+    int num_disparities = double(NumofDisparities);
+    if( num_disparities==0 || num_disparities%16!=0 )
+    {
+        Scierror(999,"NumofDisparities value should be a multiple of 16.\n");
+            return 0;
+    }
 
     //-> Get minimum possible disparity value
     sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr4); 
@@ -205,7 +227,7 @@ extern "C"
        return intErr;
     }
 
-    //-> Get fullDp value
+    //-> Get fullDp value   
     sciErr = getVarAddressFromPosition(pvApiCtx, 13, &piAddr13); 
     if (sciErr.iErr)
     {
@@ -222,7 +244,7 @@ extern "C"
     
     StereoSGBM sbm;
     sbm.SADWindowSize = sadwindowSize;
-    sbm.numberOfDisparities = NumofDisparities;
+    sbm.numberOfDisparities = num_disparities;
     sbm.preFilterCap = prefilterCap; 
     sbm.minDisparity = minDisparity; 
     sbm.uniquenessRatio = uniquenessRatio;

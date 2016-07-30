@@ -1,7 +1,8 @@
-//Reading first stereo image
-I1 = imread("stereo1.png");
-//Reading second stereo image
-I2 = imread("stereo2.png");
+//Checking if function works for other stereo images
+//Reading first stereo image(grayscale)
+I1 = imread("left01.jpg");
+//Reading second stereo image(grayscale)
+I2 = imread("left02.jpg");
 
 // Number of disparities
 numofDisparities = 144;
@@ -34,16 +35,4 @@ SpeckleRange = 32;
 fullDP = 1;
 
 disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
-
-// Get disparity value to paint off speckles
-newval = 5;
-
-// Get maximum speckle size
-maxSpeckleSize = 12;
-
-// Get maxxDiff value
-maxDiff = 3;
-
-img = filterSpeckles(disp,newval,maxSpeckleSize,maxDiff);
-//output is correct
 

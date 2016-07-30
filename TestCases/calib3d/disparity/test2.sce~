@@ -1,3 +1,4 @@
+//Checking if error message pops up when only 12 inputs are given instead of 13
 //Reading first stereo image
 I1 = imread("stereo1.png");
 //Reading second stereo image
@@ -33,17 +34,9 @@ SpeckleRange = 32;
 // Get fullDp value
 fullDP = 1;
 
-disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
+disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,);
 
-// Get disparity value to paint off speckles
-newval = 5;
-
-// Get maximum speckle size
-maxSpeckleSize = 12;
-
-// Get maxxDiff value
-maxDiff = 3;
-
-img = filterSpeckles(disp,newval,maxSpeckleSize,maxDiff);
-//output is correct
-
+//output->
+//API Error:
+//	in getScalarDouble: Unable to get argument #13
+//	in getMatrixOfDouble: Invalid argument type, double matrix expected
