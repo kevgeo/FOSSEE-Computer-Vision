@@ -34,3 +34,17 @@ SpeckleRange = 32;
 fullDP = 1;
 
 disparitymat = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
+
+cam1=[100 0 105;0 106 107; 0 0 1];
+cam2=[100 0 105;0 106 107; 0 0 1];
+dis1=[0 0 0 4 5];
+dis2=[0 0 0 4 5];
+r=[1 2 3;4 5 6;0 8 7];
+t=[0 0 45];
+ImageSize = [480 640];
+
+[R1,R2,P1,P2,Q ] = stereoRectify(cam1,dis1,cam2,dis2,ImageSize,r,t);
+
+handlemissingvalue = 0;
+
+out = reprojectImageTo3D(disparitymat,Q,handlemissingvalue);

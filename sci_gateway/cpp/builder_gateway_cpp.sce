@@ -103,6 +103,9 @@ names = [
 	   "drawChessboardCorners","opencv_drawChessboardCorners";
 	   "filterSpeckles","opencv_filterSpeckles";
 	   "disparity","opencv_disparity";
+	   "rectifyStereoImages","opencv_rectifyStereoImages";
+	   "stereoRectify","opencv_stereoRectify";
+	   "reprojectImageTo3D","opencv_reprojectImageTo3D";
 	   // "check","opencv_check";
             //"houghlinesp","opencv_houghlinesp";
             //"demosaic", "opencv_demosaic";
@@ -212,8 +215,11 @@ files = [
 	  "opencv_findChessboardCorners.cpp",
 	  "opencv_drawChessboardCorners.cpp",
 	  "opencv_filterSpeckles.cpp",
-	  "opencv_disparity.cpp"
-	  //"opencv_check.cpp"
+	  "opencv_disparity.cpp",
+	  "opencv_rectifyStereoImages.cpp",
+	  "opencv_stereoRectify.cpp",
+	  "opencv_reprojectImageTo3D.cpp"	
+	  //"opencv_check.cpp"	
             //"opencv_houghlinesp.cpp",
             //"opencv_demosaic.cpp",
             //"opencv_imfindcircles.cpp",

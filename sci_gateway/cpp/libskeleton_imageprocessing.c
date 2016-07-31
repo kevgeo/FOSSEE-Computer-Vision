@@ -22,6 +22,9 @@ extern Gatefunc opencv_findChessboardCorners;
 extern Gatefunc opencv_drawChessboardCorners;
 extern Gatefunc opencv_filterSpeckles;
 extern Gatefunc opencv_disparity;
+extern Gatefunc opencv_rectifyStereoImages;
+extern Gatefunc opencv_stereoRectify;
+extern Gatefunc opencv_reprojectImageTo3D;
 static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_imread,"imread"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_VideoReader,"VideoReader"},
@@ -39,6 +42,9 @@ static GenericTable Tab[]={
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_drawChessboardCorners,"drawChessboardCorners"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_filterSpeckles,"filterSpeckles"},
   {(Myinterfun)sci_gateway_without_putlhsvar,opencv_disparity,"disparity"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_rectifyStereoImages,"rectifyStereoImages"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_stereoRectify,"stereoRectify"},
+  {(Myinterfun)sci_gateway_without_putlhsvar,opencv_reprojectImageTo3D,"reprojectImageTo3D"},
 };
  
 int C2F(libskeleton_imageprocessing)()
