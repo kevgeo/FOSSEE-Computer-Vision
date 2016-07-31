@@ -28,4 +28,4 @@ dist = [0
 obPts = list(obpts);
 imPts = list(impts)
 
-[rvecs tvecs] = calibrateCamera(1,obPts,imPts,1280,1024,camera1,dist);
+[rvecs tvecs] = calibrateCamera(1,obPts,impts,1280,1024,camera1,dist);

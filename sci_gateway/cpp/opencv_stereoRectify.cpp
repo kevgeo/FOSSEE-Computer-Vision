@@ -5,7 +5,7 @@ Author: Diwakar Bhardwaj & Kevin George
 
 #include <numeric>
 #include "opencv2/core/core.hpp"
-//#include "opencv2/highgui/highgui.hpp"
+//  #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/opencv.hpp"
 #include <iostream>
@@ -46,12 +46,12 @@ extern "C"
     double * Rreal  = NULL;//Rotation   Matrix 3*3
     double * ImageSize = NULL; //Image size
     
-    Mat D1(5,1,CV_64F);
-    Mat M1(3,3,CV_64F);
-    Mat D2(5,1,CV_64F);
-    Mat M2(3,3,CV_64F);
-    Mat T (3,1,CV_64F);
-    Mat R (3,3,CV_64F);
+    Mat_<double> M1(3, 3);
+    Mat_<double> D1(5, 1);
+    Mat_<double> M2(3, 3);
+    Mat_<double> D2(5, 1);
+    Mat_<double> T(3, 1);
+    Mat_<double> R(3, 3);
 
     CheckInputArgument(pvApiCtx, 7, 7);
     CheckOutputArgument(pvApiCtx, 5, 5) ;
@@ -295,7 +295,7 @@ extern "C"
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx)+5; 
   
-        free(D1real);free(M1real);free(R1real);
+    free(D1real);free(M1real);free(R1real);
     free(D2real);free(M2real);free(R2real);
     free(Treal); free(Rreal);free(ImageSize);
     free(piAddr);free(piAddr2);free(piAddr3);

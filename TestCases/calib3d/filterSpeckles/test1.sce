@@ -33,7 +33,7 @@ SpeckleRange = 32;
 // Get fullDp value
 fullDP = 1;
 
-disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
+disp = disparitySGBM(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
 
 // Get disparity value to paint off speckles
 newval = 5;

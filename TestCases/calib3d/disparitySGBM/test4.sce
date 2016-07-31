@@ -1,8 +1,8 @@
-//Checking if error message pops up when only 12 inputs are given instead of 13
+//Checking if function works for other stereo images
 //Reading first stereo image
-I1 = imread("stereo1.png");
+I1 = imread("1.jpg");
 //Reading second stereo image
-I2 = imread("stereo2.png");
+I2 = imread("2.jpg");
 
 // Number of disparities
 numofDisparities = 144;
@@ -34,9 +34,4 @@ SpeckleRange = 32;
 // Get fullDp value
 fullDP = 1;
 
-disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,);
-
-//output->
-//API Error:
-//	in getScalarDouble: Unable to get argument #13
-//	in getMatrixOfDouble: Invalid argument type, double matrix expected
+disp = disparitySGBM(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);

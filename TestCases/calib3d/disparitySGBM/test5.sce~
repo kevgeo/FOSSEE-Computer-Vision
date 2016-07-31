@@ -1,8 +1,8 @@
 //Checking if function works for other stereo images
-//Reading first stereo image
-I1 = imread("1.jpg");
-//Reading second stereo image
-I2 = imread("2.jpg");
+//Reading first stereo image(grayscale)
+I1 = imread("left01.jpg");
+//Reading second stereo image(grayscale)
+I2 = imread("left02.jpg");
 
 // Number of disparities
 numofDisparities = 144;
@@ -34,4 +34,5 @@ SpeckleRange = 32;
 // Get fullDp value
 fullDP = 1;
 
-disp = disparity(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
+disp = disparitySGBM(I1,I2,numofDisparities,minDisparity,sadwindowsize,p1,p2,maxDiff,prefilterCap,uniquenessratio,speckleWindowSize,SpeckleRange,fullDP);
+
