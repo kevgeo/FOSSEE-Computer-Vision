@@ -12,23 +12,7 @@ end
 //
 list_functions = [ 'imread';
                    'VideoReader';
-                   'opencv_roipoly';
-                   'convertPointsToHomogeneous';
-                   'convertPointsFromHomogeneous';
-                   'opencv_Rodrigues';
-                   'projectPoints';
-                   'solvePnP';
-                   'solvePnPRansac';
-                   'findCirclesGrid';
-                   'stereoCalibrate';
-                   'calibrateCamera';
-                   'findChessboardCorners';
-                   'drawChessboardCorners';
-                   'filterSpeckles';
-                   'disparity';
-                   'rectifyStereoImages';
                    'stereoRectify';
-                   'reprojectImageTo3D';
 ];
 addinter(libskeleton_imagepr_path + filesep() + 'libskeleton_imageprocessing' + getdynlibext(), 'libskeleton_imageprocessing', list_functions);
 // remove temp. variables on stack

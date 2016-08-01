@@ -5,7 +5,7 @@ Author: Diwakar Bhardwaj & Kevin George
 
 #include <numeric>
 #include "opencv2/core/core.hpp"
-//  #include "opencv2/highgui/highgui.hpp"
+//#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/opencv.hpp"
 #include <iostream>
@@ -171,20 +171,20 @@ extern "C"
              M1.at<double>(i,j)=M1real[i+j*3];
 
     for(int i=0;i<5;i++)
-             for(int j=0; j<1; ++j)
-                     D1.at<double>(i,j)=D1real[i+j*5];
+        for(int j=0; j<1; ++j)
+                D1.at<double>(i,j)=D1real[i+j*5];
     
     for(int i=0;i<3;i++)
       for(int j=0;j<3;j++)
              M2.at<double>(i,j)=M2real[i+j*3];
 
     for(int i=0;i<5;i++)
-             for(int j=0; j<1; ++j)
+        for(int j=0; j<1; ++j)
              D2.at<double>(i,j)=D2real[i+j*5];
 
     for(int i=0; i<3; ++i)
-                for(int j=0; j<1; ++j)
-                    T.at<double>(i,j)=Treal[i+j*3];
+        for(int j=0; j<1; ++j)
+            T.at<double>(i,j)=Treal[i+j*3];
 
     for(int i=0;i<3;i++)
       for(int j=0;j<3;j++)
@@ -193,8 +193,12 @@ extern "C"
     Size imgSize(ImageSize[0],ImageSize[1]);
     Mat R1,R2,P1,P2,Q;
 
-    stereoRectify(M1,D1,M2,D2,imgSize, R, T, R1, R2,P1, P2, Q);
 
+    sciprint("\nHello there");
+    stereoRectify(M1,D1,M2,D2,imgSize, R, T, R1, R2,P1, P2, Q);
+    sciprint("\nreached there");
+
+    sciprint("\nreached here too3");
     double *rot1 = NULL;
     rot1 = (double*)malloc(sizeof(double)*9);
     for(int i=0; i<3; i++)
@@ -204,47 +208,6 @@ extern "C"
             rot1[i+j*3] = R1.at<double>(i,j);
         }
     }
-
-    double *rot2 = NULL;
-    rot2 = (double*)malloc(sizeof(double)*9);
-    for(int i=0; i<3; i++)
-    {
-        for(int j=0; j<3; j++)
-        {
-            rot2[i+j*3] = R2.at<double>(i,j);
-        }
-    }
-
-    double *proj1 = NULL;
-    proj1 = (double*)malloc(sizeof(double)*12);
-    for(int i=0; i<3; i++)
-    {
-        for(int j=0; j<4; j++)
-        {
-            proj1[i+j*4] = P1.at<double>(i,j);
-        }
-    }
- 
-    double *proj2 = NULL;
-    proj2 = (double*)malloc(sizeof(double)*12);
-    for(int i=0; i<3; i++)
-    {
-        for(int j=0; j<4; j++)
-        {
-            proj2[i+j*4] = P2.at<double>(i,j);
-        }
-    }
-
-    double *ddmat = NULL;
-    ddmat = (double*)malloc(sizeof(double)*16);
-    for(int i=0; i<4; i++)
-    {
-        for(int j=0; j<4; j++)
-        {
-            ddmat[i+j*4] = Q.at<double>(i,j);
-        }
-    }    
-
     sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+1, 3, 3, rot1); 
         if(sciErr.iErr)
         {
@@ -254,7 +217,17 @@ extern "C"
         
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1; 
-        
+
+    sciprint("\nreached here too4");
+    double *rot2 = NULL;
+    rot2 = (double*)malloc(sizeof(double)*9);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<3; j++)
+        {
+            rot2[i+j*3] = R2.at<double>(i,j);
+        }
+    }
     sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+2, 3, 3, rot2); 
         if(sciErr.iErr)
         {
@@ -264,8 +237,19 @@ extern "C"
         
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 2) = nbInputArgument(pvApiCtx)+2; 
-      
-    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, 3, 4, proj1); 
+ 
+
+    sciprint("\nreached here too5");
+    double *proj1 = NULL;
+    proj1 = (double*)malloc(sizeof(double)*12);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            proj1[i+j*4] = P1.at<double>(i,j);
+        }
+    }
+     sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+3, 3, 4, proj1); 
         if(sciErr.iErr)
         {
             printError(&sciErr, 0); 
@@ -274,7 +258,17 @@ extern "C"
         
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 3) = nbInputArgument(pvApiCtx)+3; 
-    
+
+    sciprint("\nreached here too6");
+    double *proj2 = NULL;
+    proj2 = (double*)malloc(sizeof(double)*12);
+    for(int i=0; i<3; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            proj2[i+j*4] = P2.at<double>(i,j);
+        }
+    }
     sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+4, 3, 4, proj2); 
         if(sciErr.iErr)
         {
@@ -284,7 +278,19 @@ extern "C"
         
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 4) = nbInputArgument(pvApiCtx)+4; 
-  
+
+    sciprint("\nreached here too7");
+    double *ddmat = NULL;
+    ddmat = (double*)malloc(sizeof(double)*16);
+    for(int i=0; i<4; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            ddmat[i+j*4] = Q.at<double>(i,j);
+        }
+    }    
+    sciprint("\nreached here too");
+            
     sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx)+5, 4, 4, ddmat); 
         if(sciErr.iErr)
         {
@@ -295,12 +301,14 @@ extern "C"
         //-> Returning Output
         AssignOutputVariable(pvApiCtx, 5) = nbInputArgument(pvApiCtx)+5; 
   
-    free(D1real);free(M1real);free(R1real);
+    /*free(D1real);free(M1real);free(R1real);
     free(D2real);free(M2real);free(R2real);
     free(Treal); free(Rreal);free(ImageSize);
     free(piAddr);free(piAddr2);free(piAddr3);
     free(piAddr4);free(piAddr5);free(piAddr6);free(piAddr7);
+    */
 
+    sciprint("\nreached here too2");
         ReturnArguments(pvApiCtx);
         return 0;       
  
