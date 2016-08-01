@@ -1,0 +1,5 @@
+function [Rotvec3 Transvec3]=composeRT(RotVec1,TransVec1,RotVec2,TransVec2)
+	
+	[Rotvec3 Transvec3] = opencv_composeRT(RotVec1,TransVec1,RotVec2,TransVec2);	
+
+endfunction
